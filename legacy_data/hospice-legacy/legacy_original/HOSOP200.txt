@@ -1,0 +1,892 @@
+000100 IDENTIFICATION DIVISION.                                         00010000
+000200 PROGRAM-ID.           HOSOP200.                                  00020000
+000300*AUTHOR.  DDS TEAM                                                00030000
+000400*         (CENTERS FOR MEDICARE AND MEDICAID SERVICES)            00040000
+000500*REMARKS. A). HOSPICE OPEN   WILL CALL HOSDR___ MODULE.           00050000
+000600*             LOADS THE PROV FILE MSA FILE AND CBSA FILE TO TABLES00060000
+000700*             CALLS THE HOSDR___ MODULE.                          00070000
+000800*             SENDS THE PROV, MSA, AND CBSA TABLES TO HOSDR__     00080000
+000900*             GIVEN HOSPICE DATA TO BE PASSED TO HOSDR___ MODULE. 00090000
+001000******************************************************************00100000
+001100*REMARKS.                                                         00110000
+001900*                                                                 00111000
+000800*     HOSPR200   REVISIONS FOR OCT 1, 2019                        00112000
+001300*                2018 RATE REVISIONS                              00113000
+001400*     HOSDR200   NEW PROCESSES OCT 1, 2019                        00114000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR200     00115000
+001600*     HOSOP200   NEW PROCESSES OCT 1, 2019                        00116000
+001800*                VERSION OPENS FILES CALL TO HOSDR200             00117000
+001900*                                                                 00118000
+001900*                                                                 00118100
+000800*     HOSPR190   REVISIONS FOR OCT 1, 2018                        00118200
+001300*                2018 RATE REVISIONS                              00118300
+001400*     HOSDR190   NEW PROCESSES OCT 1, 2018                        00118400
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR190     00118500
+001600*     HOSOP190   NEW PROCESSES OCT 1, 2018                        00118600
+001800*                VERSION OPENS FILES CALL TO HOSDR190             00118700
+001900*                                                                 00118800
+002800******** BETA VERSION FOR FY2019 - TESTING ONLY ***********       00119000
+002100*                                                                 00119100
+002200*     HOSPR19B   REVISIONS FOR OCT 1, 2018                        00119200
+002300*                2017 RATE REVISIONS                              00119300
+002400*     HOSDR19B   NEW PROCESSES OCT 1, 2018                        00119400
+002500*                CALL TO HOSPR19B                                 00119500
+002600*     HOSOP19B   NEW PROCESSES OCT 1, 2018                        00119600
+002700*                CICS VERSION TO OPEN FILES CALL HOSDR19B         00119700
+002800******** BETA VERSION FOR FY2019 - TESTING ONLY ***********       00119800
+002800*                                                                 00119900
+001900*                                                                 00120000
+000800*     HOSPR180   REVISIONS FOR OCT 1, 2017                        00120100
+001300*                2018 RATE REVISIONS                              00120200
+001400*     HOSDR180   NEW PROCESSES OCT 1, 2017                        00120300
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR180     00120400
+001600*     HOSOP180   NEW PROCESSES OCT 1, 2017                        00120500
+001800*                VERSION OPENS FILES CALL TO HOSDR180             00120600
+001900*                                                                 00120700
+001900*                                                                 00120800
+000800*     HOSPR170   REVISIONS FOR OCT 1, 2016                        00120900
+001300*                2017 RATE REVISIONS                              00121000
+001400*     HOSDR170   NEW PROCESSES OCT 1, 2016                        00121100
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR170     00121200
+001600*     HOSOP170   NEW PROCESSES OCT 1, 2016                        00121300
+001700*                VERSION OPENS FILES CALL TO HOSDR170             00121400
+001900*                                                                 00121500
+000800*     HOSPR162   REVISIONS FOR JAN 1, 2016                        00121600
+001300*                2016 RATE REVISIONS                              00121700
+001400*     HOSDR162   NEW PROCESSES JAN 1, 2016                        00121800
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR162     00121900
+001600*     HOSOP162   NEW PROCESSES JAN 1, 2016                        00122000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR162        00123000
+001900*                                                                 00124000
+000800*     HOSPR160   REVISIONS FOR OCT 1, 2015                        00125000
+001300*                2016 RATE REVISIONS                              00126000
+000900*                NEW LOGIC FOR QIP INDICATOR                      00127000
+001400*     HOSDR160   NEW PROCESSES OCT 1, 2015                        00128000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR160     00129000
+001600*     HOSOP160   NEW PROCESSES OCT 1, 2015                        00130000
+000900*                MODIFY CBSA TABLE SIZE & ADD ERROR DISPLAY LOGIC 00140000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR160        00150000
+001900*                                                                 00160000
+000800*     HOSPR150   REVISIONS FOR OCT 1, 2014                        00170000
+001300*                2015 RATE REVISIONS                              00180000
+001400*     HOSDR150   NEW PROCESSES OCT 1, 2014                        00190000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR150     00200000
+001600*     HOSOP150   NEW PROCESSES OCT 1, 2014                        00210000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR150        00220000
+001900*                                                                 00230000
+000800*     HOSPR140   REVISIONS FOR OCT 1, 2013                        00240000
+001300*                2014 RATE REVISIONS                              00250000
+000900*                REVISED BILL & RATE RECORD LENGTH FROM 135 TO 21500260000
+000900*                NEW LOGIC FOR QIP INDICATOR                      00270000
+001400*     HOSDR140   NEW PROCESSES OCT 1, 2013                        00280000
+000900*                REVISED BILL & RATE RECORD LENGTH FROM 135 TO 21500290000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR140     00300000
+001600*     HOSOP140   NEW PROCESSES OCT 1, 2013                        00310000
+000900*                REVISED BILL & RATE RECORD LENGTH FROM 135 TO 21500320000
+000900*                MODIFY CBSA TABLE SIZE & ADD ERROR DISPLAY LOGIC 00330000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR140        00340000
+001900*                                                                 00350000
+001200*     HOSPR130   REVISIONS FOR OCT 1, 2012                        00360000
+001300*                2013 RATE REVISIONS 3                            00370000
+001400*     HOSDR130   NEW PROCESSES OCT 1, 2012                        00380000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR130     00390000
+001600*     HOSOP130   NEW PROCESSES OCT 1, 2012                        00400000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR130        00410000
+001900*                                                                 00420000
+001200*     HOSPR120   REVISIONS FOR OCT 1, 2011                        00430000
+001300*                2012 RATE REVISIONS                              00440000
+001400*     HOSDR120   NEW PROCESSES OCT 1, 2011                        00450000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR120     00460000
+001600*     HOSOP120   NEW PROCESSES OCT 1, 2011                        00470000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR120        00480000
+001900*                                                                 00490000
+001200*     HOSPR110   REVISIONS FOR OCT 1, 2010                        00500000
+001300*                2011 RATE REVISIONS                              00510000
+001400*     HOSDR110   NEW PROCESSES OCT 1, 2010                        00520000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR110     00530000
+001600*     HOSOP110   NEW PROCESSES OCT 1, 2010                        00540000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR110        00550000
+001900*                                                                 00560000
+001200*     HOSPR100   REVISIONS FOR OCT 1, 2009                        00570000
+001300*                2010 RATE REVISIONS                              00580000
+001400*     HOSDR100   NEW PROCESSES OCT 1, 2009                        00590000
+001500*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR100     00600000
+001600*     HOSOP100   NEW PROCESSES OCT 1, 2009                        00610000
+001700*                CICS VERSION OPENS FILES CALL TO HOSDR100        00620000
+001900*                                                                 00630000
+002000*     HOSPR091   REVISIONS FOR OCT 1, 2008                        00640000
+002100*                2009 RATE REVISIONS                              00650000
+002200*     HOSDR091   NEW PROCESSES OCT 1, 2008                        00660000
+002300*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR091     00670000
+002400*     HOSOP091   NEW PROCESSES OCT 1, 2008                        00680000
+002500*                CICS VERSION OPENS FILES CALL TO HOSDR091        00690000
+002600*                STIMULUS PKG RECOMPILE                           00700000
+002700*                                                                 00710000
+002800*     HOSPR090   REVISIONS FOR OCT 1, 2008                        00720000
+002900*                2009 RATE REVISIONS                              00730000
+003000*     HOSDR090   NEW PROCESSES OCT 1, 2008                        00740000
+003100*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR090     00750000
+003200*     HOSOP090   NEW PROCESSES OCT 1, 2008                        00760000
+003300*                CICS VERSION OPENS FILES CALL TO HOSDR090        00770000
+003400*                                                                 00780000
+003500*     HOSPR081   REVISIONS FOR OCT 1, 2007                        00790000
+003600*                2008 RATE REVISIONS                              00800000
+003700*     HOSDR081   NEW PROCESSES OCT 1, 2007                        00810000
+003800*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR081     00820000
+003900*     HOSOP081   NEW PROCESSES OCT 1, 2007                        00830000
+004000*                CICS VERSION OPENS FILES CALL TO HOSDR081        00840000
+004100*                                                                 00850000
+004200*     HOSPR071   REVISIONS FOR OCT 1, 2006                        00860000
+004300*                2007.1-PROCESS-DATA 1UNIT = 15 MIN CODE 652      00870000
+004400*                2007 CALCULATE HOME RATE BY REVENUE CODE FACTORS 00880000
+004500*     HOSDR071   NEW PROCESSES OCT 1, 2006                        00890000
+004600*                CBSA FILE PROCESSING DRIVER CALL TO HOSPR071     00900000
+004700*     HOSOP071   NEW PROCESSES OCT 1, 2006                        00910000
+004800*                CICS VERSION OPENS FILES CALL TO HOSDR071        00920000
+004900*                                                                 00930000
+005000*     HOSPR070   REVISIONS FOR OCT 1, 2006                        00940000
+005100*                2007-PROCESS-DATA                                00950000
+005200*                2007 CALCULATE HOME RATE BY REVENUE CODE FACTORS 00960000
+005300*     HOSDR070   NEW PROCESSES OCT 1, 2006                        00970000
+005400*                CBSA FILE PROCESSING DRIVER                      00980000
+005500*     HOSOP070   NEW PROCESSES OCT 1, 2006                        00990000
+005600*                CICS VERSION OPENS FILES                         01000000
+005700*                                                                 01010000
+005800***************************************************************   01020000
+005900 DATE-COMPILED.                                                   01030000
+006000 ENVIRONMENT DIVISION.                                            01040000
+006100 CONFIGURATION SECTION.                                           01050000
+006200 SOURCE-COMPUTER.            IBM-370.                             01060000
+006300 OBJECT-COMPUTER.            IBM-370.                             01070000
+006400 INPUT-OUTPUT  SECTION.                                           01080000
+006500 FILE-CONTROL.                                                    01090000
+006600                                                                  01100000
+006700     SELECT BILLFILE ASSIGN TO UT-S-BILLFILE                      01110000
+006800           FILE STATUS IS UT1-STAT.                               01120000
+006900     SELECT RATEFILE  ASSIGN TO UT-S-RATEFILE                     01130000
+007000           FILE STATUS IS UT2-STAT.                               01140000
+007100     SELECT MSAFILE  ASSIGN TO UT-S-MSAFILE                       01150006
+007200           FILE STATUS IS UT3-STAT.                               01160006
+007300     SELECT PROVFILE  ASSIGN TO UT-S-PROVFILE                     01170000
+007400           FILE STATUS IS UT4-STAT.                               01180000
+007500     SELECT CBSAFILE  ASSIGN TO UT-S-CBSAFILE                     01190000
+007600           FILE STATUS IS UT5-STAT.                               01200000
+007700                                                                  01210000
+007800                                                                  01220000
+007900 DATA DIVISION.                                                   01230000
+008000 FILE SECTION.                                                    01240000
+008100                                                                  01250000
+008200 FD  BILLFILE                                                     01260000
+008300     LABEL RECORDS ARE STANDARD                                   01270000
+008400     RECORDING MODE IS F                                          01280000
+008500     BLOCK CONTAINS 0 RECORDS.                                    01290000
+008600 01  BILL-REC              PIC X(315).                            01300000
+008700                                                                  01310000
+008800 FD  RATEFILE                                                     01320000
+008900     LABEL RECORDS ARE STANDARD                                   01330000
+009000     RECORDING MODE IS F                                          01340000
+009100     BLOCK CONTAINS 0 RECORDS.                                    01350000
+009200 01  RATE-REC              PIC X(315).                            01360000
+009300                                                                  01370000
+009400 FD  MSAFILE                                                      01380006
+009500     LABEL RECORDS ARE STANDARD                                   01390007
+009600     RECORDING MODE IS F                                          01400007
+009700     BLOCK CONTAINS 0 RECORDS.                                    01410007
+009800 01  MSA-REC.                                                     01420006
+009900     05  IN-MSA          PIC 9(04).                               01430006
+010000     05  IN-LUGAR        PIC X(01).                               01440006
+010100     05  FILLER          PIC X.                                   01450006
+010200     05  IN-EFFDTE       PIC X(08).                               01460006
+010300     05  FILLER          PIC X.                                   01470006
+010400     05  IN-WAGE-IND     PIC 9(02)V9(04).                         01480006
+010500     05  FILLER          PIC X.                                   01490006
+010600     05  IN-STCNTY       PIC X(05).                               01500006
+010700     05  FILLER          PIC X.                                   01510006
+010800     05  IN-MSANAME      PIC X(22).                               01520006
+010900                                                                  01530000
+011000 FD  CBSAFILE                                                     01540000
+011100     LABEL RECORDS ARE STANDARD                                   01550000
+011200     RECORDING MODE IS F                                          01560000
+011300     BLOCK CONTAINS 0 RECORDS.                                    01570000
+011400 01  F-CBSA-REC.                                                  01580000
+011500     05  F-CBSA           PIC X(05).                              01590000
+011600     05  FILLER           PIC X.                                  01600000
+011700     05  F-CBSA-EFFDTE    PIC X(08).                              01610000
+011800     05  FILLER           PIC X.                                  01620000
+011900     05  F-CBSA-WAGE-IND  PIC 9(02)V9(04).                        01630000
+012000     05  FILLER           PIC X.                                  01640000
+012100     05  F-CBSA-STCNTY    PIC X(06).                              01650000
+012200     05  FILLER           PIC X.                                  01660000
+012300     05  F-CBSANAME       PIC X(39).                              01670000
+012400     05  FILLER           PIC X(12).                              01680000
+012500                                                                  01690000
+012600 FD  PROVFILE                                                     01700000
+012700     LABEL RECORDS ARE STANDARD                                   01710000
+012800     RECORDING MODE IS F                                          01720000
+012900     BLOCK CONTAINS 0 RECORDS.                                    01730000
+013000 01  PROV-REC.                                                    01740000
+013100     05  PROV-PART1            PIC X(80).                         01750000
+013200     05  PROV-PART2            PIC X(80).                         01760000
+013300     05  PROV-PART3            PIC X(80).                         01770000
+013400                                                                  01780000
+013500 WORKING-STORAGE SECTION.                                         01790000
+013600 01  W-STORAGE-REF                  PIC X(46)  VALUE              01800000
+013700     'HOSOP200      - W O R K I N G   S T O R A G E'.             01810000
+013800 01  HOS-VERSION                    PIC X(09)  VALUE 'HOSOP200'.  01820000
+013900 01  HOSPR200                       PIC X(08)  VALUE 'HOSPR200'.  01830000
+015000 01  HOSDR200                       PIC X(08)  VALUE 'HOSDR200'.  01840000
+014100 01  EOF-MSA-SW                     PIC 9(01) VALUE 0.            01850006
+014200 01  EOF-CBSA-SW                    PIC 9(01) VALUE 0.            01860000
+014300 01  EOF-BILL-SW                    PIC 9(01) VALUE 0.            01870000
+014400 01  EOF-PROV-SW                    PIC 9(01) VALUE 0.            01880000
+014500 01  BILL-CTR                       PIC 9(09) VALUE 0.            01890000
+014500 01  CBSA-CTR                       PIC 9(09) VALUE 0.            01900000
+014600 01  RATE-CTR                       PIC 9(09) VALUE 0.            01910000
+014700 01  PROV-CTR                       PIC 9(09) VALUE 0.            01920000
+014800                                                                  01930000
+014900 01  SEARCH-MSA-LUGAR.                                            01940006
+015000     05  SEARCH-MSA.                                              01950006
+015100         10  SEARCH-MSA-POS12     PIC 9(02).                      01960006
+015200         10  SEARCH-MSA-POS34     PIC 9(02).                      01970006
+015300     05  SEARCH-LUGAR    PIC X.                                   01980006
+015400                                                                  01990000
+015500 01  SEARCH-CBSA.                                                 02000000
+015600     05  SEARCH-CBSA-POS123    PIC 9(03).                         02010000
+015700     05  SEARCH-CBSA-POS45     PIC 9(02).                         02020000
+015800                                                                  02030000
+015900 01  UT1-STAT.                                                    02040000
+016000     05  UT1-STAT1       PIC X.                                   02050000
+016100     05  UT1-STAT2       PIC X.                                   02060000
+016200 01  UT2-STAT.                                                    02070000
+016300     05  UT2-STAT1       PIC X.                                   02080000
+016400     05  UT2-STAT2       PIC X.                                   02090000
+016500 01  UT3-STAT.                                                    02100000
+016600     05  UT3-STAT1       PIC X.                                   02110000
+016700     05  UT3-STAT2       PIC X.                                   02120000
+016800 01  UT4-STAT.                                                    02130000
+016900     05  UT4-STAT1       PIC X.                                   02140000
+017000     05  UT4-STAT2       PIC X.                                   02150000
+017100 01  UT5-STAT.                                                    02160000
+017200     05  UT5-STAT1       PIC X.                                   02170000
+017300     05  UT5-STAT2       PIC X.                                   02180000
+017400                                                                  02190000
+017500******************************************************************02200000
+017600*                                                                 02210000
+017700*    FILE MUST BE PROV-NO EFF-DATE SEQUENCE                       02220000
+017800*                                                                 02230000
+017900******************************************************************02240000
+018000                                                                  02250000
+018100 01  PROV-TABLE.                                                  02260000
+018200     02  PROV-ENTRIES               OCCURS 2400                   02270000
+018300                                    ASCENDING KEY IS PROV-NO      02280000
+018400                                    INDEXED BY PX1 PX2 PX3.       02290000
+018500         10  PROV-DATA1.                                          02300000
+018600             15  PROV-NPI10.                                      02310000
+018700                 20  PROV-NPI8     PIC X(08).                     02320000
+018800                 20  PROV-NPI-FIL  PIC X(02).                     02330000
+018900             15  PROV-NO           PIC X(06).                     02340000
+019000             15  PROV-EFF-DATE     PIC X(08).                     02350000
+019100             15  FILLER            PIC X(56).                     02360000
+019200                                                                  02370000
+019300 01  PROV-DATA-2.                                                 02380000
+019400     02  PROV-ENTRIES2              OCCURS 2400                   02390000
+019500                                    INDEXED BY PD2.               02400000
+019600         10  PROV-DATA2            PIC X(80).                     02410000
+019700                                                                  02420000
+019800 01  PROV-DATA-3.                                                 02430000
+019900     02  PROV-ENTRIES3              OCCURS 2400                   02440000
+020000                                    INDEXED BY PD3.               02450000
+020100         10  PROV-DATA3            PIC X(80).                     02460000
+020200                                                                  02470000
+020300***************************************************************   02480000
+020400**************************************************************    02490000
+020500*      MILLINNIUM COMPATIBLE                                 *    02500000
+020600**************************************************************    02510000
+020700 01  PROV-NEW-HOLD.                                               02520000
+020800     02  PROV-NEWREC-HOLD1.                                       02530000
+020900         05  P-NEW-NPI10.                                         02540000
+021000             10  P-NEW-NPI8             PIC X(08).                02550000
+021100             10  P-NEW-NPI-FILLER       PIC X(02).                02560000
+021200         05  P-NEW-PROVIDER-NO.                                   02570000
+021300             10  P-NEW-STATE            PIC 9(02).                02580000
+021400             10  FILLER                 PIC X(04).                02590000
+021500         05  P-NEW-DATE-DATA.                                     02600000
+021600             10  P-NEW-EFF-DATE.                                  02610000
+021700                 15  P-NEW-EFF-DT-CC    PIC 9(02).                02620000
+021800                 15  P-NEW-EFF-DT-YY    PIC 9(02).                02630000
+021900                 15  P-NEW-EFF-DT-MM    PIC 9(02).                02640000
+022000                 15  P-NEW-EFF-DT-DD    PIC 9(02).                02650000
+022100             10  P-NEW-FY-BEGIN-DATE.                             02660000
+022200                 15  P-NEW-FY-BEG-DT-CC PIC 9(02).                02670000
+022300                 15  P-NEW-FY-BEG-DT-YY PIC 9(02).                02680000
+022400                 15  P-NEW-FY-BEG-DT-MM PIC 9(02).                02690000
+022500                 15  P-NEW-FY-BEG-DT-DD PIC 9(02).                02700000
+022600             10  P-NEW-REPORT-DATE.                               02710000
+022700                 15  P-NEW-REPORT-DT-CC PIC 9(02).                02720000
+022800                 15  P-NEW-REPORT-DT-YY PIC 9(02).                02730000
+022900                 15  P-NEW-REPORT-DT-MM PIC 9(02).                02740000
+023000                 15  P-NEW-REPORT-DT-DD PIC 9(02).                02750000
+023100             10  P-NEW-TERMINATION-DATE.                          02760000
+023200                 15  P-NEW-TERM-DT-CC   PIC 9(02).                02770000
+023300                 15  P-NEW-TERM-DT-YY   PIC 9(02).                02780000
+023400                 15  P-NEW-TERM-DT-MM   PIC 9(02).                02790000
+023500                 15  P-NEW-TERM-DT-DD   PIC 9(02).                02800000
+023600         05  P-NEW-WAIVER-CODE          PIC X(01).                02810000
+023700             88  P-NEW-WAIVER-STATE       VALUE 'Y'.              02820000
+023800         05  P-NEW-INTER-NO             PIC 9(05).                02830000
+023900         05  P-NEW-PROVIDER-TYPE        PIC X(02).                02840000
+024000             88  P-N-SOLE-COMMUNITY-PROV    VALUE '01' '11'.      02850000
+024100             88  P-N-REFERRAL-CENTER        VALUE '07' '11'       02860000
+024200                                                  '15' '17'       02870000
+024300                                                  '22'.           02880000
+024400             88  P-N-INDIAN-HEALTH-SERVICE  VALUE '08'.           02890000
+024500             88  P-N-REDESIGNATED-RURAL-YR1 VALUE '09'.           02900000
+024600             88  P-N-REDESIGNATED-RURAL-YR2 VALUE '10'.           02910000
+024700             88  P-N-SOLE-COM-REF-CENT      VALUE '11'.           02920000
+024800             88  P-N-MDH-REBASED-FY90       VALUE '14' '15'.      02930000
+024900             88  P-N-MDH-RRC-REBASED-FY90   VALUE '15'.           02940000
+025000             88  P-N-SCH-REBASED-FY90       VALUE '16' '17'.      02950000
+025100             88  P-N-SCH-RRC-REBASED-FY90   VALUE '17'.           02960000
+025200             88  P-N-MEDICAL-ASSIST-FACIL   VALUE '18'.           02970000
+025300             88  P-N-EACH                   VALUE '21' '22'.      02980000
+025400             88  P-N-EACH-REFERRAL-CENTER   VALUE '22'.           02990000
+025500             88  P-N-NHCMQ-II-SNF           VALUE '32'.           03000000
+025600             88  P-N-NHCMQ-III-SNF          VALUE '33'.           03010000
+025700         05  P-NEW-CURRENT-CENSUS-DIV   PIC 9(01).                03020000
+025800             88  P-N-NEW-ENGLAND            VALUE  1.             03030000
+025900             88  P-N-MIDDLE-ATLANTIC        VALUE  2.             03040000
+026000             88  P-N-SOUTH-ATLANTIC         VALUE  3.             03050000
+026100             88  P-N-EAST-NORTH-CENTRAL     VALUE  4.             03060000
+026200             88  P-N-EAST-SOUTH-CENTRAL     VALUE  5.             03070000
+026300             88  P-N-WEST-NORTH-CENTRAL     VALUE  6.             03080000
+026400             88  P-N-WEST-SOUTH-CENTRAL     VALUE  7.             03090000
+026500             88  P-N-MOUNTAIN               VALUE  8.             03100000
+026600             88  P-N-PACIFIC                VALUE  9.             03110000
+026700         05  P-NEW-CURRENT-DIV   REDEFINES                        03120000
+026800                    P-NEW-CURRENT-CENSUS-DIV   PIC 9(01).         03130000
+026900             88  P-N-VALID-CENSUS-DIV    VALUE 1 THRU 9.          03140000
+027000         05  P-NEW-MSA-DATA.                                      03150000
+027100             10  P-NEW-CHG-CODE-INDEX       PIC X.                03160000
+027200             10  P-NEW-GEO-LOC-MSAX         PIC X(04) JUST RIGHT. 03170000
+027300             10  P-NEW-GEO-LOC-MSAX-RUR REDEFINES                 03180000
+027400                                     P-NEW-GEO-LOC-MSAX.          03190000
+027500                 15  P-NEW-RURAL1    PIC X(02).                   03200000
+027600                     88  P-NEW-GEO-RURAL1   VALUE '  '.           03210000
+027700                 15  P-NEW-GEO-RURAL2    PIC X(02).               03220000
+027800             10  P-NEW-GEO-LOC-MSA9   REDEFINES                   03230000
+027900                             P-NEW-GEO-LOC-MSAX-RUR PIC 9(04).    03240000
+028000             10  P-NEW-WAGE-INDEX-LOC-MSA   PIC X(04) JUST RIGHT. 03250000
+028100             10  P-NEW-STAND-AMT-LOC-MSA    PIC X(04) JUST RIGHT. 03260000
+028200             10  P-NEW-STAND-AMT-LOC-MSA9                         03270000
+028300       REDEFINES P-NEW-STAND-AMT-LOC-MSA.                         03280000
+028400                 15  P-NEW-RURAL-1ST.                             03290000
+028500                     20  P-NEW-STAND-RURAL  PIC XX.               03300000
+028600                         88  P-NEW-STD-RURAL-CHECK VALUE '  '.    03310000
+028700                 15  P-NEW-RURAL-2ND        PIC XX.               03320000
+028800         05  P-NEW-SOL-COM-DEP-HOSP-YR PIC XX.                    03330000
+028900                 88  P-NEW-SCH-YRBLANK    VALUE   '  '.           03340000
+029000                 88  P-NEW-SCH-YR82       VALUE   '82'.           03350000
+029100                 88  P-NEW-SCH-YR87       VALUE   '87'.           03360000
+029200         05  P-NEW-LUGAR                    PIC X.                03370000
+029300         05  P-NEW-TEMP-RELIEF-IND          PIC X.                03380000
+029400         05  P-NEW-FED-PPS-BLEND-IND        PIC X.                03390000
+029500         05  FILLER                         PIC X(05).            03400000
+029600     02  PROV-NEWREC-HOLD2.                                       03410000
+029700         05  P-NEW-VARIABLES.                                     03420000
+029800             10  P-NEW-FAC-SPEC-RATE       PIC 9(05)V9(02).       03430000
+029900             10  P-NEW-COLA                PIC 9(01)V9(03).       03440000
+030000             10  P-NEW-INTERN-RATIO        PIC 9(01)V9(04).       03450000
+030100             10  P-NEW-BED-SIZE            PIC 9(05).             03460000
+030200             10  P-NEW-OPER-CSTCHG-RATIO   PIC 9(01)V9(03).       03470000
+030300             10  P-NEW-CMI                 PIC 9(01)V9(04).       03480000
+030400             10  P-NEW-SSI-RATIO           PIC V9(04).            03490000
+030500             10  P-NEW-MEDICAID-RATIO      PIC V9(04).            03500000
+030600             10  P-NEW-PPS-BLEND-YR-IND    PIC X(01).             03510000
+030700             10  P-NEW-PRUP-UPDATE-FACTOR  PIC 9(01)V9(05).       03520000
+030800             10  P-NEW-DSH-PERCENT         PIC V9(04).            03530000
+030900             10  P-NEW-FYE-DATE            PIC 9(08).             03540000
+031000         05  P-NEW-CBSA-DATA.                                     03550000
+031100             10  W-P-NEW-CBSA-SPEC-PAY-IND     PIC X.             03560000
+035200                 88  P-NEW-CBSA-WI-GEO        VALUE 'N'.          03570000
+031300                 88  P-NEW-CBSA-WI-RECLASS    VALUE 'Y'.          03580000
+031400                 88  P-NEW-CBSA-WI-SPECIAL    VALUE '1' '2'.      03590000
+031500***                  1 = ANYTHING OR HOLD HARMLESS WITH SPEC WI   03600000
+031600***                  2 = RECLASS WITH SPEC WI                     03610000
+031700             10  W-P-NEW-CBSA-HOSP-QUAL-IND    PIC X.             03620000
+031800                                                                  03630000
+031900             10  W-P-NEW-CBSA-GEO-LOC       PIC X(05) JUST RIGHT. 03640000
+032000             10  W-P-NEW-CBSA-GEO-RURAL REDEFINES                 03650000
+032100                 W-P-NEW-CBSA-GEO-LOC.                            03660000
+032200                 15  W-P-NEW-CBSA-GEO-RURAL1ST PIC XXX.           03670000
+032300                     88  W-P-NEW-CBSA-GEO-RURAL1  VALUE '   '.    03680000
+032400                 15  W-P-NEW-CBSA-GEO-RURAL2ND PIC XX.            03690000
+032500                                                                  03700000
+032600             10  W-P-NEW-CBSA-RECLASS-LOC   PIC X(05) JUST RIGHT. 03710000
+032700             10  W-P-NEW-CBSA-STAND-AMT-LOC PIC X(05) JUST RIGHT. 03720000
+032800             10  W-P-NEW-CBSA-SPEC-WAGE-INDEX  PIC 9(02)V9(04).   03730000
+032900     02  PROV-NEWREC-HOLD3.                                       03740000
+033000         05  P-NEW-PASS-AMT-DATA.                                 03750000
+033100             10  P-NEW-PASS-AMT-CAPITAL    PIC 9(04)V99.          03760000
+033200             10  P-NEW-PASS-AMT-DIR-MED-ED PIC 9(04)V99.          03770000
+033300             10  P-NEW-PASS-AMT-ORGAN-ACQ  PIC 9(04)V99.          03780000
+033400             10  P-NEW-PASS-AMT-PLUS-MISC  PIC 9(04)V99.          03790000
+033500         05  P-NEW-CAPI-DATA.                                     03800000
+033600             15  P-NEW-CAPI-PPS-PAY-CODE   PIC X.                 03810000
+033700             15  P-NEW-CAPI-HOSP-SPEC-RATE PIC 9(04)V99.          03820000
+033800             15  P-NEW-CAPI-OLD-HARM-RATE  PIC 9(04)V99.          03830000
+033900             15  P-NEW-CAPI-NEW-HARM-RATIO PIC 9(01)V9999.        03840000
+034000             15  P-NEW-CAPI-CSTCHG-RATIO   PIC 9V999.             03850000
+034100             15  P-NEW-CAPI-NEW-HOSP       PIC X.                 03860000
+034200             15  P-NEW-CAPI-IME            PIC 9V9999.            03870000
+034300             15  P-NEW-CAPI-EXCEPTIONS     PIC 9(04)V99.          03880000
+034400             15  P-VAL-BASED-PURCH-SCORE   PIC 9V999.             03890000
+034500         05  FILLER                        PIC X(18).             03900000
+034600******************************************************************03910000
+034700***************************************************************   03920000
+034800 01  MSA-WI-TABLE.                                                03930006
+034900     05  M-MSA-DATA              OCCURS 4000                      03940006
+035000                                 INDEXED BY MU1 MU2 MU3.          03950006
+035100         10  MSA-MSA-LUGAR.                                       03960006
+035200             15  MSA-MSA       PIC 9(04).                         03970006
+035300             15  MSA-LUGAR     PIC X.                             03980006
+035400         10  MSA-EFFDTE        PIC X(08).                         03990006
+035500         10  MSA-WAGE-IND      PIC S9(02)V9(04).                  04000006
+035600                                                                  04010006
+035700***************************************************************   04020000
+035800***************************************************************   04030000
+035900 01  CBSA-WI-TABLE.                                               04040000
+036000     05  M-CBSA-DATA              OCCURS 9000                     04050000
+036100                                 INDEXED BY CU1 CU2 CU3.          04060000
+036200         10  M-CBSA              PIC 9(05).                       04070000
+036300         10  M-CBSA-EFFDTE       PIC X(08).                       04080000
+036400         10  M-CBSA-WAGE-IND     PIC S9(02)V9(04).                04090000
+036500                                                                  04100000
+036600***************************************************************   04110000
+036700*                 * * * * * * * * *                           *   04120000
+036800***************************************************************   04130000
+036900***************************************************************   04140000
+037000*    THIS DATA IS CALCULATED BY THIS HOSPRICER PROGRAM        *   04150000
+037100*    AND PASSED BACK                                          *   04160000
+037200*            RETURN CODE VALUES (BILL-RTC)                    *   04170000
+037300*                                                             *   04180000
+037400*            BILL-RTC                                         *   04190000
+037500*              00 = HOME RATE RETURNED                        *   04200000
+037600*                                                             *   04210000
+037700*            BILL-RTC   NO RATE RETURNED                      *   04220000
+037800*              10 = BAD UNITS                                 *   04230000
+037900*                                                             *   04240000
+038000*              20 = BAD UNITS2 < 8                            *   04250000
+038100*                                                             *   04260000
+038200*              30 = BAD MSA CODE OR CBSA CODE                 *   04270000
+038300*                                                             *   04280000
+038400*              40 = BAD HOSPICE WAGE INDEX FROM MSAFILE       *   04290000
+038500*                                                             *   04300000
+038600*              50 = BAD BENE    WAGE INDEX FROM MSAFILE       *   04310000
+038700*                                                             *   04320000
+038800*              51 = BAD PROV NUMBER                           *   04330000
+038900*                                                             *   04340000
+039000***************************************************************   04350000
+034200*                                                                 04360000
+       01  BILL-315-DATA.                                               04370000
+           10  BILL-NPI                PIC X(10).                       04380000
+           10  BILL-PROV-NO            PIC X(06).                       04390000
+                                                                        04400000
+           10  BILL-FROM-DATE.                                          04410000
+               15  BILL-FROM-CC        PIC 99.                          04411000
+               15  BILL-FROM-YY        PIC 99.                          04412000
+               15  BILL-FROM-MM        PIC 99.                          04413000
+               15  BILL-FROM-DD        PIC 99.                          04414000
+                                                                        04415000
+           10  BILL-ADMISSION-DATE.                                     04416000
+               15  BILL-ADM-CC         PIC 99.                          04417000
+               15  BILL-ADM-YY         PIC 99.                          04418000
+               15  BILL-ADM-MM         PIC 99.                          04419000
+               15  BILL-ADM-DD         PIC 99.                          04419100
+                                                                        04419200
+           10  FILLER                  PIC X(10).                       04419300
+      *                                                                 04419400
+           10  BILL-PROV-MSA-LUGAR.                                     04419500
+               15  BILL-PROV-MSA       PIC X(04).                       04419600
+               15  BILL-PROV-LUGAR     PIC X.                           04419700
+           10  BILL-PROV-CBSA          REDEFINES                        04419800
+                   BILL-PROV-MSA-LUGAR         PIC X(05).               04419900
+      *                                                                 04420000
+           10  BILL-BENE-MSA-LUGAR.                                     04420100
+               15 BILL-BENE-MSA        PIC X(04).                       04420200
+               15 BILL-BENE-LUGAR      PIC X.                           04420300
+           10  BILL-BENE-CBSA          REDEFINES                        04420400
+                    BILL-BENE-MSA-LUGAR         PIC X(05).              04420500
+      *                                                                 04420600
+           10  BILL-PROV-WAGE-INDEX         PIC 9(02)V9(04).            04420700
+           10  BILL-BENE-WAGE-INDEX         PIC 9(02)V9(04).            04420800
+      *                                                                 04420900
+           10  BILL-SIA-ADD-ON-UNITS.                                   04421000
+               15  BILL-NA-ADD-ON-DAY1-UNITS                            04421100
+                                            PIC 99.                     04421200
+               15  BILL-NA-ADD-ON-DAY2-UNITS                            04421300
+                                            PIC 99.                     04421400
+               15  BILL-EOL-ADD-ON-DAY1-UNITS                           04421500
+                                            PIC 99.                     04421600
+               15  BILL-EOL-ADD-ON-DAY2-UNITS                           04421700
+                                            PIC 99.                     04421800
+               15  BILL-EOL-ADD-ON-DAY3-UNITS                           04421900
+                                            PIC 99.                     04422000
+               15  BILL-EOL-ADD-ON-DAY4-UNITS                           04422100
+                                            PIC 99.                     04422200
+               15  BILL-EOL-ADD-ON-DAY5-UNITS                           04422300
+                                            PIC 99.                     04422400
+               15  BILL-EOL-ADD-ON-DAY6-UNITS                           04422500
+                                            PIC 99.                     04422600
+               15  BILL-EOL-ADD-ON-DAY7-UNITS                           04422700
+                                            PIC 99.                     04422800
+           10  FILLER                       PIC X(10).                  04422900
+           10  BILL-QIP-IND                 PIC X.                      04423000
+      *                                                                 04423100
+           10  BILL-GROUP1.                                             04423200
+               15  BILL-REV1                PIC XXXX.                   04423300
+               15  BILL-HCPC1               PIC X(05).                  04423400
+               15  BILL-LINE-ITEM-DOS1.                                 04423500
+                   20  BILL-LIDOS1-CC       PIC 99.                     04423600
+                   20  BILL-LIDOS1-YY       PIC 99.                     04423700
+                   20  BILL-LIDOS1-MM       PIC 99.                     04423800
+                   20  BILL-LIDOS1-DD       PIC 99.                     04423900
+               15  BILL-UNITS1              PIC 9(07).                  04424000
+               15  BILL-PAY-AMT1            PIC 9(06)V99.               04424100
+      *                                                                 04424200
+           10  BILL-GROUP2.                                             04424300
+               15  BILL-REV2                PIC XXXX.                   04424400
+               15  BILL-HCPC2               PIC X(05).                  04424500
+               15  BILL-LINE-ITEM-DOS2.                                 04424600
+                   20  BILL-LIDOS2-CC       PIC 99.                     04424700
+                   20  BILL-LIDOS2-YY       PIC 99.                     04424800
+                   20  BILL-LIDOS2-MM       PIC 99.                     04424900
+                   20  BILL-LIDOS2-DD       PIC 99.                     04425000
+               15  BILL-UNITS2              PIC 9(07).                  04425100
+               15  BILL-PAY-AMT2            PIC 9(06)V99.               04425200
+      *                                                                 04425300
+           10  BILL-GROUP3.                                             04425400
+               15  BILL-REV3                PIC XXXX.                   04425500
+               15  BILL-HCPC3               PIC X(05).                  04425600
+               15  BILL-LINE-ITEM-DOS3.                                 04425700
+                   20  BILL-LIDOS3-CC       PIC 99.                     04425800
+                   20  BILL-LIDOS3-YY       PIC 99.                     04425900
+                   20  BILL-LIDOS3-MM       PIC 99.                     04426000
+                   20  BILL-LIDOS3-DD       PIC 99.                     04426100
+               15  BILL-UNITS3              PIC 9(07).                  04426200
+               15  BILL-PAY-AMT3            PIC 9(06)V99.               04426300
+      *                                                                 04426400
+           10  BILL-GROUP4.                                             04426500
+               15  BILL-REV4                PIC XXXX.                   04426600
+               15  BILL-HCPC4               PIC X(05).                  04426700
+               15  BILL-LINE-ITEM-DOS4.                                 04426800
+                   20  BILL-LIDOS4-CC       PIC 99.                     04426900
+                   20  BILL-LIDOS4-YY       PIC 99.                     04427000
+                   20  BILL-LIDOS4-MM       PIC 99.                     04427100
+                   20  BILL-LIDOS4-DD       PIC 99.                     04427200
+               15  BILL-UNITS4              PIC 9(07).                  04427300
+               15  BILL-PAY-AMT4            PIC 9(06)V99.               04427400
+      *                                                                 04427500
+           10  BILL-SIA-ADD-ON-PYMTS.                                   04427600
+               15  BILL-NA-ADD-ON-DAY1-PAY                              04427700
+                                            PIC 9(06)V99.               04427800
+               15  BILL-NA-ADD-ON-DAY2-PAY                              04427900
+                                            PIC 9(06)V99.               04428000
+               15  BILL-EOL-ADD-ON-DAY1-PAY                             04428100
+                                            PIC 9(06)V99.               04428200
+               15  BILL-EOL-ADD-ON-DAY2-PAY                             04428300
+                                            PIC 9(06)V99.               04428400
+               15  BILL-EOL-ADD-ON-DAY3-PAY                             04428500
+                                            PIC 9(06)V99.               04428600
+              15  BILL-EOL-ADD-ON-DAY4-PAY                              04428700
+                                            PIC 9(06)V99.               04428800
+              15  BILL-EOL-ADD-ON-DAY5-PAY                              04428900
+                                            PIC 9(06)V99.               04429000
+              15  BILL-EOL-ADD-ON-DAY6-PAY                              04429100
+                                            PIC 9(06)V99.               04429200
+              15  BILL-EOL-ADD-ON-DAY7-PAY                              04429300
+                                            PIC 9(06)V99.               04429400
+      *                                                                 04429500
+          10  BILL-RETURNED-DATA.                                       04429600
+              15  BILL-PAY-AMT-TOTAL        PIC 9(06)V99.               04429700
+              15  BILL-RTC                  PIC XX.                     04429800
+      *                                                                 04429900
+          10  BILL-RHC-DAYS-PAID.                                       04430000
+              15  BILL-HIGH-RHC-DAYS        PIC 99.                     04430100
+              15  BILL-LOW-RHC-DAYS         PIC 99.                     04430200
+          10  FILLER                        PIC X(08).                  04430300
+      *                                                                 04430400
+034400***************************************************************   04430500
+043500                                                                  04430600
+043600***************************************************************   04430700
+043600***************************************************************   04430800
+043700                                                                  04430900
+043800 PROCEDURE DIVISION.                                              04431000
+043900 0100-OPEN-FILES.                                                 04432000
+043700                                                                  04433006
+044000     OPEN INPUT PROVFILE                                          04433100
+044100                MSAFILE                                           04434006
+044200                BILLFILE                                          04435000
+044300                CBSAFILE.                                         04436000
+043700                                                                  04437000
+044400     OPEN OUTPUT RATEFILE.                                        04438000
+044500***************************************************************   04439000
+             DISPLAY '[HOSOP200] FILES HAVE BEEN OPENED'.               04440005
+044600***************************************************************   04450000
+044800                                                                  04460000
+044700     PERFORM 2000-LOAD-FILES                                      04470000
+044700        THRU 2000-EXIT.                                           04480000
+044800                                                                  04490000
+044900     CLOSE MSAFILE.                                               04500006
+045000     CLOSE PROVFILE.                                              04510000
+045100     CLOSE CBSAFILE.                                              04520000
+044500***************************************************************   04530000
+            DISPLAY '[HOSOP200] '.                                      04540005
+            DISPLAY 'FILES -  PROVFILE, CBSAFILE CLOSED'.               04541004
+044600***************************************************************   04550000
+044800                                                                  04560000
+045200                                                                  04570000
+045300     IF PROV-CTR > 29999                                          04580000
+045300        GO TO 0150-EOJ.                                           04590000
+045200                                                                  04600000
+045300     IF CBSA-CTR > 8999                                           04610000
+045300        GO TO 0150-EOJ.                                           04620000
+045400                                                                  04630000
+                                                                        04640000
+           DISPLAY 'HOSOP200 EOF-SW = ' EOF-BILL-SW.                    04650002
+                                                                        04660000
+045500     PERFORM 0200-PROCESS-RECORDS                                 04670000
+045500        THRU 0200-EXIT                                            04680000
+045600                 UNTIL EOF-BILL-SW = 1.                           04690000
+                                                                        04700000
+045700 0150-EOJ.                                                        04710000
+                                                                        04720000
+045800     DISPLAY ' [HOSOP200] '.                                      04730002
+045800     DISPLAY ' '.                                                 04731002
+045900     DISPLAY '-- HOSPICE PROGRAM  VERSION ==> ' HOS-VERSION.      04740000
+046000     DISPLAY '-- HOSPICE PROGRAM  VERSION ==> HOSDR20.0'.         04750000
+046100     DISPLAY '-- HOSPICE PROGRAM  VERSION ==> HOSPR20.0'.         04760000
+046200     DISPLAY ' '.                                                 04770000
+046300     DISPLAY '-- INPUT  COUNT FOR CBSA          ===> ' CBSA-CTR.  04780000
+046300     DISPLAY '-- INPUT  COUNT FOR PROVIDER FILE ===> ' PROV-CTR.  04790000
+046400     DISPLAY '-- INPUT  COUNT FOR BILL FILE     ===> ' BILL-CTR.  04800000
+046500     DISPLAY '-- OUTPUT COUNT FOR RATE FILE     ===> ' RATE-CTR.  04810000
+046600     CLOSE BILLFILE.                                              04820000
+046700     CLOSE RATEFILE.                                              04830000
+046800     STOP RUN.                                                    04840000
+046900                                                                  04850000
+047000 0200-PROCESS-RECORDS.                                            04860000
+047100     READ BILLFILE                                                04870000
+047200             AT END                                               04880000
+047200                MOVE 1         TO EOF-BILL-SW.                    04890000
+           DISPLAY ' '                                                  04900000
+045800     DISPLAY ' [HOSOP200] '.                                      04901002
+           DISPLAY ' '                                                  04902002
+           DISPLAY '-- INPUT  COUNT FOR BILL FILE     ===> ' BILL-CTR.  04910000
+047300     MOVE BILL-REC             TO BILL-315-DATA.                  04920000
+           DISPLAY 'BILL-REC = ' BILL-REC.                              04930000
+           DISPLAY ' '                                                  04940000
+           DISPLAY ' '                                                  04950000
+           DISPLAY ' '                                                  04960000
+           DISPLAY '315-REC = ' BILL-315-DATA.                          04970000
+           DISPLAY ' '                                                  04980000
+           DISPLAY ' '                                                  04990000
+           DISPLAY ' '                                                  05000000
+047400     MOVE ALL '0'              TO BILL-RETURNED-DATA.             05010000
+                                                                        05020000
+047500     IF EOF-BILL-SW = 0                                           05030000
+047600           ADD 1               TO BILL-CTR                        05040000
+047700           PERFORM 0300-PROCESS-DATA                              05050000
+047700              THRU 0300-EXIT.                                     05060000
+           DISPLAY ' '                                                  05061002
+045800     DISPLAY ' [HOSOP200] '.                                      05062002
+047800       DISPLAY '--INPUT COUNT FOR BILL FILE==> ' BILL-CTR.        05070000
+047900 0200-EXIT.  EXIT.                                                05080000
+048000                                                                  05090000
+048100 0300-PROCESS-DATA.                                               05100000
+048200****    GET PROV RECORD FOR HOSPICE MSA OR CBSA                   05110000
+048300****    GET PROV RECORD FOR HOSPICE MSA OR CBSA                   05120000
+048400                                                                  05130000
+048500                                                                  05140000
+048600     IF BILL-RTC NOT = 00                                         05150000
+048700        PERFORM 0600-WRT-REC                                      05160000
+048700           THRU 0600-EXIT                                         05170000
+048800        GO TO 0300-EXIT.                                          05180000
+048900                                                                  05190000
+049000     IF P-NEW-EFF-DATE < 20051001 AND                             05200000
+049100        BILL-FROM-DATE > 20050930                                 05210000
+049200        MOVE 30                TO BILL-RTC                        05220000
+049800                                                                  05230000
+049800                                                                  05240000
+049600        PERFORM 0600-WRT-REC                                      05250000
+049600           THRU 0600-EXIT                                         05260000
+049700        GO TO 0300-EXIT.                                          05270000
+049800                                                                  05280000
+049900     PERFORM 1000-CALL                                            05290000
+049900        THRU 1000-EXIT.                                           05300000
+050000                                                                  05310000
+050100                                                                  05320000
+050200 0300-EXIT.   EXIT.                                               05330000
+050300                                                                  05340000
+050400                                                                  05350000
+050500 0600-WRT-REC.                                                    05360000
+044500***************************************************************   05370000
+045800     DISPLAY ' [HOSOP200] '.                                      05370102
+           DISPLAY ' '                                                  05371002
+           DISPLAY ' INTO 0600-WRT-REC '.                               05380000
+044600***************************************************************   05390000
+050600      ADD 1                    TO RATE-CTR.                       05400000
+050800      WRITE RATE-REC           FROM BILL-315-DATA.                05410000
+050900                                                                  05420000
+051000 0600-EXIT.   EXIT.                                               05430000
+051100                                                                  05440000
+051200                                                                  05450000
+051300 1000-CALL.                                                       05460000
+044500***************************************************************   05470000
+045800     DISPLAY ' [HOSOP200] '.                                      05471002
+           DISPLAY ' '                                                  05472002
+           DISPLAY ' INTO 1000-CALL '.                                  05480000
+044600***************************************************************   05490000
+051500                                                                  05500000
+051500     CALL HOSDR200 USING BILL-315-DATA                            05510000
+051600                         PROV-TABLE                               05520000
+051700                         PROV-DATA-2                              05530000
+051800                         PROV-DATA-3                              05540000
+051900                         MSA-WI-TABLE                             05550006
+052000                         CBSA-WI-TABLE.                           05560000
+052100                                                                  05570000
+052200                                                                  05580000
+052300                                                                  05590000
+052400     PERFORM 0600-WRT-REC                                         05600000
+052400        THRU 0600-EXIT.                                           05610000
+052500                                                                  05620000
+052600 1000-EXIT.   EXIT.                                               05630000
+052700                                                                  05640000
+052800 2000-LOAD-FILES.                                                 05650000
+052500                                                                  05660000
+044500***************************************************************   05670000
+           DISPLAY ' '                                                  05670102
+045800     DISPLAY ' [HOSOP200] '.                                      05671002
+           DISPLAY ' '                                                  05672002
+           DISPLAY ' 2000- INTO LOADING OF FILES'.                      05680000
+044600***************************************************************   05690000
+052900*    MOVE HIGH-VALUES          TO MSA-WI-TABLE.                   05700001
+053000     MOVE ALL '9'              TO PROV-NEW-HOLD                   05710000
+053100                                  PROV-TABLE                      05720000
+053200                                  PROV-DATA-2                     05730000
+053300                                  PROV-DATA-3.                    05740000
+053400                                                                  05750000
+053500     MOVE 0                    TO EOF-PROV-SW.                    05760000
+053600     SET PX1                   TO EOF-PROV-SW.                    05770000
+053700     PERFORM 2100-LOAD-PROV-FILE                                  05780000
+053700        THRU 2100-EXIT                                            05790000
+053800              UNTIL EOF-PROV-SW = 1.                              05800000
+053900                                                                  05810000
+054000     MOVE 0                    TO EOF-MSA-SW.                     05820006
+054100     SET MU3                   TO EOF-MSA-SW.                     05830006
+054400                                                                  05840000
+054200     PERFORM 2200-LOAD-MSA-FILE                                   05850006
+054200        THRU 2200-EXIT                                            05860006
+054300              UNTIL EOF-MSA-SW = 1.                               05870006
+054400                                                                  05880000
+054500     MOVE 0                    TO EOF-CBSA-SW.                    05890000
+054600     SET CU3                   TO EOF-CBSA-SW.                    05900000
+054700     PERFORM 2300-LOAD-CBSA-FILE                                  05910000
+054700        THRU 2300-EXIT                                            05920000
+054800              UNTIL EOF-CBSA-SW = 1.                              05930000
+044500***************************************************************   05940000
+           DISPLAY ' '                                                  05941002
+045800     DISPLAY ' [HOSOP200] '.                                      05942002
+           DISPLAY ' '                                                  05943002
+           DISPLAY ' 2000- EXITING LOADING OF FILES'.                   05950000
+044600***************************************************************   05960000
+054900                                                                  05970000
+055000 2000-EXIT.  EXIT.                                                05980000
+                                                                        05990000
+055100 2100-LOAD-PROV-FILE.                                             06000000
+000000                                                                  06010000
+055200     READ PROVFILE                                                06020000
+055300          AT END                                                  06030000
+055400             SET PX1 UP BY 1                                      06040000
+055500             MOVE ALL '9'      TO PROV-DATA1 (PX1)                06050000
+055600             SET PD2           TO PX1                             06060000
+055700             SET PD3           TO PX1                             06070000
+055800             MOVE ALL '9'      TO PROV-DATA2 (PD2)                06080000
+055900             MOVE ALL '9'      TO PROV-DATA3 (PD3)                06090000
+056000             MOVE '999999'     TO P-NEW-PROVIDER-NO               06100000
+056100             MOVE 1            TO EOF-PROV-SW                     06110000
+056200             GO TO 2100-EXIT.                                     06120000
+056300                                                                  06130000
+056400     ADD 1                     TO PROV-CTR.                       06140000
+056500                                                                  06150000
+056600     IF PROV-CTR > 29999                                          06160000
+045800        DISPLAY ' '                                               06170000
+045900        DISPLAY '-- HOSPICE PROGRAM  VERSION ==> ' HOS-VERSION    06180000
+045800        DISPLAY ' '                                               06190000
+056700        DISPLAY  ' CAN NOT PROCESS MORE THAN 2400 PROV RECORDS'   06200000
+056800        DISPLAY  ' CAN NOT PROCESS MORE THAN 2400 PROV RECORDS'   06210000
+056900        DISPLAY  ' CAN NOT PROCESS MORE THAN 2400 PROV RECORDS'   06220000
+057000        DISPLAY  ' CAN NOT PROCESS MORE THAN 2400 PROV RECORDS'   06230000
+057100        DISPLAY  ' PROVIDER FILE TO LARGE '                       06240000
+057200        MOVE 1                 TO EOF-PROV-SW.                    06250000
+057300                                                                  06260000
+057400                                                                  06270000
+057500     IF  EOF-PROV-SW = 0                                          06280000
+057600         SET PX1 UP            BY 1                               06290000
+044500***************************************************************   06300000
+      *      DISPLAY ' '                                                06301006
+045800*      DISPLAY ' [HOSOP200] '.                                    06302006
+      *      DISPLAY ' '                                                06303006
+      *        DISPLAY ' 2100-LOAD-PROV-FILE'.                          06310000
+      *        DISPLAY ' PROV-PART1 = ' PROV-PART1.                     06320000
+044600***************************************************************   06330000
+057700         MOVE PROV-PART1       TO PROV-DATA1 (PX1)                06340000
+057800         SET PD2               TO PX1                             06350000
+057900         SET PD3               TO PX1                             06360000
+058000         MOVE PROV-PART2       TO PROV-DATA2 (PD2)                06370000
+058100         MOVE PROV-PART3       TO PROV-DATA3 (PD3).               06380000
+058200                                                                  06390000
+058300 2100-EXIT.   EXIT.                                               06400000
+058200                                                                  06401006
+058400 2200-LOAD-MSA-FILE.                                              06410006
+058200                                                                  06420006
+058500     READ MSAFILE                                                 06430006
+058600          AT END                                                  06440006
+058700             MOVE 1            TO EOF-MSA-SW.                     06450006
+059400                                                                  06460006
+058800     IF EOF-MSA-SW = 0                                            06470006
+058900        SET MU3 UP             BY 1                               06480006
+059000        MOVE IN-MSA            TO MSA-MSA         (MU3)           06490006
+059100        MOVE IN-LUGAR          TO MSA-LUGAR       (MU3)           06500006
+059200        MOVE IN-EFFDTE         TO MSA-EFFDTE      (MU3)           06510006
+059300        MOVE IN-WAGE-IND       TO MSA-WAGE-IND    (MU3).          06520006
+059400*                                                                 06530000
+059500 2200-EXIT.  EXIT.                                                06540006
+059600                                                                  06550000
+059700 2300-LOAD-CBSA-FILE.                                             06560000
+059800     READ CBSAFILE                                                06570000
+059900          AT END                                                  06580000
+060000             MOVE 1            TO EOF-CBSA-SW.                    06590000
+056300                                                                  06600000
+056400     ADD 1                     TO CBSA-CTR.                       06610000
+056500                                                                  06620000
+CC6600     IF CBSA-CTR > 8999                                           06630000
+045800        DISPLAY ' '                                               06640000
+045900        DISPLAY '-- HOSPICE PROGRAM  VERSION ==> ' HOS-VERSION    06650000
+045800        DISPLAY ' '                                               06660000
+056700        DISPLAY  ' CAN NOT PROCESS MORE THAN 9000 CBSA RECORDS'   06670000
+056800        DISPLAY  ' CAN NOT PROCESS MORE THAN 9000 CBSA RECORDS'   06680000
+056900        DISPLAY  ' CAN NOT PROCESS MORE THAN 9000 CBSA RECORDS'   06690000
+057000        DISPLAY  ' CAN NOT PROCESS MORE THAN 9000 CBSA RECORDS'   06700000
+057100        DISPLAY  ' CBSA FILE TO LARGE '                           06710000
+057200        MOVE 1                 TO EOF-CBSA-SW.                    06720000
+057300                                                                  06730000
+060100     IF EOF-CBSA-SW = 0                                           06740000
+060200        SET CU3 UP             BY 1                               06750000
+060300        MOVE F-CBSA            TO M-CBSA          (CU3)           06760000
+060400        MOVE F-CBSA-EFFDTE     TO M-CBSA-EFFDTE   (CU3)           06770000
+060500        MOVE F-CBSA-WAGE-IND   TO M-CBSA-WAGE-IND (CU3).          06780000
+060600                                                                  06790000
+060700 2300-EXIT.  EXIT.                                                06800000
+060800******        L A S T   S O U R C E   S T A T E M E N T   *****   06810000
+060900***************************************************************   06820000
+

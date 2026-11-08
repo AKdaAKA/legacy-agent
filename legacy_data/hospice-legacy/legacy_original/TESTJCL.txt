@@ -1,0 +1,141 @@
+//K1P6TIRC JOB (BFNCBA26580,B110),'K1P6  KUNKEL',MSGCLASS=Q,
+//             MSGLEVEL=1,
+//             CLASS=C,NOTIFY=K1P6
+//*
+/*JOBPARM FORMS=PX24,COPIES=1,LINECT=0
+//*
+//JOBLIB    DD DSN=SYS1.@CEE.SCEERUN,DISP=SHR
+//**================================================================***
+//* ADD A JOBLIB OR STEPLIB STMT FOR 'SYS1.@CEE.SCEERUN'  *           *
+//*  TO YOUR RUNSTREAM JCL.                               *           *
+//**================================================================***
+//*
+//STEP02  EXEC PGM=IEFBR14
+//*
+//DD1       DD DSN=K1P6.@BFN2699.HOSPV200.RATE.CCPG#IRC,
+//             SPACE=(TRK,(1)),
+//             DISP=(MOD,DELETE)
+//*
+//DD2       DD DSN=K1P6.@BFN2699.HOSPV200.SASRPT.CCPG#IRC,
+//             SPACE=(TRK,(1)),
+//             DISP=(MOD,DELETE)
+/*
+//*
+//**================================================================***
+//RUN       EXEC PGM=HOSOP200,REGION=9M
+//STEPLIB   DD DSN=K1P6.@BFN2699.HOSLOAD,DISP=SHR
+//SYSUDUMP  DD SYSOUT=*
+//SYSPUNCH  DD SYSOUT=*
+//SYSOUT    DD SYSOUT=*
+//SYSOUR    DD SYSOUT=*
+//SYSABOUT  DD SYSOUT=*
+//ZDSTATS   DD SYSOUT=*
+//**================================================================***
+//*
+//**================================================================***
+//BILLFILE  DD DSN=K1P6.@BFN2699.HOSPV200.PRODBILL.CCPG#IRC,
+//             DISP=SHR
+//*
+//**================================================================***
+//*
+//MSAFILE   DD DSN=K1P6.@BFN2699.HOSPV160.MSAH050,
+//             DISP=SHR
+//*
+//**================================================================***
+//*
+//CBSAFILE  DD DSN=K1P6.@BFN2699.HOSPV200.CBSA200.DATA.SRTED,
+//             DISP=SHR
+//**================================================================***
+//*
+//PROVFILE  DD DSN=K1P6.@BFN2699.HOSPV190.PROV2019,
+//             DISP=SHR
+//**================================================================***
+//**                                                                ***
+//**================================================================***
+//*
+//RATEFILE  DD DSN=K1P6.@BFN2699.HOSPV200.RATE.CCPG#IRC,
+//             DISP=(NEW,CATLG,CATLG),
+//             SPACE=(TRK,(20,10),RLSE),
+//             DCB=(RECFM=FB,LRECL=315)
+/*
+//*
+//LIST    EXEC SAS,WORK='500,100'
+//*
+//INDD      DD DSN=K1P6.@BFN2699.HOSPV200.RATE.CCPG#IRC,
+//             DISP=SHR
+//*
+//**================================================================***
+//*                                                                   *
+//*                                                                   *
+//**================================================================***
+//**================================================================***
+//*SAS.SASLIST DD SYSOUT=(Y,,PX16),COPIES=1,FREE=CLOSE (STARTED HERE) *
+//**================================================================***
+//*
+//SAS.SASLIST DD DSN=K1P6.@BFN2699.HOSPV200.SASRPT.CCPG#IRC,
+//             DISP=(NEW,CATLG,DELETE),
+//             SPACE=(TRK,(20,10),RLSE),
+//             DCB=(LRECL=137,BLKSIZE=7398,RECFM=VBA)
+//*
+//SYSIN     DD *
+ DATA AA;
+ INFILE INDD;
+   INPUT @1   NPI         $CHAR10.
+         @11  PROVIDER    $CHAR6.
+         @17  FROM_DT     $CHAR8.
+         @25  ADMT_DT     $CHAR8.
+         @33  FILLER_1    $CHAR10.
+         @43  PROV_CBSA   $CHAR5.
+         @48  BENE_CBSA   $CHAR5.
+         @53  PROV_WAGE   $CHAR6.
+         @59  BENE_WAGE   $CHAR6.
+         @65  NA_UNIT_1   $CHAR8.
+         @67  NA_UNIT_2   $CHAR8.
+         @69  EOL_UNIT_1  $CHAR8.
+         @71  EOL_UNIT_2  $CHAR8.
+         @73  EOL_UNIT_3  $CHAR8.
+         @75  EOL_UNIT_4  $CHAR8.
+         @77  EOL_UNIT_5  $CHAR8.
+         @79  EOL_UNIT_6  $CHAR8.
+         @81  EOL_UNIT_7  $CHAR8.
+         @83  FILLER_2    $CHAR10.
+         @93  QIP_IND     $CHAR1.
+         @94  REV_CD_1    $CHAR4.
+         @98  HCPC_1      $CHAR5.
+         @103 DOS_1       $CHAR8.
+         @111 UNITS_1     $CHAR7.
+         @118 PAY_AMT_1   $CHAR8.
+         @126 REV_CD_2    $CHAR4.
+         @130 HCPC_2      $CHAR5.
+         @135 DOS_2       $CHAR8.
+         @143 UNITS_2     $CHAR7.
+         @150 PAY_AMT_2   $CHAR8.
+         @158 REV_CD_3    $CHAR4.
+         @162 HCPC_3      $CHAR5.
+         @167 DOS_3       $CHAR8.
+         @175 UNITS_3     $CHAR7.
+         @182 PAY_AMT_3   $CHAR8.
+         @190 REV_CD_4    $CHAR4.
+         @194 HCPC_4      $CHAR5.
+         @199 DOS_4       $CHAR8.
+         @207 UNITS_4     $CHAR7.
+         @214 PAY_AMT_4   $CHAR8.
+         @222 NA_PAY_1    $CHAR8.
+         @230 NA_PAY_2    $CHAR8.
+         @238 EOL_PAY_1   $CHAR8.
+         @246 EOL_PAY_2   $CHAR8.
+         @254 EOL_PAY_3   $CHAR8.
+         @262 EOL_PAY_4   $CHAR8.
+         @270 EOL_PAY_5   $CHAR8.
+         @278 EOL_PAY_6   $CHAR8.
+         @286 EOL_PAY_7   $CHAR8.
+         @294 PAY_AMT_TOT $CHAR8.
+         @302 RTC         $CHAR2.
+         @304 HIGH_DAYS   $CHAR2.
+         @306 LOW_DAYS    $CHAR2.
+         @308 FILLER_3    $CHAR8.;
+  PROC PRINT;
+/*
+/*
+//
+

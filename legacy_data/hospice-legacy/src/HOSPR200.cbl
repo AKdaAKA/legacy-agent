@@ -1,0 +1,5783 @@
+000100 IDENTIFICATION DIVISION.
+000200 PROGRAM-ID.           HOSPR200.
+000300*AUTHOR.  DDS TEAM.
+000400*         (CENTERS FOR MEDICARE AND MEDICAID SERVICES)
+000500*REMARKS. A). HOSPICE PRICER
+000600*************************************************************
+000700*REMARKS.
+002300*
+003100*
+002800******** PROD VERSION FOR FY2020 -              ***********
+003100*
+002400*     HOSPR200   REVISIONS FOR OCT 1, 2019
+002500*                PAYMENT RATES FOR FY2020
+002700*     HOSDR200   NEW PROCEESS OCT 1, 2019
+002800*                CBSA WAGE INDEX DATA FOR FY2020
+002900*     HOSOP200   NEW PROCEESS OCT 1, 2019
+003000*                VERSION TO OPEN FILES CALL HOSDR200
+003100*
+003100****----- PROD VERSION FOR FY2019 ------------***
+003100*
+002400*     HOSPR190   REVISIONS FOR OCT 1, 2019
+002500*                PAYMENT RATES FOR FY2020
+002700*     HOSDR190   NEW PROCEESS OCT 1, 2018
+002800*                CBSA WAGE INDEX DATA FOR FY2019
+002900*     HOSOP190   NEW PROCEESS OCT 1, 2018
+003000*                VERSION TO OPEN FILES CALL HOSDR190
+002100*
+002800****---- BETA VERSION FOR FY2019 - TESTING ONLY ------*****
+003100*
+003100*
+002400*     HOSPR19B   REVISIONS FOR OCT 1, 2018
+002500*                USED PAYMENT RATES FOR FY2018
+002700*     HOSDR19B   NEW PROCEESS OCT 1, 2018
+002800*                CBSA FILE BASED ON FY2018 FILE
+002900*     HOSOP19B   NEW PROCEESS OCT 1, 2018
+003000*                VERSION TO OPEN FILES CALL HOSDR19B
+003000*
+002800******** BETA VERSION FOR FY2019 - TESTING ONLY ***********
+003000*
+002300*
+002400*     HOSPR180   REVISIONS FOR OCT 1, 2017
+002500*                REVISED PAYMENT RATES FOR FY2018
+002600*                MADE COPYBOOK (HOSPRATE) FOR PAYMENT RATES
+002700*     HOSDR180   NEW PROCEESS OCT 1, 2017
+002800*                CBSA FILE PROCESSING DRIVER CALL HOSPR180
+002900*     HOSOP180   NEW PROCEESS OCT 1, 2017
+003000*                VERSION TO OPEN FILES CALL HOSDR180
+003100*
+002300*
+002400*     HOSPR170   REVISIONS FOR OCT 1, 2016
+002500*                REVISED PAYMENT RATES FOR FY2016
+002600*                MADE COPYBOOK (HOSPRATE) FOR PAYMENT RATES
+002700*     HOSDR170   NEW PROCEESS OCT 1, 2016
+002800*                CBSA FILE PROCESSING DRIVER CALL HOSPR170
+002900*     HOSOP170   NEW PROCEESS OCT 1, 2016
+003000*                VERSION TO OPEN FILES CALL HOSDR170
+003100*
+000800*     HOSPR162   UPDATES TO REVISIONS FOR JAN 1, 2016
+001200*                CORRECTED A CALCULATION FOR EOL6
+001300*                SERVICE INTENSITY ADD-ON PAYMENTS
+001400*                MODIFIED  '> 0 ' NOTATIONS TO USE '> ZEROES '
+001700*     HOSDR162   UPDATES TO REVISIONS FOR JAN 1, 2016
+001800*                CBSA FILE PROCESSING DRIVER CALL HOSPR162
+002100*     HOSOP162   UPDATES TO REVISIONS FOR JAN 1, 2016
+002200*                CICS VERSION TO OPEN FILES CALL HOSDR162
+000700*
+000800*     HOSPR161   REVISIONS FOR JAN 1, 2016
+000900*                REVISED PAYMENT RATES FOR FY2016 PER CR #9289
+001000*                NEW DATA FIELDS FOR SIA CR # 9289
+001100*                RHC LOW RATE/HIGH RATE PAYMENT FOR RHC PAYMENT
+001200*                  CALCULATION AND CHC RATE DETERMINATION
+001300*                SERVICE INTENSITY ADD-ON PAYMENTS
+001400*                NEW RETURN CODES FOR RHC - 73, 74, 75, & 77
+001500*                UPDATED COPYBOOK (HOSPRATE) FOR PAYMENT RATES
+001600*        ==>>>>  REVISED BILL & RATE RECORD LENGTH FROM 215 TO 315
+001700*     HOSDR161   NEW PROCEESS JAN 1, 2016
+001800*                CBSA FILE PROCESSING DRIVER CALL HOSPR161
+001900*                NEW DATA FIELDS FOR SIA CR # 9289
+002000*        ==>>>>  REVISED BILL & RATE RECORD LENGTH FROM 215 TO 315
+002100*     HOSOP161   NEW PROCEESS JAN 1, 2016
+002200*                CICS VERSION TO OPEN FILES CALL HOSDR161
+002300*
+002400*     HOSPR160   REVISIONS FOR OCT 1, 2015
+002500*                REVISED PAYMENT RATES FOR FY2016
+002600*                MADE COPYBOOK (HOSPRATE) FOR PAYMENT RATES
+002700*     HOSDR160   NEW PROCEESS OCT 1, 2015
+002800*                CBSA FILE PROCESSING DRIVER CALL HOSPR160
+002900*     HOSOP160   NEW PROCEESS OCT 1, 2015
+003000*                CICS VERSION TO OPEN FILES CALL HOSDR160
+003100*
+003200*     HOSPR150   REVISIONS FOR OCT 1, 2014
+003300*                REVISED PAYMENT RATES FOR FY2015
+003400*     HOSDR150   NEW PROCEESS OCT 1, 2014
+003500*                CBSA FILE PROCESSING DRIVER CALL HOSPR150
+003600*     HOSOP150   NEW PROCEESS OCT 1, 2014
+003700*                CICS VERSION TO OPEN FILES CALL HOSDR150
+003800*
+003900*     HOSPR140   REVISIONS FOR OCT 1, 2013
+004000*        ==>>>>  REVISED BILL & RATE RECORD LENGTH FROM 135 TO 215
+004100*        ==>>>>  NEW LOGIC FOR QIP INDICATOR
+004200*     HOSDR140   NEW PROCEESS OCT 1, 2013
+004300*                CBSA FILE PROCESSING DRIVER CALL HOSPR140
+004400*     HOSOP140   NEW PROCEESS OCT 1, 2013
+004500*                CICS VERSION TO OPEN FILES CALL HOSDR140
+004600*
+004700*     HOSPR130   REVISIONS FOR OCT 1, 2012
+004800*                REVISED GO TO EXIT LOGIC FOR 2007, 7-1, 8 AND 9
+004900*                        FOR 2007, 7-1, 8 AND 9
+005000*     HOSDR130   NEW PROCEESS OCT 1, 2012
+005100*                CBSA FILE PROCESSING DRIVER CALL HOSPR130
+005200*     HOSOP130   NEW PROCEESS OCT 1, 2012
+005300*                CICS VERSION TO OPEN FILES CALL HOSDR130
+005400*
+005500*     HOSPR120   REVISIONS FOR OCT 1, 2011
+005600*                REVISED GO TO EXIT LOGIC FOR 2007, 7-1, 8 AND 9
+005700*                        FOR 2007, 7-1, 8 AND 9
+005800*     HOSDR120   NEW PROCEESS OCT 1, 2011
+005900*                CBSA FILE PROCESSING DRIVER CALL HOSPR120
+006000*     HOSOP120   NEW PROCEESS OCT 1, 2011
+006100*                CICS VERSION TO OPEN FILES CALL HOSDR120
+006200*
+006300*     HOSPR110   REVISIONS FOR OCT 1, 2010
+006400*                REVISED GO TO EXIT LOGIC FOR 2007, 7-1, 8 AND 9
+006500*     HOSDR110   NEW PROCEESS OCT 1, 2010
+006600*                CBSA FILE PROCESSING DRIVER CALL HOSPR110
+006700*     HOSOP110   NEW PROCEESS OCT 1, 2010
+006800*                CICS VERSION TO OPEN FILES CALL HOSDR110
+006900*
+007000*     HOSPR100   REVISIONS FOR OCT 1, 2009
+007100*                REVISED GO TO EXIT LOGIC FOR 2007, 7-1, 8 AND 9
+007200*     HOSDR100   NEW PROCEESS OCT 1, 2009
+007300*                CBSA FILE PROCESSING DRIVER CALL HOSPR100
+007400*     HOSOP100   NEW PROCEESS OCT 1, 2009
+007500*                CICS VERSION TO OPEN FILES CALL HOSDR100
+007600*
+007700*     HOSPR091   REVISIONS FOR OCT 1, 2008
+007800*                REVISED GO TO EXIT LOGIC FOR 2007, 7-1, 8 AND 9
+007900*                STIMULUS PKG RECOMPILE
+008000*     HOSDR091   NEW PROCEESS OCT 1, 2008
+008100*                CBSA FILE PROCESSING DRIVER CALL HOSPR091
+008200*     HOSOP091   NEW PROCEESS OCT 1, 2008
+008300*                CICS VERSION TO OPEN FILES CALL HOSDR091
+008400*
+008500*     HOSPR090   REVISIONS FOR OCT 1, 2008
+008600*                REVISED PAYMENT RATES FOR FY2009
+008700*     HOSDR090   NEW PROCEESS OCT 1, 2008
+008800*                CBSA FILE PROCESSING DRIVER CALL HOSPR090
+008900*     HOSOP090   NEW PROCEESS OCT 1, 2008
+009000*                CICS VERSION TO OPEN FILES CALL HOSDR090
+009100*
+009200*     HOSPR081   REVISIONS FOR OCT 1, 2007
+009300*                REVISED PAYMENT RATES FOR FY2008
+009400*     HOSDR081   NEW PROCEESS OCT 1, 2007
+009500*                CBSA FILE PROCESSING DRIVER CALL HOSPR081
+009600*     HOSOP081   NEW PROCEESS OCT 1, 2007
+009700*                CICS VERSION TO OPEN FILES CALL HOSDR081
+009800*
+009900*     HOSPR071   REVISIONS FOR JAN 1, 2007
+010000*                2007-CHANGE TO UNITS = 15 MINUTES CODE 652.
+010100*     HOSDR071   NEW PROCEESS JAN 1, 2007
+010200*                CBSA FILE PROCESSING DRIVER CALL HOSPR071
+010300*     HOSOP071   NEW PROCEESS JAN 1, 2007
+010400*                CICS VERSION TO OPEN FILES CALL HOSDR071
+010500*
+010600*     HOSPR070   REVISIONS FOR OCT 1, 2006
+010700*                2007-PROCESS-DATA
+010800*                2007 CALCULATE HOME RATE BY REVENUE CODE FACTORS
+010900*     HOSDR070   NEW PROCEESS OCT 1, 2006
+011000*                CBSA FILE PROCESSING DRIVER
+011100*     HOSOP070   NEW PROCEESS OCT 1, 2006
+011200*                CICS VERSION TO OPEN FILES
+011300*
+011400***************************************************************
+011500******************************************************************
+011600***     WILL PROCESS CLAIMS  FOR 1998 THRU 2020
+011700***                ALL RATES FOR 1998 THRU 2020
+011800******************************************************************
+011900 DATE-COMPILED.
+012000 ENVIRONMENT DIVISION.
+012100 CONFIGURATION SECTION.
+012200 SOURCE-COMPUTER.            IBM-370.
+012300 OBJECT-COMPUTER.            IBM-370.
+012400 INPUT-OUTPUT  SECTION.
+012500 FILE-CONTROL.
+012600
+012700
+012800 DATA DIVISION.
+012900 FILE SECTION.
+013000
+013100
+013200 WORKING-STORAGE SECTION.
+013300 01  W-STORAGE-REF                  PIC X(46)  VALUE
+013400     'HOSPR200     - W O R K I N G   S T O R A G E'.
+013500 01  HOS-VERSION                    PIC X(09)  VALUE 'HOSPR200'.
+013600 01  WRK-PAY-RATE1                  PIC 9(06)V9(02) VALUE 0.
+013700 01  WRK-PAY-RATE2                  PIC 9(06)V9(02) VALUE 0.
+013800 01  WRK-PAY-RATE3                  PIC 9(06)V9(02) VALUE 0.
+013900 01  WRK-PAY-RATE4                  PIC 9(06)V9(02) VALUE 0.
+014000
+014100
+014200
+014300*-------------------------------------------------------------*
+014400*     HOSPRATE COPYBOOK CONTAINS THE PAYMENT RATES            *
+014500*   IN VARIABLE FORMAT TO COMPLETE THE HOSPICE PRICING        *
+014600*     << ONLY AVAILABLE FROM FY2016 FORWARD >>                *
+014700*          (PRIOR YEAR RATES ARE HARD CODED)                  *
+014800*-------------------------------------------------------------*
+014900*
+014900 COPY HOSPRATE.
+015000
+015100
+015200*-------------------------------------------------------------*
+015300* VARIABLES TO STORE RHC LOGIC FLAGS & INDICATORS CR #9289    *
+015400*           NEEDED TO NAVIGATE PAYMENT & RTC LOGIC            *
+015500*-------------------------------------------------------------*
+015600 01  RHC-LOGIC-FLAGS.
+015700     05  RHC-HIGH-DAY-IND           PIC X.
+015800     05  RHC-LOW-DAY-IND            PIC X.
+015900     05  SIA-UNITS-IND              PIC X.
+016000
+016100
+016200*-------------------------------------------------------------*
+016300* VARIABLES TO STORE RHC LOGIC VALUES -  CR #9289             *
+016400*           NEEDED TO DETERMINE PAYMENT                       *
+016500*-------------------------------------------------------------*
+016600 01  RHC-LOGIC-VALUES.
+016700     05  PRIOR-BENEFIT-DAYS         PIC 9(4).
+016800     05  PRIOR-SVC-DAYS             PIC 9(4).
+016900     05  HR-BILL-UNITS1             PIC 9(4).
+017000     05  LR-BILL-UNITS1             PIC 9(4).
+017100     05  EOL-HOURS1                 PIC 999V99.
+017200     05  EOL-HOURS2                 PIC 999V99.
+017300     05  EOL-HOURS3                 PIC 999V99.
+017400     05  EOL-HOURS4                 PIC 999V99.
+017500     05  EOL-HOURS5                 PIC 999V99.
+017600     05  EOL-HOURS6                 PIC 999V99.
+017700     05  EOL-HOURS7                 PIC 999V99.
+017800     05  EOL-UNITS1                 PIC 99.
+017900     05  EOL-UNITS2                 PIC 99.
+019B00     05  EOL-UNITS3                 PIC 99.
+018100     05  EOL-UNITS4                 PIC 99.
+018200     05  EOL-UNITS5                 PIC 99.
+018300     05  EOL-UNITS6                 PIC 99.
+018400     05  EOL-UNITS7                 PIC 99.
+018500     05  SIA-PYMT-RATE              PIC 999V99.
+018600     05  SIA-PAY-AMT-TOTAL          PIC 9(06)V99.
+018700     05  HR-BILL-PAY-AMT1           PIC 9(06)V99.
+018800     05  LR-BILL-PAY-AMT1           PIC 9(06)V99.
+018900
+019000
+019100*-------------------------------------------------------------*
+019200*              DATE CALCULATION VARIABLES                     *
+019300*        USED TO DETERMINE WHICH RHC RATE APPLIES             *
+019400*  # PRIOR DAYS = ((DOS - ADM DATE) + NA-ADD-ON-DAY1-UNITS    *
+019500*-------------------------------------------------------------*
+019600
+019700 01 DATE-CALCULATION-FIELDS.
+019800    05 DATE-1-ADM               PIC 9(8).
+019900    05 DATE-2-DOS               PIC 9(8).
+020000    05 DATE-1-ADM-INTEGER       PIC 9(8).
+020100    05 DATE-2-DOS-INTEGER       PIC 9(8).
+020200    05 DAYS-BETWEEN-DATES       PIC S9(8) SIGN LEADING SEPARATE.
+020300    05 HIGH-RATE-DAYS-LEFT      PIC S9(8) SIGN LEADING SEPARATE.
+020400
+020500
+020600
+020700 LINKAGE SECTION.
+020800***************************************************************
+020900*                 * * * * * * * * *                           *
+021000***************************************************************
+021100***************************************************************
+021200*    THIS DATA IS CALCULATED BY THIS HOSPRICER PROGRAM        *
+021300*    AND PASSED BACK                                          *
+021400*            RETURN CODE VALUES (BILL-RTC)                    *
+021500*                                                             *
+021600*            BILL-RTC                                         *
+021700*              00 = HOME RATE RETURNED                        *
+021800*                                                             *
+021900*              73 = LOW RHC RATE APPLIES TO ALL RHC           *
+022000*                                                             *
+022100*              74 = LOW RHC RATE WITH EOL SIA                 *
+022200*                                                             *
+022300*              75 = HIGH RHC RATE APPLIES TO SOME OR ALL RHC  *
+022400*                                                             *
+022500*              77 = HIGH RHC WITH EOL SIA                     *
+022600*                                                             *
+022700**>>>>>>>>>>>BILL-RTC      NO RATE RETURNED                   *
+022800*              10 = BAD UNITS                                 *
+022900*                                                             *
+023000*              20 = BAD UNITS2 < 8                            *
+023100*                                                             *
+023200*              30 = BAD MSA CODE                              *
+023300*                                                             *
+023400*              40 = BAD HOSPICE WAGE INDEX FROM MSAFILE       *
+023500*                                                             *
+023600*              50 = BAD BENE    WAGE INDEX FROM MSAFILE       *
+023700*                                                             *
+023800*              51 = BAD PROV NUMBER                           *
+023900*                                                             *
+024000***************************************************************
+024100
+024200*-------------------------------------------------------------*
+024300*  BILL RECORD - 315 RECORD LENGTH LAYOUT                     *
+024400*  CONTAINS INPUT AND OUTPUT VALUES                           *
+024500*-------------------------------------------------------------*
+024600 01  BILL-315-DATA.
+024700     10  BILL-NPI                PIC X(10).
+024800     10  BILL-PROV-NO            PIC X(06).
+024900*
+025000     10  BILL-FROM-DATE.
+025100         15  BILL-FROM-CC        PIC 99.
+025200         15  BILL-FROM-YY        PIC 99.
+025300         15  BILL-FROM-MM        PIC 99.
+025400         15  BILL-FROM-DD        PIC 99.
+025500*
+025600     10  BILL-ADMISSION-DATE.
+025700         15  BILL-ADM-CC         PIC 99.
+025800         15  BILL-ADM-YY         PIC 99.
+025900         15  BILL-ADM-MM         PIC 99.
+026000         15  BILL-ADM-DD         PIC 99.
+026100*
+026200     10  FILLER                  PIC X(10).
+026300*
+026400     10  BILL-PROV-MSA-LUGAR.
+026500         15  BILL-PROV-MSA       PIC X(04).
+026600         15  BILL-PROV-LUGAR     PIC X.
+026700     10  BILL-PROV-CBSA          REDEFINES
+026800             BILL-PROV-MSA-LUGAR         PIC X(05).
+026900*
+027000     10  BILL-BENE-MSA-LUGAR.
+027100         15 BILL-BENE-MSA        PIC X(04).
+027200         15 BILL-BENE-LUGAR      PIC X.
+027300     10  BILL-BENE-CBSA          REDEFINES
+027400              BILL-BENE-MSA-LUGAR         PIC X(05).
+027500*
+027600     10  BILL-PROV-WAGE-INDEX    PIC 9(02)V9(04).
+027700     10  BILL-BENE-WAGE-INDEX    PIC 9(02)V9(04).
+027800*
+027900     10  BILL-SIA-ADD-ON-UNITS.
+028000         15  BILL-NA-ADD-ON-DAY1-UNITS   PIC 99.
+028100         15  BILL-NA-ADD-ON-DAY2-UNITS   PIC 99.
+028200         15  BILL-EOL-ADD-ON-DAY1-UNITS  PIC 99.
+028300         15  BILL-EOL-ADD-ON-DAY2-UNITS  PIC 99.
+028400         15  BILL-EOL-ADD-ON-DAY3-UNITS  PIC 99.
+028500         15  BILL-EOL-ADD-ON-DAY4-UNITS  PIC 99.
+028600         15  BILL-EOL-ADD-ON-DAY5-UNITS  PIC 99.
+028700         15  BILL-EOL-ADD-ON-DAY6-UNITS  PIC 99.
+028800         15  BILL-EOL-ADD-ON-DAY7-UNITS  PIC 99.
+028900*
+029000     10  FILLER                       PIC X(10).
+029100     10  BILL-QIP-IND                 PIC X.
+029200*
+029300     10  BILL-GROUP1.
+029400         15  BILL-REV1                PIC XXXX.
+029500         15  BILL-HCPC1               PIC X(05).
+029600         15  BILL-LINE-ITEM-DOS1.
+029700             20  BILL-LIDOS1-CC       PIC 99.
+029800             20  BILL-LIDOS1-YY       PIC 99.
+029900             20  BILL-LIDOS1-MM       PIC 99.
+030000             20  BILL-LIDOS1-DD       PIC 99.
+030100         15  BILL-UNITS1              PIC 9(07).
+030200         15  BILL-PAY-AMT1            PIC 9(06)V99.
+030300*
+030400     10  BILL-GROUP2.
+030500         15  BILL-REV2                PIC XXXX.
+030600         15  BILL-HCPC2               PIC X(05).
+030700         15  BILL-LINE-ITEM-DOS2.
+030800             20  BILL-LIDOS2-CC       PIC 99.
+030900             20  BILL-LIDOS2-YY       PIC 99.
+031000             20  BILL-LIDOS2-MM       PIC 99.
+031100             20  BILL-LIDOS2-DD       PIC 99.
+031200         15  BILL-UNITS2              PIC 9(07).
+031300         15  BILL-PAY-AMT2            PIC 9(06)V99.
+031400*
+031500     10  BILL-GROUP3.
+031600         15  BILL-REV3                PIC XXXX.
+031700         15  BILL-HCPC3               PIC X(05).
+031800         15  BILL-LINE-ITEM-DOS3.
+031900             20  BILL-LIDOS3-CC       PIC 99.
+032000             20  BILL-LIDOS3-YY       PIC 99.
+032100             20  BILL-LIDOS3-MM       PIC 99.
+032200             20  BILL-LIDOS3-DD       PIC 99.
+032300         15  BILL-UNITS3              PIC 9(07).
+032400         15  BILL-PAY-AMT3            PIC 9(06)V99.
+032500*
+032600     10  BILL-GROUP4.
+032700         15  BILL-REV4                PIC XXXX.
+032800         15  BILL-HCPC4               PIC X(05).
+032900         15  BILL-LINE-ITEM-DOS4.
+033000             20  BILL-LIDOS4-CC       PIC 99.
+033100             20  BILL-LIDOS4-YY       PIC 99.
+033200             20  BILL-LIDOS4-MM       PIC 99.
+033300             20  BILL-LIDOS4-DD       PIC 99.
+033400         15  BILL-UNITS4              PIC 9(07).
+033500         15  BILL-PAY-AMT4            PIC 9(06)V99.
+033600*
+033700     10  BILL-SIA-ADD-ON-PYMTS.
+033800         15  BILL-NA-ADD-ON-DAY1-PAY   PIC 9(06)V99.
+033900         15  BILL-NA-ADD-ON-DAY2-PAY   PIC 9(06)V99.
+034000         15  BILL-EOL-ADD-ON-DAY1-PAY  PIC 9(06)V99.
+034100         15  BILL-EOL-ADD-ON-DAY2-PAY  PIC 9(06)V99.
+034200         15  BILL-EOL-ADD-ON-DAY3-PAY  PIC 9(06)V99.
+034300         15  BILL-EOL-ADD-ON-DAY4-PAY  PIC 9(06)V99.
+034400         15  BILL-EOL-ADD-ON-DAY5-PAY  PIC 9(06)V99.
+034500         15  BILL-EOL-ADD-ON-DAY6-PAY  PIC 9(06)V99.
+034600         15  BILL-EOL-ADD-ON-DAY7-PAY  PIC 9(06)V99.
+034700*
+034800     10  BILL-RETURNED-DATA.
+034900         15  BILL-PAY-AMT-TOTAL        PIC 9(06)V99.
+035000         15  BILL-RTC                  PIC XX.
+035100*
+           10  BILL-RHC-DAYS-PAID.
+               15  BILL-HIGH-RHC-DAYS        PIC 99.
+               15  BILL-LOW-RHC-DAYS         PIC 99.
+      *
+035100     10  FILLER                        PIC X(08).
+035200*
+035300
+035400***************************************************************
+035500***************************************************************
+035600***************************************************************
+035700
+035800
+035900***************************************************************
+036000*----------------------------------------------------------****
+036100 PROCEDURE DIVISION USING BILL-315-DATA.
+036200
+036300
+036400***************************************************************
+036500
+036600*----------------------------------------------------------****
+036700* INITIALIZE VARIABLES FOR THE NEW CLAIM
+036800*----------------------------------------------------------****
+037100
+036900     PERFORM 1000-INITIALIZE
+037000        THRU 1000-INITIALIZE-EXIT.
+037200
+038300*----------------------------------------------------------****
+038400*  FY 2020 PROCESS - OCT 2019 RELEASE 20.0
+038500*----------------------------------------------------------****
+038600
+038700     IF BILL-FROM-DATE > 20190930
+038800        PERFORM 2020-V200-PROCESS-DATA
+038900           THRU 2020-V200-PROCESS-EXIT
+039000        GOBACK.
+039100
+037200
+038300*----------------------------------------------------------****
+038400*  FY 2019 PROCESS - OCT 2018 RELEASE 19.B
+038500*----------------------------------------------------------****
+038600
+038700     IF BILL-FROM-DATE > 20180930
+038800        PERFORM 2019-V190-PROCESS-DATA
+038900           THRU 2019-V190-PROCESS-EXIT
+039000        GOBACK.
+039100
+037200
+038300*----------------------------------------------------------****
+038400*  FY 2018 PROCESS - OCT 2017 RELEASE 18.0
+038500*----------------------------------------------------------****
+038600
+038700     IF BILL-FROM-DATE > 20170930
+038800        PERFORM 2018-V180-PROCESS-DATA
+038900           THRU 2018-V180-PROCESS-EXIT
+039000        GOBACK.
+039100
+037200
+038300*----------------------------------------------------------****
+038400*  FY 2017 PROCESS - OCT 2016 RELEASE 17.0
+038500*----------------------------------------------------------****
+038600
+038700     IF BILL-FROM-DATE > 20160930
+038800        PERFORM 2017-V170-PROCESS-DATA
+038900           THRU 2017-V170-PROCESS-EXIT
+039000        GOBACK.
+039100
+039200
+037300*----------------------------------------------------------****
+037400*  FY 2016 PROCESS - JAN 2016 RELEASE 16.1
+037500*----------------------------------------------------------****
+037600
+037700     IF BILL-FROM-DATE > 20151231
+037800        PERFORM 2016-V161-PROCESS-DATA
+037900           THRU 2016-V161-PROCESS-EXIT
+038000        GOBACK.
+038100
+038200
+038300*----------------------------------------------------------****
+038400*  FY 2016 PROCESS - OCT 2015 RELEASE 16.0
+038500*----------------------------------------------------------****
+038600
+038700     IF BILL-FROM-DATE > 20150930
+038800        PERFORM 2016-PROCESS-DATA
+038900           THRU 2016-EXIT
+039000        GOBACK.
+039100
+039200
+039300*----------------------------------------------------------****
+039400*  FY 2015 PROCESS
+039500*----------------------------------------------------------****
+039600
+039700     IF BILL-FROM-DATE > 20140930
+039800        PERFORM 2015-PROCESS-DATA
+039900           THRU 2015-EXIT
+040000        GOBACK.
+040100
+040200
+040300*----------------------------------------------------------****
+040400*  FY 2014 PROCESS
+040500*----------------------------------------------------------****
+040600
+040700     IF BILL-FROM-DATE > 20130930
+040800        PERFORM 2014-PROCESS-DATA
+040900           THRU 2014-EXIT
+041000        GOBACK.
+041100
+041200*----------------------------------------------------------****
+041300*  FY 2013 PROCESS
+041400*----------------------------------------------------------****
+041500
+041600     IF BILL-FROM-DATE > 20120930
+041700        PERFORM 2013-PROCESS-DATA
+041800           THRU 2013-EXIT
+041900        GOBACK.
+042000
+042100*----------------------------------------------------------****
+042200*  FY 2012 PROCESS
+042300*----------------------------------------------------------****
+042400
+042500     IF BILL-FROM-DATE  > 20110930
+042600        PERFORM 2012-PROCESS-DATA
+042700           THRU 2012-EXIT
+042800        GOBACK.
+042900
+043000*----------------------------------------------------------****
+043100*  FY 2011 PROCESS
+043200*----------------------------------------------------------****
+043300
+043400     IF BILL-FROM-DATE  > 20100930
+043500        PERFORM 2011-PROCESS-DATA
+043600           THRU 2011-EXIT
+043700        GOBACK.
+043800
+043900*----------------------------------------------------------****
+044000*  FY 2010 PROCESS
+044100*----------------------------------------------------------****
+044200
+044300     IF BILL-FROM-DATE  > 20090930
+044400        PERFORM 2010-PROCESS-DATA
+044500           THRU 2010-EXIT
+044600        GOBACK.
+044700
+044800*----------------------------------------------------------****
+044900*  FY 2009 PROCESS
+045000*----------------------------------------------------------****
+045100
+045200     IF BILL-FROM-DATE  > 20080930
+045300        PERFORM 2009-PROCESS-DATA
+045400           THRU 2009-EXIT
+045500        GOBACK.
+045600
+045700*----------------------------------------------------------****
+045800*  FY 2008 PROCESS
+045900*----------------------------------------------------------****
+046000
+046100     IF BILL-FROM-DATE  > 20070930
+046200        PERFORM 2008-PROCESS-DATA
+046300           THRU 2008-EXIT
+046400        GOBACK.
+046500
+046600*----------------------------------------------------------****
+046700*  FY 2007.1 PROCESS
+046800*----------------------------------------------------------****
+046900
+047000     IF BILL-FROM-DATE  > 20061231
+047100        PERFORM 2007-1-PROCESS-DATA
+047200           THRU 2007-1-EXIT
+047300        GOBACK.
+047400
+047500*----------------------------------------------------------****
+047600*  FY 2007 PROCESS
+047700*----------------------------------------------------------****
+047800
+047900     IF BILL-FROM-DATE  > 20060930
+048000        PERFORM 2007-PROCESS-DATA
+048100           THRU 2007-EXIT
+048200        GOBACK.
+048300
+048400*----------------------------------------------------------****
+048500*  FY 2006 PROCESS
+048600*----------------------------------------------------------****
+048700
+048800     IF BILL-FROM-DATE  > 20050930
+048900        PERFORM 2006-PROCESS-DATA
+049000           THRU 2006-EXIT
+049100        GOBACK.
+049200
+049300*----------------------------------------------------------****
+049400*  FY 2005 PROCESS
+049500*----------------------------------------------------------****
+049600
+049700     IF BILL-FROM-DATE  > 20040930
+049800        PERFORM 2005-PROCESS-DATA
+049900           THRU 2005-EXIT
+050000        GOBACK.
+050100
+050200*----------------------------------------------------------****
+050300*  FY 2004 PROCESS
+050400*----------------------------------------------------------****
+050500
+050600     IF BILL-FROM-DATE  > 20030930
+050700        PERFORM 2004-PROCESS-DATA
+050800           THRU 2004-EXIT
+050900        GOBACK.
+051000
+051100*----------------------------------------------------------****
+051200*  FY 2003 PROCESS
+051300*----------------------------------------------------------****
+051400
+051500     IF BILL-FROM-DATE  > 20020930
+051600        PERFORM 2003-PROCESS-DATA
+051700           THRU 2003-EXIT
+051800        GOBACK.
+051900
+052000*----------------------------------------------------------****
+052100*  FY 2002 PROCESS
+052200*----------------------------------------------------------****
+052300
+052400     IF BILL-FROM-DATE  > 20010930
+052500        PERFORM 2002-PROCESS-DATA
+052600           THRU 2002-EXIT
+052700        GOBACK.
+052800
+052900*----------------------------------------------------------****
+053000*  FY 2001-A PROCESS
+053100*----------------------------------------------------------****
+053200
+053300     IF BILL-FROM-DATE  > 20010331
+053400        PERFORM 2001A-PROCESS-DATA
+053500           THRU 2001A-EXIT
+053600        GOBACK.
+053700
+053800*----------------------------------------------------------****
+053900*  FY 2001 PROCESS
+054000*----------------------------------------------------------****
+054100
+054200     IF BILL-FROM-DATE  > 20000930
+054300        PERFORM 2001-PROCESS-DATA
+054400           THRU 2001-EXIT
+054500        GOBACK.
+054600
+054700*----------------------------------------------------------****
+054800*  FY 2000 PROCESS
+054900*----------------------------------------------------------****
+055000
+055100     IF BILL-FROM-DATE  > 19990930
+055200        PERFORM 2000-PROCESS-DATA
+055300           THRU 2000-EXIT
+055400        GOBACK.
+055500
+055600*----------------------------------------------------------****
+055700*  FY 1999 PROCESS
+055800*----------------------------------------------------------****
+055900
+056000     IF BILL-FROM-DATE  > 19980930
+056100        PERFORM 1999-PROCESS-DATA
+056200           THRU 1999-EXIT
+056300        GOBACK.
+056400
+056500*----------------------------------------------------------****
+056600*  FY 1998 PROCESS
+056700*----------------------------------------------------------****
+056800
+056900     PERFORM 1998-PROCESS-DATA
+057000        THRU 1998-EXIT
+057100
+057200     GOBACK.
+057300
+057400
+057500
+057600****************************************************************
+057700****          INITIALIZE VARIABLES FOR NEW CLAIM            ****
+057800****************************************************************
+057900 1000-INITIALIZE.
+058000
+058100*--------------------------------------------------------------
+058200*  SET OUTPUT VARIABLE VALUES TO ZEROS
+058300*--------------------------------------------------------------
+058400     MOVE ALL '0' TO BILL-RETURNED-DATA
+058400                     BILL-RHC-DAYS-PAID
+058500                     BILL-PAY-AMT1
+058600                     BILL-PAY-AMT2
+058700                     BILL-PAY-AMT3
+058800                     BILL-PAY-AMT4
+058900                     BILL-SIA-ADD-ON-PYMTS.
+059000
+059100*--------------------------------------------------------------
+059200*  INTIALIZE WORKING-STORAGE VARIABLE VALUES
+059300*--------------------------------------------------------------
+059400     INITIALIZE RHC-LOGIC-FLAGS
+059500                RHC-LOGIC-VALUES
+059600                DATE-CALCULATION-FIELDS.
+059700
+059800
+059900 1000-INITIALIZE-EXIT.
+060000     EXIT.
+060100
+060200
+060300*----------------------------------------------------------****
+060400*  FY 1998 PROCESS
+060500*----------------------------------------------------------****
+060600
+060700 1998-PROCESS-DATA.
+060800
+060900     IF BILL-UNITS1 > 1000 OR
+061000        BILL-UNITS2 > 1000 OR
+061100        BILL-UNITS3 > 1000 OR
+061200        BILL-UNITS4 > 1000
+061300        MOVE '10'              TO BILL-RTC
+061400        GO TO 1998-EXIT.
+061500
+061600     IF BILL-REV2 = '0652'
+061700        IF BILL-UNITS2 < 8
+061800           MOVE '20'           TO BILL-RTC
+061900           GO TO 1998-EXIT.
+062000
+062100****    CALCULATE HOME RATE BY REVENUE CODE
+062200****    CALCULATE HOME RATE BY REVENUE CODE
+062300
+062400     IF BILL-REV1 = '0651'
+062500        COMPUTE WRK-PAY-RATE1 ROUNDED =
+062600         ((65.80 * BILL-BENE-WAGE-INDEX) + 29.97) * BILL-UNITS1.
+062700
+062800     IF BILL-REV2 = '0652'
+062900        COMPUTE WRK-PAY-RATE2 ROUNDED =
+063000         (((384.08 * BILL-BENE-WAGE-INDEX)
+063100                                   + 174.91) / 24) * BILL-UNITS2.
+063200
+063300     IF BILL-REV3 = '0655'
+063400        COMPUTE WRK-PAY-RATE3 ROUNDED =
+063500         ((53.63 * BILL-PROV-WAGE-INDEX) + 45.44) * BILL-UNITS3.
+063600
+063700     IF BILL-REV4 = '0656'
+063800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+063900         ((272.71 * BILL-PROV-WAGE-INDEX) + 153.34) * BILL-UNITS4.
+064000
+064100     COMPUTE BILL-PAY-AMT-TOTAL =
+064200             WRK-PAY-RATE1 +
+064300             WRK-PAY-RATE2 +
+064400             WRK-PAY-RATE3 +
+064500             WRK-PAY-RATE4.
+064600
+064700     MOVE WRK-PAY-RATE1        TO BILL-PAY-AMT1.
+064800     MOVE WRK-PAY-RATE2        TO BILL-PAY-AMT2.
+064900     MOVE WRK-PAY-RATE3        TO BILL-PAY-AMT3.
+065000     MOVE WRK-PAY-RATE4        TO BILL-PAY-AMT4.
+065100
+065200     MOVE ZEROES               TO WRK-PAY-RATE1
+065300                                  WRK-PAY-RATE2
+065400                                  WRK-PAY-RATE3
+065500                                  WRK-PAY-RATE4.
+065600
+065700 1998-EXIT.  EXIT.
+065800
+065900*----------------------------------------------------------****
+066000*  FY 1999 PROCESS
+066100*----------------------------------------------------------****
+066200
+066300 1999-PROCESS-DATA.
+066400     IF BILL-UNITS1 > 1000 OR
+066500        BILL-UNITS2 > 1000 OR
+066600        BILL-UNITS3 > 1000 OR
+066700        BILL-UNITS4 > 1000
+066800        MOVE '10'              TO BILL-RTC
+066900        GO TO 1999-EXIT.
+067000
+067100     IF BILL-REV2 = '0652'
+067200        IF BILL-UNITS2 < 8
+067300           MOVE '20'           TO BILL-RTC
+067400           GO TO 1999-EXIT.
+067500
+067600****    CALCULATE HOME RATE BY REVENUE CODE
+067700****    CALCULATE HOME RATE BY REVENUE CODE
+067800
+067900     IF BILL-REV1 = '0651'
+068000        COMPUTE WRK-PAY-RATE1 ROUNDED =
+068100         ((66.72 * BILL-BENE-WAGE-INDEX) + 30.39) * BILL-UNITS1.
+068200
+068300     IF BILL-REV2 = '0652'
+068400        COMPUTE WRK-PAY-RATE2 ROUNDED =
+068500         (((389.46 * BILL-BENE-WAGE-INDEX)
+068600                                   + 177.36) / 24) * BILL-UNITS2.
+068700
+068800     IF BILL-REV3 = '0655'
+068900        COMPUTE WRK-PAY-RATE3 ROUNDED =
+069000         ((54.38 * BILL-PROV-WAGE-INDEX) + 46.08) * BILL-UNITS3.
+069100
+069200     IF BILL-REV4 = '0656'
+069300        COMPUTE WRK-PAY-RATE4 ROUNDED =
+069400         ((276.53 * BILL-PROV-WAGE-INDEX) + 155.48) * BILL-UNITS4.
+069500
+069600     COMPUTE BILL-PAY-AMT-TOTAL =
+069700             WRK-PAY-RATE1 +
+069800             WRK-PAY-RATE2 +
+069900             WRK-PAY-RATE3 +
+070000             WRK-PAY-RATE4.
+070100
+070200     MOVE WRK-PAY-RATE1        TO BILL-PAY-AMT1.
+070300     MOVE WRK-PAY-RATE2        TO BILL-PAY-AMT2.
+070400     MOVE WRK-PAY-RATE3        TO BILL-PAY-AMT3.
+070500     MOVE WRK-PAY-RATE4        TO BILL-PAY-AMT4.
+070600
+070700
+070800     MOVE ZEROES               TO WRK-PAY-RATE1
+070900                                  WRK-PAY-RATE2
+071000                                  WRK-PAY-RATE3
+071100                                  WRK-PAY-RATE4.
+071200
+071300 1999-EXIT.  EXIT.
+071400
+071500*----------------------------------------------------------****
+071600*  FY 2000 PROCESS
+071700*----------------------------------------------------------****
+071800
+071900 2000-PROCESS-DATA.
+072000     IF BILL-UNITS1 > 1000 OR
+072100        BILL-UNITS2 > 1000 OR
+072200        BILL-UNITS3 > 1000 OR
+072300        BILL-UNITS4 > 1000
+072400        MOVE '10'              TO BILL-RTC
+072500        GO TO 2000-EXIT.
+072600
+072700     IF BILL-REV2 = '0652'
+072800        IF BILL-UNITS2 < 8
+072900           MOVE '20'           TO BILL-RTC
+073000           GO TO 2000-EXIT.
+073100
+073200****    CALCULATE HOME RATE BY REVENUE CODE
+073300****    CALCULATE HOME RATE BY REVENUE CODE
+073400
+073500     IF BILL-REV1 = '0651'
+073600        COMPUTE WRK-PAY-RATE1 ROUNDED =
+073700         ((68.00 * BILL-BENE-WAGE-INDEX) + 30.96) * BILL-UNITS1.
+073800
+073900     IF BILL-REV2 = '0652'
+074000        COMPUTE WRK-PAY-RATE2 ROUNDED =
+074100         (((396.86 * BILL-BENE-WAGE-INDEX)
+074200                                   + 180.73) / 24) * BILL-UNITS2.
+074300
+074400     IF BILL-REV3 = '0655'
+074500        COMPUTE WRK-PAY-RATE3 ROUNDED =
+074600         ((55.41 * BILL-PROV-WAGE-INDEX) + 46.96) * BILL-UNITS3.
+074700
+074800     IF BILL-REV4 = '0656'
+074900        COMPUTE WRK-PAY-RATE4 ROUNDED =
+075000         ((281.78 * BILL-PROV-WAGE-INDEX) + 158.44) * BILL-UNITS4.
+075100
+075200     COMPUTE BILL-PAY-AMT-TOTAL =
+075300             WRK-PAY-RATE1 +
+075400             WRK-PAY-RATE2 +
+075500             WRK-PAY-RATE3 +
+075600             WRK-PAY-RATE4.
+075700
+075800     MOVE WRK-PAY-RATE1        TO BILL-PAY-AMT1.
+075900     MOVE WRK-PAY-RATE2        TO BILL-PAY-AMT2.
+076000     MOVE WRK-PAY-RATE3        TO BILL-PAY-AMT3.
+076100     MOVE WRK-PAY-RATE4        TO BILL-PAY-AMT4.
+076200
+076300
+076400     MOVE ZEROES               TO WRK-PAY-RATE1
+076500                                  WRK-PAY-RATE2
+076600                                  WRK-PAY-RATE3
+076700                                  WRK-PAY-RATE4.
+076800
+076900 2000-EXIT.  EXIT.
+077000
+077100*----------------------------------------------------------****
+077200*  FY 2001 PROCESS
+077300*----------------------------------------------------------****
+077400
+077500 2001-PROCESS-DATA.
+077600     IF BILL-UNITS1 > 1000 OR
+077700        BILL-UNITS2 > 1000 OR
+077800        BILL-UNITS3 > 1000 OR
+077900        BILL-UNITS4 > 1000
+078000        MOVE '10' TO BILL-RTC
+078100        GO TO 2001-EXIT.
+078200
+078300     IF BILL-REV2 = '0652'
+078400        IF BILL-UNITS2 < 8
+078500           MOVE '20' TO BILL-RTC
+078600           GO TO 2001-EXIT.
+078700
+078800****    CALCULATE HOME RATE BY REVENUE CODE
+078900****    CALCULATE HOME RATE BY REVENUE CODE
+079000
+079100     IF BILL-REV1 = '0651'
+079200        COMPUTE WRK-PAY-RATE1 ROUNDED =
+079300         ((69.97 * BILL-BENE-WAGE-INDEX) + 31.87) * BILL-UNITS1.
+079400
+079500     IF BILL-REV2 = '0652'
+079600        COMPUTE WRK-PAY-RATE2 ROUNDED =
+079700         (((408.42 * BILL-BENE-WAGE-INDEX)
+079800                                   + 185.99) / 24) * BILL-UNITS2.
+079900
+080000     IF BILL-REV3 = '0655'
+080100        COMPUTE WRK-PAY-RATE3 ROUNDED =
+080200         ((57.03 * BILL-PROV-WAGE-INDEX) + 48.32) * BILL-UNITS3.
+080300
+080400     IF BILL-REV4 = '0656'
+080500        COMPUTE WRK-PAY-RATE4 ROUNDED =
+080600         ((289.99 * BILL-PROV-WAGE-INDEX) + 163.05) * BILL-UNITS4.
+080700
+080800     COMPUTE BILL-PAY-AMT-TOTAL =
+080900             WRK-PAY-RATE1 +
+081000             WRK-PAY-RATE2 +
+081100             WRK-PAY-RATE3 +
+081200             WRK-PAY-RATE4.
+081300
+081400     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+081500     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+081600     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+081700     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+081800
+081900
+082000     MOVE ZEROES TO WRK-PAY-RATE1
+082100                     WRK-PAY-RATE2
+082200                     WRK-PAY-RATE3
+082300                     WRK-PAY-RATE4.
+082400
+082500 2001-EXIT.  EXIT.
+082600
+082700*----------------------------------------------------------****
+082800*  FY 2001-A PROCESS
+082900*----------------------------------------------------------****
+083000
+083100 2001A-PROCESS-DATA.
+083200     IF BILL-UNITS1 > 1000 OR
+083300        BILL-UNITS2 > 1000 OR
+083400        BILL-UNITS3 > 1000 OR
+083500        BILL-UNITS4 > 1000
+083600        MOVE '10' TO BILL-RTC
+083700        GO TO 2001A-EXIT.
+083800
+083900     IF BILL-REV2 = '0652'
+084000        IF BILL-UNITS2 < 8
+084100           MOVE '20' TO BILL-RTC
+084200           GO TO 2001A-EXIT.
+084300
+084400****    CALCULATE HOME RATE BY REVENUE CODE
+084500****    CALCULATE HOME RATE BY REVENUE CODE
+084600
+084700     IF BILL-REV1 = '0651'
+084800        COMPUTE WRK-PAY-RATE1 ROUNDED =
+084900         ((73.47 * BILL-BENE-WAGE-INDEX) + 33.46) * BILL-UNITS1.
+085000
+085100     IF BILL-REV2 = '0652'
+085200        COMPUTE WRK-PAY-RATE2 ROUNDED =
+085300         (((428.84 * BILL-BENE-WAGE-INDEX)
+085400                                   + 195.29) / 24) * BILL-UNITS2.
+085500
+085600     IF BILL-REV3 = '0655'
+085700        COMPUTE WRK-PAY-RATE3 ROUNDED =
+085800         ((59.88 * BILL-PROV-WAGE-INDEX) + 50.74) * BILL-UNITS3.
+085900
+086000     IF BILL-REV4 = '0656'
+086100        COMPUTE WRK-PAY-RATE4 ROUNDED =
+086200         ((304.49 * BILL-PROV-WAGE-INDEX) + 171.20) * BILL-UNITS4.
+086300
+086400     COMPUTE BILL-PAY-AMT-TOTAL =
+086500             WRK-PAY-RATE1 +
+086600             WRK-PAY-RATE2 +
+086700             WRK-PAY-RATE3 +
+086800             WRK-PAY-RATE4.
+086900
+087000     MOVE WRK-PAY-RATE1       TO  BILL-PAY-AMT1.
+087100     MOVE WRK-PAY-RATE2       TO  BILL-PAY-AMT2.
+087200     MOVE WRK-PAY-RATE3       TO  BILL-PAY-AMT3.
+087300     MOVE WRK-PAY-RATE4       TO  BILL-PAY-AMT4.
+087400
+087500
+087600     MOVE ZEROES TO WRK-PAY-RATE1
+087700                     WRK-PAY-RATE2
+087800                     WRK-PAY-RATE3
+087900                     WRK-PAY-RATE4.
+088000
+088100 2001A-EXIT.  EXIT.
+088200
+088300*----------------------------------------------------------****
+088400*  FY 2002 PROCESS
+088500*----------------------------------------------------------****
+088600
+088700 2002-PROCESS-DATA.
+088800     IF BILL-UNITS1 > 1000 OR
+088900        BILL-UNITS2 > 1000 OR
+089000        BILL-UNITS3 > 1000 OR
+089100        BILL-UNITS4 > 1000
+089200        MOVE '10' TO BILL-RTC
+089300        GO TO 2002-EXIT.
+089400
+089500     IF BILL-REV2 = '0652'
+089600        IF BILL-UNITS2 < 8
+089700           MOVE '20' TO BILL-RTC
+089800           GO TO 2002-EXIT.
+089900
+090000****    CALCULATE HOME RATE BY REVENUE CODE
+090100****    CALCULATE HOME RATE BY REVENUE CODE
+090200
+090300     IF BILL-REV1 = '0651'
+090400        COMPUTE WRK-PAY-RATE1 ROUNDED =
+090500         ((75.87 * BILL-BENE-WAGE-INDEX) + 34.55) * BILL-UNITS1.
+090600
+090700     IF BILL-REV2 = '0652'
+090800        COMPUTE WRK-PAY-RATE2 ROUNDED =
+090900         (((442.80 * BILL-BENE-WAGE-INDEX)
+091000                                   + 201.65) / 24) * BILL-UNITS2.
+091100
+091200     IF BILL-REV3 = '0655'
+091300        COMPUTE WRK-PAY-RATE3 ROUNDED =
+091400         ((61.83 * BILL-PROV-WAGE-INDEX) + 52.39) * BILL-UNITS3.
+091500
+091600     IF BILL-REV4 = '0656'
+091700        COMPUTE WRK-PAY-RATE4 ROUNDED =
+091800         ((314.41 * BILL-PROV-WAGE-INDEX) + 176.78) * BILL-UNITS4.
+091900
+092000     COMPUTE BILL-PAY-AMT-TOTAL =
+092100             WRK-PAY-RATE1 +
+092200             WRK-PAY-RATE2 +
+092300             WRK-PAY-RATE3 +
+092400             WRK-PAY-RATE4.
+092500
+092600     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+092700     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+092800     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+092900     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+093000
+093100
+093200     MOVE ZEROES TO WRK-PAY-RATE1
+093300                     WRK-PAY-RATE2
+093400                     WRK-PAY-RATE3
+093500                     WRK-PAY-RATE4.
+093600
+093700 2002-EXIT.  EXIT.
+093800
+093900*----------------------------------------------------------****
+094000*  FY 2003 PROCESS
+094100*----------------------------------------------------------****
+094200
+094300 2003-PROCESS-DATA.
+094400     IF BILL-UNITS1 > 1000 OR
+094500        BILL-UNITS2 > 1000 OR
+094600        BILL-UNITS3 > 1000 OR
+094700        BILL-UNITS4 > 1000
+094800        MOVE '10' TO BILL-RTC
+094900        GO TO 2003-EXIT.
+095000
+095100     IF BILL-REV2 = '0652'
+095200        IF BILL-UNITS2 < 8
+095300           MOVE '20' TO BILL-RTC
+095400           GO TO 2003-EXIT.
+095500
+095600****    CALCULATE HOME RATE BY REVENUE CODE
+095700****    CALCULATE HOME RATE BY REVENUE CODE
+095800
+095900     IF BILL-REV1 = '0651'
+096000        COMPUTE WRK-PAY-RATE1 ROUNDED =
+096100         ((78.47 * BILL-BENE-WAGE-INDEX) + 35.73) * BILL-UNITS1.
+096200
+096300     IF BILL-REV2 = '0652'
+096400        COMPUTE WRK-PAY-RATE2 ROUNDED =
+096500         (((457.97 * BILL-BENE-WAGE-INDEX)
+096600                                   + 208.55) / 24) * BILL-UNITS2.
+096700
+096800     IF BILL-REV3 = '0655'
+096900        COMPUTE WRK-PAY-RATE3 ROUNDED =
+097000         ((63.94 * BILL-PROV-WAGE-INDEX) + 54.19) * BILL-UNITS3.
+097100
+097200     IF BILL-REV4 = '0656'
+097300        COMPUTE WRK-PAY-RATE4 ROUNDED =
+097400         ((325.18 * BILL-PROV-WAGE-INDEX) + 182.83) * BILL-UNITS4.
+097500
+097600     COMPUTE BILL-PAY-AMT-TOTAL =
+097700             WRK-PAY-RATE1 +
+097800             WRK-PAY-RATE2 +
+097900             WRK-PAY-RATE3 +
+098000             WRK-PAY-RATE4.
+098100
+098200     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+098300     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+098400     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+098500     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+098600
+098700
+098800     MOVE ZEROES TO WRK-PAY-RATE1
+098900                     WRK-PAY-RATE2
+099000                     WRK-PAY-RATE3
+099100                     WRK-PAY-RATE4.
+099200
+099300 2003-EXIT.  EXIT.
+099400
+099500*----------------------------------------------------------****
+099600*  FY 2004 PROCESS
+099700*----------------------------------------------------------****
+099800
+099900 2004-PROCESS-DATA.
+100000     IF BILL-UNITS1 > 1000 OR
+100100        BILL-UNITS2 > 1000 OR
+100200        BILL-UNITS3 > 1000 OR
+100300        BILL-UNITS4 > 1000
+100400        MOVE '10' TO BILL-RTC
+100500        GO TO 2004-EXIT.
+100600
+100700     IF BILL-REV2 = '0652'
+100800        IF BILL-UNITS2 < 8
+100900           MOVE '20' TO BILL-RTC
+101000           GO TO 2004-EXIT.
+101100
+101200****    CALCULATE HOME RATE BY REVENUE CODE
+101300****    CALCULATE HOME RATE BY REVENUE CODE
+101400
+101500     IF BILL-REV1 = '0651'
+101600        COMPUTE WRK-PAY-RATE1 ROUNDED =
+101700         ((81.13 * BILL-BENE-WAGE-INDEX) + 36.95) * BILL-UNITS1.
+101800
+101900     IF BILL-REV2 = '0652'
+102000        COMPUTE WRK-PAY-RATE2 ROUNDED =
+102100         (((473.54 * BILL-BENE-WAGE-INDEX)
+102200                                   + 215.64) / 24) * BILL-UNITS2.
+102300
+102400     IF BILL-REV3 = '0655'
+102500        COMPUTE WRK-PAY-RATE3 ROUNDED =
+102600         ((66.12 * BILL-PROV-WAGE-INDEX) + 56.03) * BILL-UNITS3.
+102700
+102800     IF BILL-REV4 = '0656'
+102900        COMPUTE WRK-PAY-RATE4 ROUNDED =
+103000         ((336.23 * BILL-PROV-WAGE-INDEX) + 189.05) * BILL-UNITS4.
+103100
+103200     COMPUTE BILL-PAY-AMT-TOTAL =
+103300             WRK-PAY-RATE1 +
+103400             WRK-PAY-RATE2 +
+103500             WRK-PAY-RATE3 +
+103600             WRK-PAY-RATE4.
+103700
+103800     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+103900     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+104000     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+104100     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+104200
+104300
+104400     MOVE ZEROES TO WRK-PAY-RATE1
+104500                     WRK-PAY-RATE2
+104600                     WRK-PAY-RATE3
+104700                     WRK-PAY-RATE4.
+104800
+104900 2004-EXIT.  EXIT.
+105000
+105100*----------------------------------------------------------****
+105200*  FY 2005 PROCESS
+105300*----------------------------------------------------------****
+105400
+105500 2005-PROCESS-DATA.
+105600     IF BILL-UNITS1 > 1000 OR
+105700        BILL-UNITS2 > 1000 OR
+105800        BILL-UNITS3 > 1000 OR
+105900        BILL-UNITS4 > 1000
+106000        MOVE '10' TO BILL-RTC
+106100        GO TO 2005-EXIT.
+106200
+106300     IF BILL-REV2 = '0652'
+106400        IF BILL-UNITS2 < 8
+106500           MOVE '20' TO BILL-RTC
+106600           GO TO 2005-EXIT.
+106700
+106800****    CALCULATE HOME RATE BY REVENUE CODE
+106900****    CALCULATE HOME RATE BY REVENUE CODE
+107000
+107100     IF BILL-REV1 = '0651'
+107200        COMPUTE WRK-PAY-RATE1 ROUNDED =
+107300         ((83.81 * BILL-BENE-WAGE-INDEX) + 38.17) * BILL-UNITS1.
+107400
+107500     IF BILL-REV2 = '0652'
+107600        COMPUTE WRK-PAY-RATE2 ROUNDED =
+107700         (((489.16 * BILL-BENE-WAGE-INDEX)
+107800                                   + 222.76) / 24) * BILL-UNITS2.
+107900
+108000     IF BILL-REV3 = '0655'
+108100        COMPUTE WRK-PAY-RATE3 ROUNDED =
+108200         ((68.30 * BILL-PROV-WAGE-INDEX) + 57.88) * BILL-UNITS3.
+108300
+108400     IF BILL-REV4 = '0656'
+108500        COMPUTE WRK-PAY-RATE4 ROUNDED =
+108600         ((347.32 * BILL-PROV-WAGE-INDEX) + 195.29) * BILL-UNITS4.
+108700
+108800     COMPUTE BILL-PAY-AMT-TOTAL =
+108900             WRK-PAY-RATE1 +
+109000             WRK-PAY-RATE2 +
+109100             WRK-PAY-RATE3 +
+109200             WRK-PAY-RATE4.
+109300
+109400     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+109500     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+109600     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+109700     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+109800
+109900
+110000     MOVE ZEROES TO WRK-PAY-RATE1
+110100                     WRK-PAY-RATE2
+110200                     WRK-PAY-RATE3
+110300                     WRK-PAY-RATE4.
+110400
+110500 2005-EXIT.  EXIT.
+110600
+110700*----------------------------------------------------------****
+110800*  FY 2006 PROCESS
+110900*----------------------------------------------------------****
+111000
+111100 2006-PROCESS-DATA.
+111200     IF BILL-UNITS1 > 1000 OR
+111300        BILL-UNITS2 > 1000 OR
+111400        BILL-UNITS3 > 1000 OR
+111500        BILL-UNITS4 > 1000
+111600        MOVE '10' TO BILL-RTC
+111700        GO TO 2006-EXIT.
+111800
+111900     IF BILL-REV2 = '0652'
+112000        IF BILL-UNITS2 < 8
+112100           MOVE '20' TO BILL-RTC
+112200           GO TO 2006-EXIT.
+112300
+112400****    CALCULATE HOME RATE BY REVENUE CODE
+112500****    CALCULATE HOME RATE BY REVENUE CODE
+112600
+112700     IF BILL-REV1 = '0651'
+112800        COMPUTE WRK-PAY-RATE1 ROUNDED =
+112900         ((86.91 * BILL-BENE-WAGE-INDEX) + 39.58) * BILL-UNITS1.
+113000
+113100     IF BILL-REV2 = '0652'
+113200        COMPUTE WRK-PAY-RATE2 ROUNDED =
+113300         (((507.26 * BILL-BENE-WAGE-INDEX)
+113400                                   + 231.00) / 24) * BILL-UNITS2.
+113500
+113600     IF BILL-REV3 = '0655'
+113700        COMPUTE WRK-PAY-RATE3 ROUNDED =
+113800         ((70.83 * BILL-PROV-WAGE-INDEX) + 60.02) * BILL-UNITS3.
+113900
+114000     IF BILL-REV4 = '0656'
+114100        COMPUTE WRK-PAY-RATE4 ROUNDED =
+114200         ((360.18 * BILL-PROV-WAGE-INDEX) + 202.51) * BILL-UNITS4.
+114300
+114400     COMPUTE BILL-PAY-AMT-TOTAL =
+114500             WRK-PAY-RATE1 +
+114600             WRK-PAY-RATE2 +
+114700             WRK-PAY-RATE3 +
+114800             WRK-PAY-RATE4.
+114900
+115000     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+115100     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+115200     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+115300     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+115400
+115500
+115600     MOVE ZEROES TO WRK-PAY-RATE1
+115700                     WRK-PAY-RATE2
+115800                     WRK-PAY-RATE3
+115900                     WRK-PAY-RATE4.
+116000
+116100 2006-EXIT.  EXIT.
+116200
+116300*----------------------------------------------------------****
+116400*  FY 2007 PROCESS
+116500*----------------------------------------------------------****
+116600
+116700 2007-PROCESS-DATA.
+116800     IF BILL-UNITS1 > 1000 OR
+116900        BILL-UNITS2 > 1000 OR
+117000        BILL-UNITS3 > 1000 OR
+117100        BILL-UNITS4 > 1000
+117200        MOVE '10' TO BILL-RTC
+117300        GO TO 2007-EXIT.
+117400
+117500     IF BILL-REV2 = '0652'
+117600        IF BILL-UNITS2 < 8
+117700           MOVE '20' TO BILL-RTC
+117800           GO TO 2007-EXIT.
+117900
+118000****    CALCULATE HOME RATE BY REVENUE CODE
+118100****    CALCULATE HOME RATE BY REVENUE CODE
+118200
+118300     IF BILL-REV1 = '0651'
+118400        COMPUTE WRK-PAY-RATE1 ROUNDED =
+118500         ((89.87 * BILL-BENE-WAGE-INDEX) + 40.92) * BILL-UNITS1.
+118600
+118700     IF BILL-REV2 = '0652'
+118800        COMPUTE WRK-PAY-RATE2 ROUNDED =
+118900         (((524.50 * BILL-BENE-WAGE-INDEX)
+119000                                   + 238.86) / 24) * BILL-UNITS2.
+119100
+119200     IF BILL-REV3 = '0655'
+119300        COMPUTE WRK-PAY-RATE3 ROUNDED =
+119400         ((73.24 * BILL-PROV-WAGE-INDEX) + 62.06) * BILL-UNITS3.
+119500
+119600     IF BILL-REV4 = '0656'
+119700        COMPUTE WRK-PAY-RATE4 ROUNDED =
+119800         ((372.42 * BILL-PROV-WAGE-INDEX) + 209.40) * BILL-UNITS4.
+119900
+120000     COMPUTE BILL-PAY-AMT-TOTAL =
+120100             WRK-PAY-RATE1 +
+120200             WRK-PAY-RATE2 +
+120300             WRK-PAY-RATE3 +
+120400             WRK-PAY-RATE4.
+120500
+120600     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+120700     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+120800     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+120900     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+121000
+121100
+121200     MOVE ZEROES TO WRK-PAY-RATE1
+121300                     WRK-PAY-RATE2
+121400                     WRK-PAY-RATE3
+121500                     WRK-PAY-RATE4.
+121600
+121700 2007-EXIT.  EXIT.
+121800
+121900*----------------------------------------------------------****
+122000*  FY 2007-1 PROCESS
+122100*----------------------------------------------------------****
+122200
+122300 2007-1-PROCESS-DATA.
+122400     IF BILL-UNITS1 > 1000 OR
+122500        BILL-UNITS2 > 1000 OR
+122600        BILL-UNITS3 > 1000 OR
+122700        BILL-UNITS4 > 1000
+122800        MOVE '10' TO BILL-RTC
+122900        GO TO 2007-1-EXIT.
+123000
+123100****    CALCULATE HOME RATE BY REVENUE CODE
+123200****    CALCULATE HOME RATE BY REVENUE CODE
+123300
+123400     IF BILL-REV1 = '0651'
+123500        COMPUTE WRK-PAY-RATE1 ROUNDED =
+123600         ((89.87 * BILL-BENE-WAGE-INDEX) + 40.92) * BILL-UNITS1.
+123700
+123800     IF BILL-REV2 = '0652'
+123900        IF BILL-UNITS2 > 0
+124000           IF BILL-UNITS2 < 32
+124100             COMPUTE WRK-PAY-RATE2 ROUNDED =
+124200               ((89.87 * BILL-BENE-WAGE-INDEX) + 40.92)
+124300           ELSE
+124400             COMPUTE WRK-PAY-RATE2 ROUNDED =
+124500               (((524.50 * BILL-BENE-WAGE-INDEX)
+124600                      + 238.86) / 24) * (BILL-UNITS2 / 4).
+124700
+124800     IF BILL-REV3 = '0655'
+124900        COMPUTE WRK-PAY-RATE3 ROUNDED =
+125000         ((73.24 * BILL-PROV-WAGE-INDEX) + 62.06) * BILL-UNITS3.
+125100
+125200     IF BILL-REV4 = '0656'
+125300        COMPUTE WRK-PAY-RATE4 ROUNDED =
+125400        ((372.42 * BILL-PROV-WAGE-INDEX) + 209.40) * BILL-UNITS4.
+125500
+125600     COMPUTE BILL-PAY-AMT-TOTAL =
+125700             WRK-PAY-RATE1 +
+125800             WRK-PAY-RATE2 +
+125900             WRK-PAY-RATE3 +
+126000             WRK-PAY-RATE4.
+126100
+126200     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+126300     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+126400     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+126500     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+126600
+126700
+126800     MOVE ZEROES TO WRK-PAY-RATE1
+126900                     WRK-PAY-RATE2
+127000                     WRK-PAY-RATE3
+127100                     WRK-PAY-RATE4.
+127200
+127300 2007-1-EXIT. EXIT.
+127400*----------------------------------------------------------****
+127500*----------------------------------------------------------****
+127600*  FY 2008 PROCESS
+127700*----------------------------------------------------------****
+127800
+127900 2008-PROCESS-DATA.
+128000     IF BILL-UNITS1 > 1000 OR
+128100        BILL-UNITS2 > 1000 OR
+128200        BILL-UNITS3 > 1000 OR
+128300        BILL-UNITS4 > 1000
+128400        MOVE '10' TO BILL-RTC
+128500        GO TO 2008-EXIT.
+128600
+128700****    CALCULATE HOME RATE BY REVENUE CODE
+128800****    CALCULATE HOME RATE BY REVENUE CODE
+128900
+129000     IF BILL-REV1 = '0651'
+129100        COMPUTE WRK-PAY-RATE1 ROUNDED =
+129200         ((92.83 * BILL-BENE-WAGE-INDEX) + 42.28) * BILL-UNITS1.
+129300
+129400     IF BILL-REV2 = '0652'
+129500        IF BILL-UNITS2 > 0
+129600           IF BILL-UNITS2 < 32
+129700             COMPUTE WRK-PAY-RATE2 ROUNDED =
+129800               ((92.83 * BILL-BENE-WAGE-INDEX) + 42.28)
+129900           ELSE
+130000             COMPUTE WRK-PAY-RATE2 ROUNDED =
+130100               (((541.81 * BILL-BENE-WAGE-INDEX)
+130200                      + 246.74) / 24) * (BILL-UNITS2 / 4).
+130300
+130400     IF BILL-REV3 = '0655'
+130500        COMPUTE WRK-PAY-RATE3 ROUNDED =
+130600          ((75.65 * BILL-PROV-WAGE-INDEX) + 64.11) * BILL-UNITS3.
+130700
+130800     IF BILL-REV4 = '0656'
+130900        COMPUTE WRK-PAY-RATE4 ROUNDED =
+131000        ((384.71 * BILL-PROV-WAGE-INDEX) + 216.31) * BILL-UNITS4.
+131100
+131200     COMPUTE BILL-PAY-AMT-TOTAL =
+131300             WRK-PAY-RATE1 +
+131400             WRK-PAY-RATE2 +
+131500             WRK-PAY-RATE3 +
+131600             WRK-PAY-RATE4.
+131700
+131800     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+131900     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+132000     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+132100     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+132200
+132300
+132400     MOVE ZEROES TO WRK-PAY-RATE1
+132500                     WRK-PAY-RATE2
+132600                     WRK-PAY-RATE3
+132700                     WRK-PAY-RATE4.
+132800
+132900 2008-EXIT. EXIT.
+133000*----------------------------------------------------------****
+133100*----------------------------------------------------------****
+133200*  FY 2009 PROCESS
+133300*----------------------------------------------------------****
+133400
+133500 2009-PROCESS-DATA.
+133600     IF BILL-UNITS1 > 1000 OR
+133700        BILL-UNITS2 > 1000 OR
+133800        BILL-UNITS3 > 1000 OR
+133900        BILL-UNITS4 > 1000
+134000        MOVE '10' TO BILL-RTC
+134100        GO TO 2009-EXIT.
+134200
+134300****    CALCULATE HOME RATE BY REVENUE CODE
+134400****    CALCULATE HOME RATE BY REVENUE CODE
+134500
+134600     IF BILL-REV1 = '0651'
+134700        COMPUTE WRK-PAY-RATE1 ROUNDED =
+134800          ((96.17 * BILL-BENE-WAGE-INDEX) + 43.80) * BILL-UNITS1.
+134900
+135000     IF BILL-REV2 = '0652'
+135100        IF BILL-UNITS2 > 0
+135200           IF BILL-UNITS2 < 32
+135300             COMPUTE WRK-PAY-RATE2 ROUNDED =
+135400               ((96.17 * BILL-BENE-WAGE-INDEX) + 43.80)
+135500           ELSE
+135600             COMPUTE WRK-PAY-RATE2 ROUNDED =
+135700               (((561.32 * BILL-BENE-WAGE-INDEX)
+135800                      + 255.62) / 24) * (BILL-UNITS2 / 4).
+135900
+136000     IF BILL-REV3 = '0655'
+136100        COMPUTE WRK-PAY-RATE3 ROUNDED =
+136200         ((78.37 * BILL-PROV-WAGE-INDEX) + 66.42) * BILL-UNITS3.
+136300
+136400     IF BILL-REV4 = '0656'
+136500        COMPUTE WRK-PAY-RATE4 ROUNDED =
+136600        ((398.56 * BILL-PROV-WAGE-INDEX) + 224.10) * BILL-UNITS4.
+136700
+136800     COMPUTE BILL-PAY-AMT-TOTAL =
+136900             WRK-PAY-RATE1 +
+137000             WRK-PAY-RATE2 +
+137100             WRK-PAY-RATE3 +
+137200             WRK-PAY-RATE4.
+137300
+137400     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+137500     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+137600     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+137700     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+137800
+137900
+138000     MOVE ZEROES TO WRK-PAY-RATE1
+138100                     WRK-PAY-RATE2
+138200                     WRK-PAY-RATE3
+138300                     WRK-PAY-RATE4.
+138400
+138500 2009-EXIT. EXIT.
+138600*----------------------------------------------------------****
+138700*----------------------------------------------------------****
+138800*  FY 2010 PROCESS
+138900*----------------------------------------------------------****
+139000
+139100 2010-PROCESS-DATA.
+139200     IF BILL-UNITS1 > 1000 OR
+139300        BILL-UNITS2 > 1000 OR
+139400        BILL-UNITS3 > 1000 OR
+139500        BILL-UNITS4 > 1000
+139600        MOVE '10' TO BILL-RTC
+139700        GO TO 2010-EXIT.
+139800
+139900****    CALCULATE HOME RATE BY REVENUE CODE
+140000****    CALCULATE HOME RATE BY REVENUE CODE
+140100
+140200     IF BILL-REV1 = '0651'
+140300        COMPUTE WRK-PAY-RATE1 ROUNDED =
+140400          ((98.19 * BILL-BENE-WAGE-INDEX) + 44.72) * BILL-UNITS1.
+140500
+140600     IF BILL-REV2 = '0652'
+140700        IF BILL-UNITS2 > 0
+140800           IF BILL-UNITS2 < 32
+140900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+141000               ((98.19 * BILL-BENE-WAGE-INDEX) + 44.72)
+141100           ELSE
+141200             COMPUTE WRK-PAY-RATE2 ROUNDED =
+141300               (((573.11 * BILL-BENE-WAGE-INDEX)
+141400                      + 260.99) / 24) * (BILL-UNITS2 / 4).
+141500
+141600     IF BILL-REV3 = '0655'
+141700        COMPUTE WRK-PAY-RATE3 ROUNDED =
+141800         ((80.02 * BILL-PROV-WAGE-INDEX) + 67.81) * BILL-UNITS3.
+141900
+142000     IF BILL-REV4 = '0656'
+142100        COMPUTE WRK-PAY-RATE4 ROUNDED =
+142200         ((406.94 * BILL-PROV-WAGE-INDEX) + 228.80) * BILL-UNITS4.
+142300
+142400     COMPUTE BILL-PAY-AMT-TOTAL =
+142500             WRK-PAY-RATE1 +
+142600             WRK-PAY-RATE2 +
+142700             WRK-PAY-RATE3 +
+142800             WRK-PAY-RATE4.
+142900
+143000     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+143100     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+143200     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+143300     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+143400
+143500
+143600     MOVE ZEROES TO WRK-PAY-RATE1
+143700                     WRK-PAY-RATE2
+143800                     WRK-PAY-RATE3
+143900                     WRK-PAY-RATE4.
+144000
+144100 2010-EXIT. EXIT.
+144200*----------------------------------------------------------****
+144300*  FY 2011 PROCESS
+144400*----------------------------------------------------------****
+144500
+144600 2011-PROCESS-DATA.
+144700     IF BILL-UNITS1 > 1000 OR
+144800        BILL-UNITS2 > 1000 OR
+144900        BILL-UNITS3 > 1000 OR
+145000        BILL-UNITS4 > 1000
+145100        MOVE '10' TO BILL-RTC
+145200        GO TO 2011-EXIT.
+145300
+145400****    CALCULATE HOME RATE BY REVENUE CODE
+145500****    CALCULATE HOME RATE BY REVENUE CODE
+145600
+145700     IF BILL-REV1 = '0651'
+145800        COMPUTE WRK-PAY-RATE1 ROUNDED =
+145900         ((100.75 * BILL-BENE-WAGE-INDEX) + 45.88) * BILL-UNITS1.
+146000
+146100     IF BILL-REV2 = '0652'
+146200        IF BILL-UNITS2 > 0
+146300           IF BILL-UNITS2 < 32
+146400             COMPUTE WRK-PAY-RATE2 ROUNDED =
+146500               ((100.75 * BILL-BENE-WAGE-INDEX) + 45.88)
+146600           ELSE
+146700             COMPUTE WRK-PAY-RATE2 ROUNDED =
+146800               (((588.01 * BILL-BENE-WAGE-INDEX)
+146900                      + 267.78) / 24) * (BILL-UNITS2 / 4).
+147000
+147100     IF BILL-REV3 = '0655'
+147200        COMPUTE WRK-PAY-RATE3 ROUNDED =
+147300         ((82.10 * BILL-PROV-WAGE-INDEX) + 69.57) * BILL-UNITS3.
+147400
+147500     IF BILL-REV4 = '0656'
+147600        COMPUTE WRK-PAY-RATE4 ROUNDED =
+147700         ((417.52 * BILL-PROV-WAGE-INDEX) + 234.75) * BILL-UNITS4.
+147800
+147900     COMPUTE BILL-PAY-AMT-TOTAL =
+148000             WRK-PAY-RATE1 +
+148100             WRK-PAY-RATE2 +
+148200             WRK-PAY-RATE3 +
+148300             WRK-PAY-RATE4.
+148400
+148500     MOVE WRK-PAY-RATE1 TO  BILL-PAY-AMT1.
+148600     MOVE WRK-PAY-RATE2 TO  BILL-PAY-AMT2.
+148700     MOVE WRK-PAY-RATE3 TO  BILL-PAY-AMT3.
+148800     MOVE WRK-PAY-RATE4 TO  BILL-PAY-AMT4.
+148900
+149000
+149100     MOVE ZEROES TO WRK-PAY-RATE1
+149200                     WRK-PAY-RATE2
+149300                     WRK-PAY-RATE3
+149400                     WRK-PAY-RATE4.
+149500
+149600 2011-EXIT. EXIT.
+149700
+149800*----------------------------------------------------------****
+149900*  FY 2012 PROCESS
+150000*----------------------------------------------------------****
+150100
+150200 2012-PROCESS-DATA.
+150300     IF BILL-UNITS1 > 1000 OR
+150400        BILL-UNITS2 > 1000 OR
+150500        BILL-UNITS3 > 1000 OR
+150600        BILL-UNITS4 > 1000
+150700        MOVE '10' TO BILL-RTC
+150800        GO TO 2012-EXIT.
+150900
+151000****    CALCULATE HOME RATE BY REVENUE CODE
+151100****    CALCULATE HOME RATE BY REVENUE CODE
+151200
+151300     IF BILL-REV1 = '0651'
+151400        COMPUTE WRK-PAY-RATE1 ROUNDED =
+151500         ((103.77 * BILL-BENE-WAGE-INDEX) + 47.26) * BILL-UNITS1.
+151600
+151700     IF BILL-REV2 = '0652'
+151800        IF BILL-UNITS2 > 0
+151900           IF BILL-UNITS2 < 32
+152000             COMPUTE WRK-PAY-RATE2 ROUNDED =
+152100               ((103.77 * BILL-BENE-WAGE-INDEX) + 47.26)
+152200           ELSE
+152300             COMPUTE WRK-PAY-RATE2 ROUNDED =
+152400               (((605.65 * BILL-BENE-WAGE-INDEX)
+152500                      + 275.81) / 24) * (BILL-UNITS2 / 4).
+152600
+152700     IF BILL-REV3 = '0655'
+152800        COMPUTE WRK-PAY-RATE3 ROUNDED =
+152900         ((84.56 * BILL-PROV-WAGE-INDEX) + 71.66) * BILL-UNITS3.
+153000
+153100     IF BILL-REV4 = '0656'
+153200        COMPUTE WRK-PAY-RATE4 ROUNDED =
+153300         ((430.04 * BILL-PROV-WAGE-INDEX) + 241.80) * BILL-UNITS4.
+153400
+153500     COMPUTE BILL-PAY-AMT-TOTAL =
+153600             WRK-PAY-RATE1 +
+153700             WRK-PAY-RATE2 +
+153800             WRK-PAY-RATE3 +
+153900             WRK-PAY-RATE4.
+154000
+154100     MOVE WRK-PAY-RATE1        TO BILL-PAY-AMT1.
+154200     MOVE WRK-PAY-RATE2        TO BILL-PAY-AMT2.
+154300     MOVE WRK-PAY-RATE3        TO BILL-PAY-AMT3.
+154400     MOVE WRK-PAY-RATE4        TO BILL-PAY-AMT4.
+154500
+154600
+154700     MOVE ZEROES               TO WRK-PAY-RATE1
+154800                                  WRK-PAY-RATE2
+154900                                  WRK-PAY-RATE3
+155000                                  WRK-PAY-RATE4.
+155100
+155200 2012-EXIT. EXIT.
+155300
+155400*----------------------------------------------------------****
+155500*  FY 2013 PROCESS
+155600*----------------------------------------------------------****
+155700
+155800 2013-PROCESS-DATA.
+155900     IF BILL-UNITS1 > 1000 OR
+156000        BILL-UNITS2 > 1000 OR
+156100        BILL-UNITS3 > 1000 OR
+156200        BILL-UNITS4 > 1000
+156300        MOVE '10' TO BILL-RTC
+156400        GO TO 2013-EXIT.
+156500
+156600****    CALCULATE HOME RATE BY REVENUE CODE
+156700****    CALCULATE HOME RATE BY REVENUE CODE
+156800
+156900     IF BILL-REV1 = '0651'
+157000        COMPUTE WRK-PAY-RATE1 ROUNDED =
+157100          ((105.44 * BILL-BENE-WAGE-INDEX) + 48.01) * BILL-UNITS1.
+157200
+157300     IF BILL-REV2 = '0652'
+157400        IF BILL-UNITS2 > 0
+157500           IF BILL-UNITS2 < 32
+157600             COMPUTE WRK-PAY-RATE2 ROUNDED =
+157700               ((105.44 * BILL-BENE-WAGE-INDEX) + 48.01)
+157800           ELSE
+157900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+158000               (((615.34 * BILL-BENE-WAGE-INDEX)
+158100                      + 280.22) / 24) * (BILL-UNITS2 / 4).
+158200
+158300     IF BILL-REV3 = '0655'
+158400        COMPUTE WRK-PAY-RATE3 ROUNDED =
+158500          ((85.92 * BILL-PROV-WAGE-INDEX) + 72.80) * BILL-UNITS3.
+158600
+158700     IF BILL-REV4 = '0656'
+158800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+158900         ((436.93 * BILL-PROV-WAGE-INDEX) + 245.66) * BILL-UNITS4.
+159000
+159100     COMPUTE BILL-PAY-AMT-TOTAL =
+159200             WRK-PAY-RATE1 +
+159300             WRK-PAY-RATE2 +
+159400             WRK-PAY-RATE3 +
+159500             WRK-PAY-RATE4.
+159600
+159700     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+159800     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+159900     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+160000     MOVE WRK-PAY-RATE4        TO BILL-PAY-AMT4.
+160100
+160200
+160300     MOVE ZEROES               TO WRK-PAY-RATE1
+160400                                  WRK-PAY-RATE2
+160500                                  WRK-PAY-RATE3
+160600                                  WRK-PAY-RATE4.
+160700
+160800 2013-EXIT. EXIT.
+160900
+161000*----------------------------------------------------------****
+161100*  FY 2014 PROCESS
+161200*----------------------------------------------------------****
+161300
+161400 2014-PROCESS-DATA.
+161500
+161600     IF BILL-UNITS1 > 1000 OR
+161700        BILL-UNITS2 > 1000 OR
+161800        BILL-UNITS3 > 1000 OR
+161900        BILL-UNITS4 > 1000
+162000        MOVE '10'              TO BILL-RTC
+162100        GO TO 2014-EXIT.
+162200
+162300
+162400     IF BILL-QIP-IND = '1'
+162500        PERFORM 2014-APPLY-QIP
+162600           THRU 2014-QIP-EXIT
+162700     ELSE
+162800        PERFORM 2014-APPLY-NO-QIP
+162900           THRU 2014-NO-QIP-EXIT.
+163000
+163100     COMPUTE BILL-PAY-AMT-TOTAL =
+163200             WRK-PAY-RATE1 +
+163300             WRK-PAY-RATE2 +
+163400             WRK-PAY-RATE3 +
+163500             WRK-PAY-RATE4.
+163600
+163700
+163800     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+163900     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+164000     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+164100     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+164200
+164300
+164400     MOVE ZEROES               TO WRK-PAY-RATE1
+164500                                  WRK-PAY-RATE2
+164600                                  WRK-PAY-RATE3
+164700                                  WRK-PAY-RATE4.
+164800
+164900 2014-EXIT. EXIT.
+165000
+165100 2014-APPLY-NO-QIP.
+165200
+165300****=====================
+165400****    QIP IND = '  '
+165500****=====================
+165600****    CALCULATE HOME RATE BY REVENUE CODE (NO QIP REDUCTION)
+165700****    CALCULATE HOME RATE BY REVENUE CODE (NO QIP REDUCTION)
+165800
+165900
+166000     IF BILL-REV1 = '0651'
+166100        COMPUTE WRK-PAY-RATE1 ROUNDED =
+166200         ((107.23 * BILL-BENE-WAGE-INDEX) + 48.83) * BILL-UNITS1.
+166300
+166400
+166500
+166600
+166700     IF BILL-REV2 = '0652'
+166800        IF BILL-UNITS2 > 0
+166900           IF BILL-UNITS2 < 32
+167000             COMPUTE WRK-PAY-RATE2 ROUNDED =
+167100               ((107.23 * BILL-BENE-WAGE-INDEX) + 48.83)
+167200           ELSE
+167300             COMPUTE WRK-PAY-RATE2 ROUNDED =
+167400               (((625.80 * BILL-BENE-WAGE-INDEX)
+167500                      + 284.98) / 24) * (BILL-UNITS2 / 4).
+167600
+167700
+167800
+167900     IF BILL-REV3 = '0655'
+168000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+168100         ((87.38 * BILL-PROV-WAGE-INDEX) + 74.04) * BILL-UNITS3.
+168200
+168300
+168400
+168500
+168600     IF BILL-REV4 = '0656'
+168700        COMPUTE WRK-PAY-RATE4 ROUNDED =
+168800       ((444.35 * BILL-PROV-WAGE-INDEX) + 249.84) * BILL-UNITS4.
+168900
+169000
+169100 2014-NO-QIP-EXIT. EXIT.
+169200
+169300
+169400 2014-APPLY-QIP.
+169500
+169600****=====================
+169700****    QIP IND = '1'    >> PAYMENT RATE IS LOWER
+169800****=====================
+169900****    CALCULATE HOME RATE BY REVENUE CODE (WITH QIP REDUCTION)
+070000****    CALCULATE HOME RATE BY REVENUE CODE (WITH QIP REDUCTION)
+170100
+170200     IF BILL-REV1 = '0651'
+170300        COMPUTE WRK-PAY-RATE1 ROUNDED =
+170400          ((105.12 * BILL-BENE-WAGE-INDEX) + 47.87) * BILL-UNITS1.
+170500
+170600     IF BILL-REV2 = '0652'
+170700        IF BILL-UNITS2 > 0
+170800           IF BILL-UNITS2 < 32
+170900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+171000               ((105.12 * BILL-BENE-WAGE-INDEX) + 47.87)
+171100           ELSE
+171200             COMPUTE WRK-PAY-RATE2 ROUNDED =
+171300               (((613.49 * BILL-BENE-WAGE-INDEX)
+171400                      + 279.38) / 24) * (BILL-UNITS2 / 4).
+171500
+171600     IF BILL-REV3 = '0655'
+171700        COMPUTE WRK-PAY-RATE3 ROUNDED =
+171800          ((85.66 * BILL-PROV-WAGE-INDEX) + 72.58) * BILL-UNITS3.
+171900
+172000     IF BILL-REV4 = '0656'
+172100        COMPUTE WRK-PAY-RATE4 ROUNDED =
+172200         ((435.61 * BILL-PROV-WAGE-INDEX) + 244.93) * BILL-UNITS4.
+172300
+172400
+172500 2014-QIP-EXIT. EXIT.
+172600
+172700 2015-PROCESS-DATA.
+172800
+172900     IF BILL-UNITS1 > 1000 OR
+173000        BILL-UNITS2 > 1000 OR
+173100        BILL-UNITS3 > 1000 OR
+173200        BILL-UNITS4 > 1000
+173300        MOVE '10'              TO BILL-RTC
+173400        GO TO 2015-EXIT.
+173500
+173600
+173700     IF BILL-QIP-IND = '1'
+173800        PERFORM 2015-APPLY-QIP
+173900           THRU 2015-QIP-EXIT
+174000     ELSE
+174100        PERFORM 2015-APPLY-NO-QIP
+174200           THRU 2015-NO-QIP-EXIT.
+174300
+174400     COMPUTE BILL-PAY-AMT-TOTAL =
+174500             WRK-PAY-RATE1 +
+174600             WRK-PAY-RATE2 +
+174700             WRK-PAY-RATE3 +
+174800             WRK-PAY-RATE4.
+174900
+175000
+175100     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+175200     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+175300     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+175400     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+175500
+175600
+175700     MOVE ZEROES               TO WRK-PAY-RATE1
+175800                                  WRK-PAY-RATE2
+175900                                  WRK-PAY-RATE3
+176000                                  WRK-PAY-RATE4.
+176100
+176200 2015-EXIT. EXIT.
+176300
+176400 2015-APPLY-NO-QIP.
+176500
+176600****=====================
+176700****    QIP IND = '  '   PAYMENT RATE IS HIGHER  (TABLE 1)
+176800****=====================
+176900****    CALCULATE HOME RATE BY REVENUE CODE (NO QIP REDUCTION)
+177000****    CALCULATE HOME RATE BY REVENUE CODE (NO QIP REDUCTION)
+177100
+177200
+177300     IF BILL-REV1 = '0651'
+177400        COMPUTE WRK-PAY-RATE1 ROUNDED =
+177500         ((109.48 * BILL-BENE-WAGE-INDEX) + 49.86) * BILL-UNITS1.
+177600
+177700
+177800     IF BILL-REV2 = '0652'
+177900        IF BILL-UNITS2 > 0
+178000           IF BILL-UNITS2 < 32
+178100             COMPUTE WRK-PAY-RATE2 ROUNDED =
+178200               ((109.48 * BILL-BENE-WAGE-INDEX) + 49.86)
+178300           ELSE
+178400             COMPUTE WRK-PAY-RATE2 ROUNDED =
+178500               (((638.94 * BILL-BENE-WAGE-INDEX)
+178600                      + 290.97) / 24) * (BILL-UNITS2 / 4).
+178700
+178800
+178900     IF BILL-REV3 = '0655'
+179000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+179100          ((89.21 * BILL-PROV-WAGE-INDEX) + 75.60) * BILL-UNITS3.
+179200
+179300
+179400
+179500
+179600     IF BILL-REV4 = '0656'
+179700        COMPUTE WRK-PAY-RATE4 ROUNDED =
+179800         ((453.68 * BILL-PROV-WAGE-INDEX) + 255.09) * BILL-UNITS4.
+179900
+180000
+180100 2015-NO-QIP-EXIT. EXIT.
+180200
+180300
+180400 2015-APPLY-QIP.
+180500
+180600
+180700****=====================
+180800****    QIP IND = '1'    >> PAYMENT RATE IS LOWER (TABLE 2)
+180900****=====================
+181000****    CALCULATE HOME RATE BY REVENUE CODE (WITH QIP REDUCTION)
+181100****    CALCULATE HOME RATE BY REVENUE CODE (WITH QIP REDUCTION)
+181200
+181300     IF BILL-REV1 = '0651'
+181400        COMPUTE WRK-PAY-RATE1 ROUNDED =
+181500          ((107.34 * BILL-BENE-WAGE-INDEX) + 48.88) * BILL-UNITS1.
+181600
+181700     IF BILL-REV2 = '0652'
+181800        IF BILL-UNITS2 > 0
+181900           IF BILL-UNITS2 < 32
+182000             COMPUTE WRK-PAY-RATE2 ROUNDED =
+182100               ((107.34 * BILL-BENE-WAGE-INDEX) + 48.88)
+182200           ELSE
+182300             COMPUTE WRK-PAY-RATE2 ROUNDED =
+182400               (((626.42 * BILL-BENE-WAGE-INDEX)
+182500                      + 285.27) / 24) * (BILL-UNITS2 / 4).
+182600
+182700     IF BILL-REV3 = '0655'
+182800        COMPUTE WRK-PAY-RATE3 ROUNDED =
+182900          ((87.46 * BILL-PROV-WAGE-INDEX) + 74.12) * BILL-UNITS3.
+183000
+183100     IF BILL-REV4 = '0656'
+183200        COMPUTE WRK-PAY-RATE4 ROUNDED =
+183300        ((444.79 * BILL-PROV-WAGE-INDEX) + 250.09) * BILL-UNITS4.
+183400
+183500
+183600 2015-QIP-EXIT. EXIT.
+183700
+183800
+183900****========================================================****
+184000****==============  BEGIN V160 PROCESS  ====================****
+184100****=========  VALID FROM 10/01/15 THRU 12/31/15  ==========****
+184200****========================================================****
+184300
+184400 2016-PROCESS-DATA.
+184500
+184600     IF BILL-UNITS1 > 1000 OR
+184700        BILL-UNITS2 > 1000 OR
+184800        BILL-UNITS3 > 1000 OR
+184900        BILL-UNITS4 > 1000
+185000        MOVE '10'              TO BILL-RTC
+185100        GO TO 2016-EXIT.
+185200
+185300
+185400     IF BILL-QIP-IND = '1'
+185500        PERFORM 2016-APPLY-QIP
+185600           THRU 2016-QIP-EXIT
+185700     ELSE
+185800        PERFORM 2016-APPLY-NO-QIP
+185900           THRU 2016-NO-QIP-EXIT.
+186000
+186100     COMPUTE BILL-PAY-AMT-TOTAL =
+186200             WRK-PAY-RATE1 +
+186300             WRK-PAY-RATE2 +
+186400             WRK-PAY-RATE3 +
+186500             WRK-PAY-RATE4.
+186600
+186700
+186800     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+186900     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+187000     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+187100     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+187200
+187300
+187400     MOVE ZEROES               TO WRK-PAY-RATE1
+187500                                  WRK-PAY-RATE2
+187600                                  WRK-PAY-RATE3
+187700                                  WRK-PAY-RATE4.
+187800
+187900 2016-EXIT. EXIT.
+188000
+188100 2016-APPLY-NO-QIP.
+188200
+188300
+188400****=====================================================
+188500****    QIP IND = '  '   PAYMENT RATE IS HIGHER  (TABLE 1)
+188600****======================================================
+188700****    CALCULATE HOME RATE BY REVENUE CODE (NO QIP REDUCTION)
+188800****    CALCULATE HOME RATE BY REVENUE CODE (NO QIP REDUCTION)
+188900
+189000****============================================================
+189100****  V16.0  RHC - ROUTINE HOME CARE = REVENUE CODE = 0651
+189200****============================================================
+189300
+189400
+189500     IF BILL-REV1 = '0651'
+189600        COMPUTE WRK-PAY-RATE1 ROUNDED =
+189700     ((2016-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+189800        + 2016-RHC-NLS-RATE)  * BILL-UNITS1.
+189900
+190000
+190100****============================================================
+190200**** V16.0 CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+190300****============================================================
+190400
+190500     IF BILL-REV2 = '0652'
+190600        IF BILL-UNITS2 > 0
+190700           IF BILL-UNITS2 < 32
+190800             COMPUTE WRK-PAY-RATE2 ROUNDED =
+190900             ((2016-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+191000                  + 2016-RHC-NLS-RATE)
+191100           ELSE
+191200             COMPUTE WRK-PAY-RATE2 ROUNDED =
+191300              (((2016-CHC-LS-RATE *  BILL-BENE-WAGE-INDEX)
+191400                  + 2016-CHC-NLS-RATE) / 24) * (BILL-UNITS2 / 4).
+191500
+191600
+191700
+191800****============================================================
+191900**** V16.0 IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+192000****============================================================
+192100
+192200
+192300     IF BILL-REV3 = '0655'
+192400        COMPUTE WRK-PAY-RATE3 ROUNDED =
+192500            ((2016-IRC-LS-RATE * BILL-PROV-WAGE-INDEX)
+192600                  + 2016-IRC-NLS-RATE) *  BILL-UNITS3.
+192700
+192800
+192900
+193000****============================================================
+193100****  V16.0 GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+193200****============================================================
+193300
+193400
+193500     IF BILL-REV4 = '0656'
+193600        COMPUTE WRK-PAY-RATE4 ROUNDED =
+193700            ((2016-GIC-LS-RATE * BILL-PROV-WAGE-INDEX)
+193800                  + 2016-GIC-NLS-RATE) *  BILL-UNITS4.
+193900
+194000 2016-NO-QIP-EXIT. EXIT.
+194100
+194200
+194300 2016-APPLY-QIP.
+194400
+194500*
+194600****=====================
+194700****    QIP IND = '1'    >> PAYMENT RATE IS LOWER (TABLE 2)
+194800****=====================
+194900****    CALCULATE HOME RATE BY REVENUE CODE (WITH QIP REDUCTION)
+195000****    CALCULATE HOME RATE BY REVENUE CODE (WITH QIP REDUCTION)
+195100
+195200
+195300     IF BILL-REV1 = '0651'
+195400        COMPUTE WRK-PAY-RATE1 ROUNDED =
+195500            ((2016-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+195600                  + 2016-RHC-NLS-RATE-Q) *  BILL-UNITS1.
+195700
+195800****============================================================
+195900****  V16.0 CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+196000****============================================================
+196100
+196200     IF BILL-REV2 = '0652'
+196300        IF BILL-UNITS2 > 0
+196400           IF BILL-UNITS2 < 32
+196500             COMPUTE WRK-PAY-RATE2 ROUNDED =
+196600              ((2016-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+196700                  + 2016-RHC-NLS-RATE-Q)
+196800           ELSE
+196900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+197000              (((2016-CHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+197100                + 2016-CHC-NLS-RATE-Q) / 24) * (BILL-UNITS2 / 4).
+197200
+197300
+197400****============================================================
+197500****  V16.0  IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+197600****============================================================
+197700
+197800     IF BILL-REV3 = '0655'
+197900        COMPUTE WRK-PAY-RATE3 ROUNDED =
+198000            ((2016-IRC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+198100                  + 2016-IRC-NLS-RATE-Q) *  BILL-UNITS3.
+198200
+198300
+198400****============================================================
+198500**** V16.0 GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+198600****============================================================
+198700
+198800
+198900     IF BILL-REV4 = '0656'
+199000        COMPUTE WRK-PAY-RATE4 ROUNDED =
+199100            ((2016-GIC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+199200                  + 2016-GIC-NLS-RATE-Q) *  BILL-UNITS4.
+199300
+199400
+199500 2016-QIP-EXIT. EXIT.
+199600
+199700****==============  END OF V160 PROCESS  ===================****
+199800****=========  VALID FROM 10/01/15 THRU 12/31/15  ==========****
+199900
+200000
+200100
+200200****========================================================****
+200300****==============  BEGIN V161 PROCESS  ====================****
+200400****=========  VALID FROM 01/01/16 THRU 09/30/16  ==========****
+200500****========================================================****
+200600
+200700
+200800****************************************************************
+200900**** V16.1   MAINLINE PROCESS FOR V161
+201000****************************************************************
+201100 2016-V161-PROCESS-DATA.
+201200
+201300
+201400*---------------------------------------------------------------
+201500*  VALIDATE BILL INPUT DATA - UNITS
+201600*---------------------------------------------------------------
+201700     IF BILL-UNITS1 > 1000 OR
+201800        BILL-UNITS2 > 1000 OR
+201900        BILL-UNITS3 > 1000 OR
+202000        BILL-UNITS4 > 1000
+202100        MOVE '10' TO BILL-RTC
+202200        GO TO 2016-V161-PROCESS-EXIT
+202300     END-IF.
+202400
+202500
+202600*---------------------------------------------------------------
+202700*  CALCULATE PAYMENT FOR EACH LEVEL OF CARE BY REVENUE CODE
+202800*---------------------------------------------------------------
+202900     IF BILL-REV1 = '0651'
+203000        PERFORM 2016-V161-RHC-0651
+203100           THRU 2016-V161-RHC-0651-EXIT.
+203300
+203200
+203300
+203400     IF BILL-REV2 = '0652'
+203500        PERFORM 2020-V200-CHC-0652
+203600           THRU 2020-V200-CHC-0652-EXIT.
+203700
+203800
+203900     IF BILL-REV3 = '0655'
+204000        PERFORM 2020-V200-IRC-0655
+204100           THRU 2020-V200-IRC-0655-EXIT.
+204200
+204300
+204400     IF BILL-REV4 = '0656'
+204500        PERFORM 2020-V200-GIC-0656
+204600           THRU 2020-V200-GIC-0656-EXIT.
+204700
+204800
+204900*---------------------------------------------------------------
+205000*  CALCULATE TOTAL CLAIM PAYMENT
+205100*---------------------------------------------------------------
+205200     COMPUTE BILL-PAY-AMT-TOTAL =
+205300             WRK-PAY-RATE1 +
+205400             WRK-PAY-RATE2 +
+205500             WRK-PAY-RATE3 +
+205600             WRK-PAY-RATE4 +
+205700             SIA-PAY-AMT-TOTAL.
+205800
+205900
+206000*---------------------------------------------------------------
+206100*  MOVE EACH LEVEL OF CARE'S PAYMENT TO THE OUTPUT RECORD
+206200*---------------------------------------------------------------
+206300     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+206400     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+206500     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+206600     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+206700
+206800
+206900*---------------------------------------------------------------
+207000*  INITIALIZE WORKING STORAGE PAYMENT VARIABLES
+207100*---------------------------------------------------------------
+207200     MOVE ZEROES               TO WRK-PAY-RATE1
+207300                                  WRK-PAY-RATE2
+207400                                  WRK-PAY-RATE3
+207500                                  WRK-PAY-RATE4.
+207600
+207700 2016-V161-PROCESS-EXIT.
+207800     EXIT.
+207900
+208000
+208100
+208200****************************************************************
+208300**** V16.1   RHC - ROUTINE HOME CARE = REVENUE CODE = 0651
+208400****************************************************************
+208500 2016-V161-RHC-0651.
+208600
+208700
+208800*==================================================
+208900*  >>> IF REVENUE CODE '0651' UNITS > 0         <<<
+209000*  >>> [THE DAY IS AN RHC LEVEL OF CARE DAY]    <<<
+209100*  >>> 1 UNIT = 1 DAY                           <<<
+209200*==================================================
+209300     IF BILL-UNITS1 NOT > 0
+209400        GO TO 2016-V161-RHC-0651-EXIT
+209500     END-IF.
+209600
+209700
+209800*---------------------------------------------------------------
+209900* DATE ERROR - CANNOT CONTINUE RHC LEVEL OF CARE DAY PROCESSING
+210000*---------------------------------------------------------------
+210100     IF BILL-LINE-ITEM-DOS1 < BILL-ADMISSION-DATE
+210200        GO TO 2016-V161-RHC-0651-EXIT
+210300     END-IF.
+210400
+210500
+210600*---------------------------------------------------------------
+210700* CALCULATE RHC LEVEL OF CARE DAY PAYMENT
+210800*---------------------------------------------------------------
+210900
+211000     MOVE BILL-LINE-ITEM-DOS1 TO DATE-2-DOS.
+211100     PERFORM V161-CALC-PRIOR-SVC-DAYS
+211200        THRU V161-CALC-PRIOR-SVC-DAYS-EXIT.
+211300
+211400     PERFORM V161-EVAL-RHC-DAYS
+211500        THRU V161-EVAL-RHC-DAYS-EXIT.
+211600
+211700     PERFORM V161-CALC-RHC-EOL-SIA
+211800        THRU V161-CALC-RHC-EOL-SIA-EXIT.
+211900
+212000     PERFORM V161-SUM-RHC-0651-RATE
+212100        THRU V161-SUM-RHC-0651-RATE-EXIT.
+212200
+212300
+212400 2016-V161-RHC-0651-EXIT.
+212500     EXIT.
+212600
+212700
+212800
+212900****************************************************************
+213000 V161-EVAL-RHC-DAYS.
+213100****************************************************************
+213200
+213300*---------------------------------------------------------------
+213400* SERVICE BEYOND 60TH DAY - APPLY RHC LOW RATE TO ALL RHC DAYS
+213500*---------------------------------------------------------------
+213600     IF PRIOR-SVC-DAYS >= 60
+213700        MOVE BILL-UNITS1 TO LR-BILL-UNITS1
+213800        PERFORM V161-APPLY-LOW-RHC-RATE
+213900           THRU V161-APPLY-LOW-RHC-RATE-EXIT
+214000        GO TO V161-EVAL-RHC-DAYS-EXIT
+214100     END-IF.
+214200
+214300
+214400*---------------------------------------------------------------
+214500* SERVICE ON 60TH DAY OR EARLIER - APPLY RHC HIGH/LOW RATES
+214600*---------------------------------------------------------------
+214700     IF PRIOR-SVC-DAYS < 60
+214800        COMPUTE HIGH-RATE-DAYS-LEFT = 60 - PRIOR-SVC-DAYS
+214900
+215000
+215100*---------------------------------------------------------------
+215200* - RHC DAYS <= HIGH RATE DAYS LEFT - APPLY RHC HIGH RATE TO ALL
+215300*---------------------------------------------------------------
+215400        IF BILL-UNITS1 <= HIGH-RATE-DAYS-LEFT
+215500           MOVE BILL-UNITS1 TO HR-BILL-UNITS1
+215600           PERFORM V161-APPLY-HIGH-RHC-RATE
+215700              THRU V161-APPLY-HIGH-RHC-RATE-EXIT
+215800           GO TO V161-EVAL-RHC-DAYS-EXIT
+215900
+216000
+216100*---------------------------------------------------------------
+216200* - RHC DAYS > HIGH RATE DAYS LEFT - APPLY RHC HIGH & LOW RATES
+216300*---------------------------------------------------------------
+216400        ELSE
+216500
+216600           MOVE HIGH-RATE-DAYS-LEFT TO HR-BILL-UNITS1
+216700           PERFORM V161-APPLY-HIGH-RHC-RATE
+216800              THRU V161-APPLY-HIGH-RHC-RATE-EXIT
+216900
+217000           COMPUTE LR-BILL-UNITS1 =
+217100                   BILL-UNITS1 - HR-BILL-UNITS1
+217200           PERFORM V161-APPLY-LOW-RHC-RATE
+217300              THRU V161-APPLY-LOW-RHC-RATE-EXIT
+217400
+217500        END-IF
+217600     END-IF.
+217700
+217800
+217900 V161-EVAL-RHC-DAYS-EXIT.
+218000     EXIT.
+218100
+218200
+218300
+218400****************************************************************
+218500**** V16.1   CALCULATE RHC LOW-RATE PAYMENT
+218600****************************************************************
+218700 V161-APPLY-LOW-RHC-RATE.
+218900*---------------------------------------------------------------
+219000* QIP REDUCTION APPLIED
+219100*---------------------------------------------------------------
+219200     IF BILL-QIP-IND = '1'
+219300        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+219400           ((2016-V161-LOW-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+219500           + 2016-V161-LOW-RHC-NLS-RATE-Q) *  LR-BILL-UNITS1
+219600
+219700*---------------------------------------------------------------
+219800* NO QIP REDUCTION
+219900*---------------------------------------------------------------
+220000     ELSE
+220100        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+220200           ((2016-V161-LOW-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+220300           + 2016-V161-LOW-RHC-NLS-RATE) *  LR-BILL-UNITS1
+220400     END-IF.
+220500
+220600     MOVE 'Y' TO RHC-LOW-DAY-IND.
+220700
+220800
+220900 V161-APPLY-LOW-RHC-RATE-EXIT.
+221000     EXIT.
+221100
+221200
+221300
+221400****************************************************************
+221500**** V16.1   CALCULATE RHC HIGH-RATE PAYMENT
+221600****************************************************************
+221700 V161-APPLY-HIGH-RHC-RATE.
+221800
+221900*---------------------------------------------------------------
+222000* QIP REDUCTION APPLIED
+222100*---------------------------------------------------------------
+222200     IF BILL-QIP-IND = '1'
+222300        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+222400           ((2016-V161-HIGH-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+222500           + 2016-V161-HIGH-RHC-NLS-RATE-Q) *  HR-BILL-UNITS1
+222600
+222700*---------------------------------------------------------------
+222800* NO QIP REDUCTION
+222900*---------------------------------------------------------------
+223000     ELSE
+223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+223200           ((2016-V161-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+223300           + 2016-V161-HIGH-RHC-NLS-RATE) *  HR-BILL-UNITS1
+223400     END-IF.
+223500
+223600     MOVE 'Y' TO RHC-HIGH-DAY-IND.
+223700
+223800
+223900 V161-APPLY-HIGH-RHC-RATE-EXIT.
+224000     EXIT.
+224100
+224200
+224300
+224400****************************************************************
+224500**** V16.1   CALCULATE END-OF-LIFE SERVICE-INTENSITY ADD-ON
+224600****************************************************************
+224700 V161-CALC-RHC-EOL-SIA.
+224800
+224900*===============================================================
+225000*  SET  INDICATOR  [SIA-UNITS-IND = 'Y']
+225100*  SIA INDICATOR WILL BE USED TO HELP DETERMINE THE CORRECT RTC
+225200*===============================================================
+225300     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES OR
+225400         BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES OR
+225500         BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES OR
+225600         BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES OR
+225700         BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES OR
+225800         BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES OR
+225900         BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+226000
+226100         MOVE 'Y' TO SIA-UNITS-IND
+226200     ELSE
+226300         MOVE 'N' TO SIA-UNITS-IND
+226400         GO TO V161-CALC-RHC-EOL-SIA-EXIT
+226500     END-IF.
+226600
+226700
+226800*===============================================================
+226900*     IF ANY OF THE EOL FIELDS ARE GREATER THAN ZERO
+227000*     THEN COMPUTE THE >> CHC-WAGE-INDEXED-RATE << FOR
+227100*     SIA PAYMENT AMOUNT CALCULATION (QIP OR NON-QIP)
+227200*===============================================================
+227300
+227400*---------------------------------------------------------------
+227500* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/ QIP REDUCTION
+227600*---------------------------------------------------------------
+227700     IF  BILL-QIP-IND = '1'
+227800         COMPUTE SIA-PYMT-RATE ROUNDED =
+227900           (((2016-V161-CHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+228000                + 2016-V161-CHC-NLS-RATE-Q) / 24)
+228100
+228200*---------------------------------------------------------------
+228300* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/OUT QIP REDUCT.
+228400*---------------------------------------------------------------
+228500     ELSE
+228600         COMPUTE SIA-PYMT-RATE ROUNDED =
+228700           (((2016-V161-CHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+228800                + 2016-V161-CHC-NLS-RATE) / 24)
+228900     END-IF.
+229000
+229100
+229200*===============================================================
+229300*     CALCULATE END OF LIFE SIA PAYMENT FOR UP TO 7 DAYS
+229400*       - SIA UNITS IN 15 MIN BLOCKS - CONVERT TO HOURS
+229500*       - SIA PAYMENT AMT IS CAPPED AT 4 HOURS
+229600*===============================================================
+229700
+229800*---------------------------------------------------------------
+229900* CALCULATE >> DAY 1 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+230000*---------------------------------------------------------------
+230100     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES
+230200         COMPUTE EOL-UNITS1 = BILL-EOL-ADD-ON-DAY1-UNITS
+230400
+230500         IF EOL-UNITS1 >= 16
+230600             MOVE 4 TO EOL-HOURS1
+230700         ELSE
+230800             COMPUTE EOL-HOURS1 ROUNDED = (EOL-UNITS1 / 4)
+230900         END-IF
+231000
+231100         COMPUTE BILL-EOL-ADD-ON-DAY1-PAY ROUNDED =
+231200                 EOL-HOURS1 * SIA-PYMT-RATE
+231300
+231400     END-IF.
+231500
+231600
+231700*---------------------------------------------------------------
+231800* CALCULATE >> DAY 2 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+231900*---------------------------------------------------------------
+232000     IF  BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES
+232100         COMPUTE EOL-UNITS2 =  BILL-EOL-ADD-ON-DAY2-UNITS
+232300
+232400         IF EOL-UNITS2 >= 16
+232500             MOVE 4 TO EOL-HOURS2
+232600         ELSE
+232700             COMPUTE EOL-HOURS2 ROUNDED = (EOL-UNITS2 / 4)
+232800         END-IF
+232900
+233000         COMPUTE BILL-EOL-ADD-ON-DAY2-PAY  ROUNDED =
+233100                 EOL-HOURS2 * SIA-PYMT-RATE
+233200     END-IF.
+233300
+233400
+233500*---------------------------------------------------------------
+233600* CALCULATE >> DAY 3 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+233700*---------------------------------------------------------------
+233800     IF  BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES
+234000         COMPUTE EOL-UNITS3 = BILL-EOL-ADD-ON-DAY3-UNITS
+234100
+234200         IF EOL-UNITS3 >= 16
+234300             MOVE 4 TO EOL-HOURS3
+234400         ELSE
+234500             COMPUTE EOL-HOURS3 ROUNDED = (EOL-UNITS3 / 4)
+234600         END-IF
+234700
+234800         COMPUTE BILL-EOL-ADD-ON-DAY3-PAY  ROUNDED =
+234900                 EOL-HOURS3 * SIA-PYMT-RATE
+235000     END-IF.
+235100
+235200
+235300*---------------------------------------------------------------
+235400* CALCULATE >> DAY 4 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+235500*---------------------------------------------------------------
+235600     IF  BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES
+235700         COMPUTE EOL-UNITS4 =  BILL-EOL-ADD-ON-DAY4-UNITS
+235900
+236000         IF EOL-UNITS4 >= 16
+236100             MOVE 4 TO EOL-HOURS4
+236200         ELSE
+236300             COMPUTE EOL-HOURS4 ROUNDED = (EOL-UNITS4 / 4)
+236400         END-IF
+236500
+236600         COMPUTE BILL-EOL-ADD-ON-DAY4-PAY ROUNDED =
+236700                 EOL-HOURS4 * SIA-PYMT-RATE
+236800     END-IF.
+236900
+237000
+237100*---------------------------------------------------------------
+237200* CALCULATE >> DAY 5 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+237300*---------------------------------------------------------------
+237400     IF  BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES
+237500         COMPUTE EOL-UNITS5 = BILL-EOL-ADD-ON-DAY5-UNITS
+237700
+237800         IF EOL-UNITS5 >= 16
+237900             MOVE 4 TO EOL-HOURS5
+238000         ELSE
+238100             COMPUTE EOL-HOURS5 ROUNDED = (EOL-UNITS5 / 4)
+238200         END-IF
+238300
+238400         COMPUTE BILL-EOL-ADD-ON-DAY5-PAY ROUNDED =
+238500                 EOL-HOURS5 * SIA-PYMT-RATE
+238600     END-IF.
+238700
+238800
+238900*---------------------------------------------------------------
+239000* CALCULATE >> DAY 6 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+239100*---------------------------------------------------------------
+239200     IF  BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES
+239300         COMPUTE EOL-UNITS6 =   BILL-EOL-ADD-ON-DAY6-UNITS
+239500
+239600         IF EOL-UNITS6 >= 16
+239700             MOVE 4 TO EOL-HOURS6
+239800         ELSE
+239900             COMPUTE EOL-HOURS6 ROUNDED = (EOL-UNITS6 / 4)
+240000         END-IF
+240100
+240200         COMPUTE BILL-EOL-ADD-ON-DAY6-PAY ROUNDED =
+240300                 EOL-HOURS6 * SIA-PYMT-RATE
+240400     END-IF.
+240500
+240600
+240700*---------------------------------------------------------------
+240800* CALCULATE >> DAY 7 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+240900*---------------------------------------------------------------
+241000     IF  BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+241100         COMPUTE EOL-UNITS7 =  BILL-EOL-ADD-ON-DAY7-UNITS
+241300
+241400         IF EOL-UNITS7 >= 16
+241500             MOVE 4 TO EOL-HOURS7
+241600         ELSE
+241700             COMPUTE EOL-HOURS7 ROUNDED = (EOL-UNITS7 / 4)
+241800         END-IF
+241900
+242000         COMPUTE BILL-EOL-ADD-ON-DAY7-PAY ROUNDED =
+242100                 EOL-HOURS7 * SIA-PYMT-RATE
+242200     END-IF.
+242300
+242400
+242500*---------------------------------------------------------------
+242600*  CALCULATE >> TOTAL CLAIM EOL SIA ADD-ON PAYMENT
+242700*---------------------------------------------------------------
+242800     COMPUTE SIA-PAY-AMT-TOTAL =
+242900             BILL-EOL-ADD-ON-DAY1-PAY +
+243000             BILL-EOL-ADD-ON-DAY2-PAY +
+243100             BILL-EOL-ADD-ON-DAY3-PAY +
+243200             BILL-EOL-ADD-ON-DAY4-PAY +
+243300             BILL-EOL-ADD-ON-DAY5-PAY +
+243400             BILL-EOL-ADD-ON-DAY6-PAY +
+243500             BILL-EOL-ADD-ON-DAY7-PAY.
+243600
+243700
+243800 V161-CALC-RHC-EOL-SIA-EXIT.
+243900     EXIT.
+244000
+244100
+244200
+244300****************************************************************
+244400**** V16.1   RHC - SUM RHC '0651' COMPONENTS
+244500****************************************************************
+244600 V161-SUM-RHC-0651-RATE.
+244700
+244800
+244900****============================================================
+245000**** CALCULATE TOTAL RHC PAYMENT
+245100****============================================================
+245200     COMPUTE WRK-PAY-RATE1 =
+245300             HR-BILL-PAY-AMT1 + LR-BILL-PAY-AMT1.
+245400
+245500
+245600****============================================================
+245700**** ASSIGN RHC RETURN CODE (RTC)
+245800****============================================================
+245900
+246000*---------------------------------------------------------------
+246100* END-OF-LIFE (EOL) SERVICE INTENSITY (SIA) ADD-ON PRESENT
+246200*---------------------------------------------------------------
+246300     IF SIA-UNITS-IND = 'Y'
+246400
+246500*---------------------------------------------------------------
+246600*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & EOL SIA
+246700*---------------------------------------------------------------
+246800        IF RHC-HIGH-DAY-IND = 'Y'
+246900           MOVE '77' TO BILL-RTC
+247000
+247100*---------------------------------------------------------------
+247200*     LOW RHC RATE APPLIES TO ALL RHC & EOL SIA
+247300*---------------------------------------------------------------
+247400        ELSE
+247500           IF RHC-LOW-DAY-IND = 'Y'
+247600              MOVE '74' TO BILL-RTC
+247700           END-IF
+247800        END-IF
+247900     END-IF.
+248000
+248100
+248200*---------------------------------------------------------------
+248300* END-OF-LIFE (EOL) SERVICE INTENSITY ADD-ON (SIA) NOT PRESENT
+248400*---------------------------------------------------------------
+248500     IF SIA-UNITS-IND = 'N'
+248600
+248700*---------------------------------------------------------------
+248800*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & NO EOL SIA
+248900*---------------------------------------------------------------
+249000        IF RHC-HIGH-DAY-IND = 'Y'
+249100           MOVE '75' TO BILL-RTC
+249200
+249300*---------------------------------------------------------------
+249400*     LOW RHC RATE APPLIES TO ALL RHC & NO EOL SIA
+249500*---------------------------------------------------------------
+249600        ELSE
+249700           IF RHC-LOW-DAY-IND = 'Y'
+249800              MOVE '73' TO BILL-RTC
+249900           END-IF
+250000        END-IF
+250100     END-IF.
+250200
+250300
+250400 V161-SUM-RHC-0651-RATE-EXIT.
+250500     EXIT.
+250600
+250700
+250800
+250900****************************************************************
+251000**** V16.1   CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+251100****************************************************************
+251200 2016-V161-CHC-0652.
+251300
+251400*==================================================
+251500*  >>> IF REVENUE CODE '0652' UNITS > 0         <<<
+251600*  >>> [THE DAY IS A CHC LEVEL OF CARE DAY]     <<<
+251700*  >>> 1 UNIT = 15 MIN.                         <<<
+251800*==================================================
+251900     IF BILL-UNITS2 NOT > 0
+252000        GO TO 2016-V161-CHC-0652-EXIT
+252100     END-IF.
+252200
+252300
+252400*---------------------------------------------------------------
+252500* IF USING THE RHC RATE (LESS THAN 32 UNITS/8 HOURS):
+252600*    CALCULATE NUMBER OF SERVICE DAYS PRIOR TO CHC SERVICE DATE
+252700*---------------------------------------------------------------
+252800     IF BILL-UNITS2 < 32
+252900        INITIALIZE DATE-CALCULATION-FIELDS
+253000        MOVE BILL-LINE-ITEM-DOS2 TO DATE-2-DOS
+253100        PERFORM V161-CALC-PRIOR-SVC-DAYS
+253200           THRU V161-CALC-PRIOR-SVC-DAYS-EXIT
+253300     END-IF.
+253400
+253500
+253600****============================================================
+253700**** CHC - APPLY QIP REDUCTION
+253800****============================================================
+253900     IF BILL-QIP-IND = '1'
+254000
+254100*---------------------------------------------------------------
+254200*  PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+254300*---------------------------------------------------------------
+254400        IF BILL-UNITS2 < 32
+254500
+254600*---------------------------------------------------------------
+254700*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+254800*---------------------------------------------------------------
+254900           IF PRIOR-SVC-DAYS < 60
+255000              COMPUTE WRK-PAY-RATE2 ROUNDED =
+255100                      ((2016-V161-HIGH-RHC-LS-RATE-Q *
+255200                        BILL-BENE-WAGE-INDEX) +
+255300                        2016-V161-HIGH-RHC-NLS-RATE-Q)
+255400
+255500*---------------------------------------------------------------
+255600*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+255700*---------------------------------------------------------------
+255800           ELSE
+255900              COMPUTE WRK-PAY-RATE2 ROUNDED =
+256000                      ((2016-V161-LOW-RHC-LS-RATE-Q *
+256100                        BILL-BENE-WAGE-INDEX) +
+256200                        2016-V161-LOW-RHC-NLS-RATE-Q)
+256300           END-IF
+256400
+256500
+256600*---------------------------------------------------------------
+256700*  PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+256800*      - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+256900*      - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+257000*---------------------------------------------------------------
+257100        ELSE
+257200           COMPUTE WRK-PAY-RATE2 ROUNDED =
+257300                   (((2016-V161-CHC-LS-RATE-Q *
+257400                      BILL-BENE-WAGE-INDEX) +
+257500                      2016-V161-CHC-NLS-RATE-Q) / 24) *
+257600                      (BILL-UNITS2 / 4)
+257700        END-IF
+257800
+257900        GO TO 2016-V161-CHC-0652-EXIT
+258000
+258100     END-IF.
+258200
+258300
+258400****============================================================
+258500**** CHC - NO QIP REDUCTION  CODE = 0652
+258600****============================================================
+258700     IF BILL-QIP-IND NOT = '1'
+258800
+258900*---------------------------------------------------------------
+259000*    PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+259100*---------------------------------------------------------------
+259200        IF BILL-UNITS2 < 32
+259300
+259400*---------------------------------------------------------------
+259500*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+259600*---------------------------------------------------------------
+259700           IF PRIOR-SVC-DAYS < 60
+259800              COMPUTE WRK-PAY-RATE2 ROUNDED =
+259900                      ((2016-V161-HIGH-RHC-LS-RATE *
+260000                        BILL-BENE-WAGE-INDEX) +
+260100                        2016-V161-HIGH-RHC-NLS-RATE)
+260200
+260300*---------------------------------------------------------------
+260400*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+260500*---------------------------------------------------------------
+260600           ELSE
+260700              COMPUTE WRK-PAY-RATE2 ROUNDED =
+260800                      ((2016-V161-LOW-RHC-LS-RATE *
+260900                        BILL-BENE-WAGE-INDEX) +
+261000                        2016-V161-LOW-RHC-NLS-RATE)
+261100           END-IF
+261200
+261300*---------------------------------------------------------------
+261400*    PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+261500*        - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+261600*        - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+261700*---------------------------------------------------------------
+261800        ELSE
+261900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+262000                     (((2016-V161-CHC-LS-RATE *
+262100                        BILL-BENE-WAGE-INDEX) +
+262200                        2016-V161-CHC-NLS-RATE) / 24) *
+262300                        (BILL-UNITS2 / 4)
+262400        END-IF
+262500     END-IF.
+262600
+262700
+262800 2016-V161-CHC-0652-EXIT.
+262900     EXIT.
+263000
+263100
+263200
+263300****************************************************************
+263400**** V16.1 IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+263500****************************************************************
+263600 2016-V161-IRC-0655.
+263700
+263800****============================================================
+263900**** CALCULATE IRC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+264000****============================================================
+264100     IF BILL-QIP-IND = '1'
+264200        COMPUTE WRK-PAY-RATE3 ROUNDED =
+264300               ((2016-V161-IRC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+264400                 + 2016-V161-IRC-NLS-RATE-Q) *  BILL-UNITS3
+264500
+264600****============================================================
+264700**** CALCULATE IRC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+264800****============================================================
+264900     ELSE
+265000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+265100               ((2016-V161-IRC-LS-RATE * BILL-PROV-WAGE-INDEX)
+265200                 + 2016-V161-IRC-NLS-RATE) *  BILL-UNITS3
+265300     END-IF.
+265400
+265500
+265600 2016-V161-IRC-0655-EXIT.
+265700     EXIT.
+265800
+265900
+266000
+266100****************************************************************
+266200****    GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+266300****************************************************************
+266400 2016-V161-GIC-0656.
+266500
+266600****============================================================
+266700**** CALCULATE GIC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+266800****============================================================
+266900     IF BILL-QIP-IND = '1'
+267000        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267100               ((2016-V161-GIC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+267200                 + 2016-V161-GIC-NLS-RATE-Q) *  BILL-UNITS4
+267300
+267400****============================================================
+267500**** CALCULATE GIC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+267600****============================================================
+267700     ELSE
+267800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267900               ((2016-V161-GIC-LS-RATE * BILL-PROV-WAGE-INDEX)
+268000                 + 2016-V161-GIC-NLS-RATE) *  BILL-UNITS4
+268100     END-IF.
+268200
+268300 2016-V161-GIC-0656-EXIT.
+268400     EXIT.
+268500
+268600
+268700
+268800****************************************************************
+268900 V161-CALC-PRIOR-SVC-DAYS.
+269000****************************************************************
+269100
+269200*---------------------------------------------------------------
+269300* GET ADMISSION DATE (SERVICE DATE SET PRIOR TO THIS PARAGRAPH)
+269400*---------------------------------------------------------------
+269500     MOVE BILL-ADMISSION-DATE TO DATE-1-ADM.
+269600
+269700
+269800*---------------------------------------------------------------
+269900* CONVERT ADMISSION AND SERVICE DATES INTO INTEGERS
+270000*---------------------------------------------------------------
+270100     COMPUTE DATE-1-ADM-INTEGER =
+270200             FUNCTION INTEGER-OF-DATE (DATE-1-ADM).
+270300
+270400     COMPUTE DATE-2-DOS-INTEGER =
+270500             FUNCTION INTEGER-OF-DATE (DATE-2-DOS).
+270600
+270700
+270800*---------------------------------------------------------------
+270900* CALCULATE DAYS ELAPSED BETWEEN ADMISSION AND SERVICE DATES
+271000*---------------------------------------------------------------
+271100     COMPUTE DAYS-BETWEEN-DATES =
+271200             DATE-2-DOS-INTEGER - DATE-1-ADM-INTEGER.
+271300
+271400
+271500*---------------------------------------------------------------
+271600* DETERMINE THE NUMBER OF PRIOR BENEFIT DAYS
+271700*---------------------------------------------------------------
+271800     IF BILL-NA-ADD-ON-DAY1-UNITS > ZEROES
+271900         COMPUTE PRIOR-BENEFIT-DAYS = BILL-NA-ADD-ON-DAY1-UNITS
+272100     ELSE
+272200         MOVE ZERO        TO PRIOR-BENEFIT-DAYS
+272300     END-IF.
+272400
+272500
+272600*---------------------------------------------------------------
+272700* CALCULATE TOTAL DAYS SINCE ADMISSION & BEFORE SERVICE DATE
+272800*---------------------------------------------------------------
+272900     COMPUTE PRIOR-SVC-DAYS =
+273000             DAYS-BETWEEN-DATES + PRIOR-BENEFIT-DAYS.
+273100
+273200
+273300 V161-CALC-PRIOR-SVC-DAYS-EXIT.
+273400     EXIT.
+273500
+273600
+200300****==============  BEGIN V170 PROCESS  ====================****
+200400****=========  VALID FROM 10/01/16 THRU 09/30/17  ==========****
+200500****========================================================****
+200600
+200700
+200800****************************************************************
+200900**** V17.0   MAINLINE PROCESS FOR V170
+201000****************************************************************
+201100 2017-V170-PROCESS-DATA.
+201200
+201300
+201400*---------------------------------------------------------------
+201500*  VALIDATE BILL INPUT DATA - UNITS
+201600*---------------------------------------------------------------
+201700     IF BILL-UNITS1 > 1000 OR
+201800        BILL-UNITS2 > 1000 OR
+201900        BILL-UNITS3 > 1000 OR
+202000        BILL-UNITS4 > 1000
+202100        MOVE '10' TO BILL-RTC
+202200        GO TO 2017-V170-PROCESS-EXIT
+202300     END-IF.
+202400
+202500
+202600*---------------------------------------------------------------
+202700*  CALCULATE PAYMENT FOR EACH LEVEL OF CARE BY REVENUE CODE
+202800*---------------------------------------------------------------
+202900     IF BILL-REV1 = '0651'
+203000        PERFORM 2017-V170-RHC-0651
+203100           THRU 2017-V170-RHC-0651-EXIT.
+203200
+203300
+203400     IF BILL-REV2 = '0652'
+203500        PERFORM 2017-V170-CHC-0652
+203600           THRU 2017-V170-CHC-0652-EXIT.
+203700
+203800
+203900     IF BILL-REV3 = '0655'
+204000        PERFORM 2017-V170-IRC-0655
+204100           THRU 2017-V170-IRC-0655-EXIT.
+204200
+204300
+204400     IF BILL-REV4 = '0656'
+204500        PERFORM 2017-V170-GIC-0656
+204600           THRU 2017-V170-GIC-0656-EXIT.
+204700
+204800
+204900*---------------------------------------------------------------
+205000*  CALCULATE TOTAL CLAIM PAYMENT
+205100*---------------------------------------------------------------
+205200     COMPUTE BILL-PAY-AMT-TOTAL =
+205300             WRK-PAY-RATE1 +
+205400             WRK-PAY-RATE2 +
+205500             WRK-PAY-RATE3 +
+205600             WRK-PAY-RATE4 +
+205700             SIA-PAY-AMT-TOTAL.
+205800
+205900
+206000*---------------------------------------------------------------
+206100*  MOVE EACH LEVEL OF CARE'S PAYMENT TO THE OUTPUT RECORD
+206200*---------------------------------------------------------------
+206300     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+206400     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+206500     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+206600     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+206700
+206800
+206900*---------------------------------------------------------------
+207000*  INITIALIZE WORKING STORAGE PAYMENT VARIABLES
+207100*---------------------------------------------------------------
+207200     MOVE ZEROES               TO WRK-PAY-RATE1
+207300                                  WRK-PAY-RATE2
+207400                                  WRK-PAY-RATE3
+207500                                  WRK-PAY-RATE4.
+207600
+207700 2017-V170-PROCESS-EXIT.
+207800     EXIT.
+207900
+208000
+208100
+208200****************************************************************
+208300**** V17.0   RHC - ROUTINE HOME CARE = REVENUE CODE = 0651
+208400****************************************************************
+208500 2017-V170-RHC-0651.
+208600
+208700
+208800*==================================================
+208900*  >>> IF REVENUE CODE '0651' UNITS > 0         <<<
+209000*  >>> [THE DAY IS AN RHC LEVEL OF CARE DAY]    <<<
+209100*  >>> 1 UNIT = 1 DAY                           <<<
+209200*==================================================
+209300     IF BILL-UNITS1 NOT > 0
+209400        GO TO 2017-V170-RHC-0651-EXIT
+209500     END-IF.
+209600
+209700
+209800*---------------------------------------------------------------
+209900* DATE ERROR - CANNOT CONTINUE RHC LEVEL OF CARE DAY PROCESSING
+210000*---------------------------------------------------------------
+210100     IF BILL-LINE-ITEM-DOS1 < BILL-ADMISSION-DATE
+210200        GO TO 2017-V170-RHC-0651-EXIT
+210300     END-IF.
+210400
+210500
+210600*---------------------------------------------------------------
+210700* CALCULATE RHC LEVEL OF CARE DAY PAYMENT
+210800*---------------------------------------------------------------
+210900
+211000     MOVE BILL-LINE-ITEM-DOS1 TO DATE-2-DOS.
+211100     PERFORM V170-CALC-PRIOR-SVC-DAYS
+211200        THRU V170-CALC-PRIOR-SVC-DAYS-EXIT.
+211300
+211400     PERFORM V170-EVAL-RHC-DAYS
+211500        THRU V170-EVAL-RHC-DAYS-EXIT.
+211600
+211700     PERFORM V170-CALC-RHC-EOL-SIA
+211800        THRU V170-CALC-RHC-EOL-SIA-EXIT.
+211900
+212000     PERFORM V170-SUM-RHC-0651-RATE
+212100        THRU V170-SUM-RHC-0651-RATE-EXIT.
+212200
+212300
+212400 2017-V170-RHC-0651-EXIT.
+212500     EXIT.
+212600
+212700
+212800
+212900****************************************************************
+213000 V170-EVAL-RHC-DAYS.
+213100****************************************************************
+213200
+213300*---------------------------------------------------------------
+213400* SERVICE BEYOND 60TH DAY - APPLY RHC LOW RATE TO ALL RHC DAYS
+213500*---------------------------------------------------------------
+213600     IF PRIOR-SVC-DAYS >= 60
+213700        MOVE BILL-UNITS1 TO LR-BILL-UNITS1
+213800        PERFORM V170-APPLY-LOW-RHC-RATE
+213900           THRU V170-APPLY-LOW-RHC-RATE-EXIT
+214000        GO TO V170-EVAL-RHC-DAYS-EXIT
+214100     END-IF.
+214200
+214300
+214400*---------------------------------------------------------------
+214500* SERVICE ON 60TH DAY OR EARLIER - APPLY RHC HIGH/LOW RATES
+214600*---------------------------------------------------------------
+214700     IF PRIOR-SVC-DAYS < 60
+214800        COMPUTE HIGH-RATE-DAYS-LEFT = 60 - PRIOR-SVC-DAYS
+214900
+215000
+215100*---------------------------------------------------------------
+215200* - RHC DAYS <= HIGH RATE DAYS LEFT - APPLY RHC HIGH RATE TO ALL
+215300*---------------------------------------------------------------
+215400        IF BILL-UNITS1 <= HIGH-RATE-DAYS-LEFT
+215500           MOVE BILL-UNITS1 TO HR-BILL-UNITS1
+215600           PERFORM V170-APPLY-HIGH-RHC-RATE
+215700              THRU V170-APPLY-HIGH-RHC-RATE-EXIT
+215800           GO TO V170-EVAL-RHC-DAYS-EXIT
+215900
+216000
+216100*---------------------------------------------------------------
+216200* - RHC DAYS > HIGH RATE DAYS LEFT - APPLY RHC HIGH & LOW RATES
+216300*---------------------------------------------------------------
+216400        ELSE
+216500
+216600           MOVE HIGH-RATE-DAYS-LEFT TO HR-BILL-UNITS1
+216700           PERFORM V170-APPLY-HIGH-RHC-RATE
+216800              THRU V170-APPLY-HIGH-RHC-RATE-EXIT
+216900
+217000           COMPUTE LR-BILL-UNITS1 =
+217100                   BILL-UNITS1 - HR-BILL-UNITS1
+217200           PERFORM V170-APPLY-LOW-RHC-RATE
+217300              THRU V170-APPLY-LOW-RHC-RATE-EXIT
+217400
+217500        END-IF
+217600     END-IF.
+217700
+217800
+217900 V170-EVAL-RHC-DAYS-EXIT.
+218000     EXIT.
+218100
+218200
+218300
+218400****************************************************************
+218500**** V17.0   CALCULATE RHC LOW-RATE PAYMENT
+218600****************************************************************
+218700 V170-APPLY-LOW-RHC-RATE.
+218800
+218900*---------------------------------------------------------------
+219000* QIP REDUCTION APPLIED
+219100*---------------------------------------------------------------
+219200     IF BILL-QIP-IND = '1'
+219300        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+219400           ((2017-V170-LOW-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+219500           + 2017-V170-LOW-RHC-NLS-RATE-Q) *  LR-BILL-UNITS1
+219600
+219700*---------------------------------------------------------------
+219800* NO QIP REDUCTION
+219900*---------------------------------------------------------------
+220000     ELSE
+220100        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+220200           ((2017-V170-LOW-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+220300           + 2017-V170-LOW-RHC-NLS-RATE) *  LR-BILL-UNITS1
+220400     END-IF.
+220500
+220600     MOVE 'Y' TO RHC-LOW-DAY-IND.
+220700
+220800
+220900 V170-APPLY-LOW-RHC-RATE-EXIT.
+221000     EXIT.
+221100
+221200
+221300
+221400****************************************************************
+221500**** V17.0   CALCULATE RHC HIGH-RATE PAYMENT
+221600****************************************************************
+221700 V170-APPLY-HIGH-RHC-RATE.
+221800
+221900*---------------------------------------------------------------
+222000* QIP REDUCTION APPLIED
+222100*---------------------------------------------------------------
+222200     IF BILL-QIP-IND = '1'
+222300        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+222400           ((2017-V170-HIGH-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+222500           + 2017-V170-HIGH-RHC-NLS-RATE-Q) *  HR-BILL-UNITS1
+222600
+222700*---------------------------------------------------------------
+222800* NO QIP REDUCTION
+222900*---------------------------------------------------------------
+223000     ELSE
+223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+223200           ((2017-V170-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+223300           + 2017-V170-HIGH-RHC-NLS-RATE) *  HR-BILL-UNITS1
+223400     END-IF.
+223500
+223600     MOVE 'Y' TO RHC-HIGH-DAY-IND.
+223700
+223800
+223900 V170-APPLY-HIGH-RHC-RATE-EXIT.
+224000     EXIT.
+224100
+224200
+224300
+224400****************************************************************
+224500**** V17.0   CALCULATE END-OF-LIFE SERVICE-INTENSITY ADD-ON
+224600****************************************************************
+224700 V170-CALC-RHC-EOL-SIA.
+224800
+224900*===============================================================
+225000*  SET  INDICATOR  [SIA-UNITS-IND = 'Y']
+225100*  SIA INDICATOR WILL BE USED TO HELP DETERMINE THE CORRECT RTC
+225200*===============================================================
+225300     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES OR
+225400         BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES OR
+225500         BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES OR
+225600         BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES OR
+225700         BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES OR
+225800         BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES OR
+225900         BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+226000
+226100         MOVE 'Y' TO SIA-UNITS-IND
+226200     ELSE
+226300         MOVE 'N' TO SIA-UNITS-IND
+226400         GO TO V170-CALC-RHC-EOL-SIA-EXIT
+226500     END-IF.
+226600
+226700
+226800*===============================================================
+226900*     IF ANY OF THE EOL FIELDS ARE GREATER THAN ZERO
+227000*     THEN COMPUTE THE >> CHC-WAGE-INDEXED-RATE << FOR
+227100*     SIA PAYMENT AMOUNT CALCULATION (QIP OR NON-QIP)
+227200*===============================================================
+227300
+227400*---------------------------------------------------------------
+227500* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/ QIP REDUCTION
+227600*---------------------------------------------------------------
+227700     IF  BILL-QIP-IND = '1'
+227800         COMPUTE SIA-PYMT-RATE ROUNDED =
+227900           (((2017-V170-CHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+228000                + 2017-V170-CHC-NLS-RATE-Q) / 24)
+228100
+228200*---------------------------------------------------------------
+228300* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/OUT QIP REDUCT.
+228400*---------------------------------------------------------------
+228500     ELSE
+228600         COMPUTE SIA-PYMT-RATE ROUNDED =
+228700           (((2017-V170-CHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+228800                + 2017-V170-CHC-NLS-RATE) / 24)
+228900     END-IF.
+229000
+229100
+229200*===============================================================
+229300*     CALCULATE END OF LIFE SIA PAYMENT FOR UP TO 7 DAYS
+229400*       - SIA UNITS IN 15 MIN BLOCKS - CONVERT TO HOURS
+229500*       - SIA PAYMENT AMT IS CAPPED AT 4 HOURS
+229600*===============================================================
+229700
+229800*---------------------------------------------------------------
+229900* CALCULATE >> DAY 1 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+230000*---------------------------------------------------------------
+230100     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES
+230200         COMPUTE EOL-UNITS1 = BILL-EOL-ADD-ON-DAY1-UNITS
+230400
+230500         IF EOL-UNITS1 >= 16
+230600             MOVE 4 TO EOL-HOURS1
+230700         ELSE
+230800             COMPUTE EOL-HOURS1 ROUNDED = (EOL-UNITS1 / 4)
+230900         END-IF
+231000
+231100         COMPUTE BILL-EOL-ADD-ON-DAY1-PAY ROUNDED =
+231200                 EOL-HOURS1 * SIA-PYMT-RATE
+231300
+231400     END-IF.
+231500
+231600
+231700*---------------------------------------------------------------
+231800* CALCULATE >> DAY 2 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+231900*---------------------------------------------------------------
+232000     IF  BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES
+232100         COMPUTE EOL-UNITS2 = BILL-EOL-ADD-ON-DAY2-UNITS
+232300
+232400         IF EOL-UNITS2 >= 16
+232500             MOVE 4 TO EOL-HOURS2
+232600         ELSE
+232700             COMPUTE EOL-HOURS2 ROUNDED = (EOL-UNITS2 / 4)
+232800         END-IF
+232900
+233000         COMPUTE BILL-EOL-ADD-ON-DAY2-PAY  ROUNDED =
+233100                 EOL-HOURS2 * SIA-PYMT-RATE
+233200     END-IF.
+233300
+233400
+233500*---------------------------------------------------------------
+233600* CALCULATE >> DAY 3 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+233700*---------------------------------------------------------------
+233800     IF  BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES
+233900         COMPUTE EOL-UNITS3 = BILL-EOL-ADD-ON-DAY3-UNITS
+234100
+234200         IF EOL-UNITS3 >= 16
+234300             MOVE 4 TO EOL-HOURS3
+234400         ELSE
+234500             COMPUTE EOL-HOURS3 ROUNDED = (EOL-UNITS3 / 4)
+234600         END-IF
+234700
+234800         COMPUTE BILL-EOL-ADD-ON-DAY3-PAY  ROUNDED =
+234900                 EOL-HOURS3 * SIA-PYMT-RATE
+235000     END-IF.
+235100
+235200
+235300*---------------------------------------------------------------
+235400* CALCULATE >> DAY 4 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+235500*---------------------------------------------------------------
+235600     IF  BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES
+235700         COMPUTE EOL-UNITS4 = BILL-EOL-ADD-ON-DAY4-UNITS
+235900
+236000         IF EOL-UNITS4 >= 16
+236100             MOVE 4 TO EOL-HOURS4
+236200         ELSE
+236300             COMPUTE EOL-HOURS4 ROUNDED = (EOL-UNITS4 / 4)
+236400         END-IF
+236500
+236600         COMPUTE BILL-EOL-ADD-ON-DAY4-PAY ROUNDED =
+236700                 EOL-HOURS4 * SIA-PYMT-RATE
+236800     END-IF.
+236900
+237000
+237100*---------------------------------------------------------------
+237200* CALCULATE >> DAY 5 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+237300*---------------------------------------------------------------
+237400     IF  BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES
+237500         COMPUTE EOL-UNITS5 = BILL-EOL-ADD-ON-DAY5-UNITS
+237700
+237800         IF EOL-UNITS5 >= 16
+237900             MOVE 4 TO EOL-HOURS5
+238000         ELSE
+238100             COMPUTE EOL-HOURS5 ROUNDED = (EOL-UNITS5 / 4)
+238200         END-IF
+238300
+238400         COMPUTE BILL-EOL-ADD-ON-DAY5-PAY ROUNDED =
+238500                 EOL-HOURS5 * SIA-PYMT-RATE
+238600     END-IF.
+238700
+238800
+238900*---------------------------------------------------------------
+239000* CALCULATE >> DAY 6 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+239100*---------------------------------------------------------------
+239200     IF  BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES
+239300         COMPUTE EOL-UNITS6 = BILL-EOL-ADD-ON-DAY6-UNITS
+239500
+239600         IF EOL-UNITS6 >= 16
+239700             MOVE 4 TO EOL-HOURS6
+239800         ELSE
+239900             COMPUTE EOL-HOURS6 ROUNDED = (EOL-UNITS6 / 4)
+240000         END-IF
+240100
+240200         COMPUTE BILL-EOL-ADD-ON-DAY6-PAY ROUNDED =
+240300                 EOL-HOURS6 * SIA-PYMT-RATE
+240400     END-IF.
+240500
+240600
+240700*---------------------------------------------------------------
+240800* CALCULATE >> DAY 7 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+240900*---------------------------------------------------------------
+241000     IF  BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+241100         COMPUTE EOL-UNITS7 = BILL-EOL-ADD-ON-DAY7-UNITS
+241300
+241400         IF EOL-UNITS7 >= 16
+241500             MOVE 4 TO EOL-HOURS7
+241600         ELSE
+241700             COMPUTE EOL-HOURS7 ROUNDED = (EOL-UNITS7 / 4)
+241800         END-IF
+241900
+242000         COMPUTE BILL-EOL-ADD-ON-DAY7-PAY ROUNDED =
+242100                 EOL-HOURS7 * SIA-PYMT-RATE
+242200     END-IF.
+242300
+242400
+242500*---------------------------------------------------------------
+242600*  CALCULATE >> TOTAL CLAIM EOL SIA ADD-ON PAYMENT
+242700*---------------------------------------------------------------
+242800     COMPUTE SIA-PAY-AMT-TOTAL =
+242900             BILL-EOL-ADD-ON-DAY1-PAY +
+243000             BILL-EOL-ADD-ON-DAY2-PAY +
+243100             BILL-EOL-ADD-ON-DAY3-PAY +
+243200             BILL-EOL-ADD-ON-DAY4-PAY +
+243300             BILL-EOL-ADD-ON-DAY5-PAY +
+243400             BILL-EOL-ADD-ON-DAY6-PAY +
+243500             BILL-EOL-ADD-ON-DAY7-PAY.
+243600
+243700
+243800 V170-CALC-RHC-EOL-SIA-EXIT.
+243900     EXIT.
+244000
+244100
+244200
+244300****************************************************************
+244400**** V17.0   RHC - SUM RHC '0651' COMPONENTS
+244500****************************************************************
+244600 V170-SUM-RHC-0651-RATE.
+244700
+244800
+244900****============================================================
+245000**** CALCULATE TOTAL RHC PAYMENT
+245100****============================================================
+245200     COMPUTE WRK-PAY-RATE1 =
+245300             HR-BILL-PAY-AMT1 + LR-BILL-PAY-AMT1.
+245400
+245500
+245600****============================================================
+245700**** ASSIGN RHC RETURN CODE (RTC)
+245800****============================================================
+245900
+246000*---------------------------------------------------------------
+246100* END-OF-LIFE (EOL) SERVICE INTENSITY (SIA) ADD-ON PRESENT
+246200*---------------------------------------------------------------
+246300     IF SIA-UNITS-IND = 'Y'
+246400
+246500*---------------------------------------------------------------
+246600*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & EOL SIA
+246700*---------------------------------------------------------------
+246800        IF RHC-HIGH-DAY-IND = 'Y'
+246900           MOVE '77' TO BILL-RTC
+247000
+247100*---------------------------------------------------------------
+247200*     LOW RHC RATE APPLIES TO ALL RHC & EOL SIA
+247300*---------------------------------------------------------------
+247400        ELSE
+247500           IF RHC-LOW-DAY-IND = 'Y'
+247600              MOVE '74' TO BILL-RTC
+247700           END-IF
+247800        END-IF
+247900     END-IF.
+248000
+248100
+248200*---------------------------------------------------------------
+248300* END-OF-LIFE (EOL) SERVICE INTENSITY ADD-ON (SIA) NOT PRESENT
+248400*---------------------------------------------------------------
+248500     IF SIA-UNITS-IND = 'N'
+248600
+248700*---------------------------------------------------------------
+248800*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & NO EOL SIA
+248900*---------------------------------------------------------------
+249000        IF RHC-HIGH-DAY-IND = 'Y'
+249100           MOVE '75' TO BILL-RTC
+249200
+249300*---------------------------------------------------------------
+249400*     LOW RHC RATE APPLIES TO ALL RHC & NO EOL SIA
+249500*---------------------------------------------------------------
+249600        ELSE
+249700           IF RHC-LOW-DAY-IND = 'Y'
+249800              MOVE '73' TO BILL-RTC
+249900           END-IF
+250000        END-IF
+250100     END-IF.
+250200
+250300
+250400 V170-SUM-RHC-0651-RATE-EXIT.
+250500     EXIT.
+250600
+250700
+250800
+250900****************************************************************
+251000**** V17.0   CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+251100****************************************************************
+251200 2017-V170-CHC-0652.
+251300
+251400*==================================================
+251500*  >>> IF REVENUE CODE '0652' UNITS > 0         <<<
+251600*  >>> [THE DAY IS A CHC LEVEL OF CARE DAY]     <<<
+251700*  >>> 1 UNIT = 15 MIN.                         <<<
+251800*==================================================
+251900     IF BILL-UNITS2 NOT > 0
+252000        GO TO 2017-V170-CHC-0652-EXIT
+252100     END-IF.
+252200
+252300
+252400*---------------------------------------------------------------
+252500* IF USING THE RHC RATE (LESS THAN 32 UNITS/8 HOURS):
+252600*    CALCULATE NUMBER OF SERVICE DAYS PRIOR TO CHC SERVICE DATE
+252700*---------------------------------------------------------------
+252800     IF BILL-UNITS2 < 32
+252900        INITIALIZE DATE-CALCULATION-FIELDS
+253000        MOVE BILL-LINE-ITEM-DOS2 TO DATE-2-DOS
+253100        PERFORM V170-CALC-PRIOR-SVC-DAYS
+253200           THRU V170-CALC-PRIOR-SVC-DAYS-EXIT
+253300     END-IF.
+253400
+253500
+253600****============================================================
+253700**** CHC - APPLY QIP REDUCTION
+253800****============================================================
+253900     IF BILL-QIP-IND = '1'
+254000
+254100*---------------------------------------------------------------
+254200*  PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+254300*---------------------------------------------------------------
+254400        IF BILL-UNITS2 < 32
+254500
+254600*---------------------------------------------------------------
+254700*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+254800*---------------------------------------------------------------
+254900           IF PRIOR-SVC-DAYS < 60
+255000              COMPUTE WRK-PAY-RATE2 ROUNDED =
+255100                      ((2017-V170-HIGH-RHC-LS-RATE-Q *
+255200                        BILL-BENE-WAGE-INDEX) +
+255300                        2017-V170-HIGH-RHC-NLS-RATE-Q)
+255400
+255500*---------------------------------------------------------------
+255600*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+255700*---------------------------------------------------------------
+255800           ELSE
+255900              COMPUTE WRK-PAY-RATE2 ROUNDED =
+256000                      ((2017-V170-LOW-RHC-LS-RATE-Q *
+256100                        BILL-BENE-WAGE-INDEX) +
+256200                        2017-V170-LOW-RHC-NLS-RATE-Q)
+256300           END-IF
+256400
+256500
+256600*---------------------------------------------------------------
+256700*  PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+256800*      - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+256900*      - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+257000*---------------------------------------------------------------
+257100        ELSE
+257200           COMPUTE WRK-PAY-RATE2 ROUNDED =
+257300                   (((2017-V170-CHC-LS-RATE-Q *
+257400                      BILL-BENE-WAGE-INDEX) +
+257500                      2017-V170-CHC-NLS-RATE-Q) / 24) *
+257600                      (BILL-UNITS2 / 4)
+257700        END-IF
+257800
+257900        GO TO 2017-V170-CHC-0652-EXIT
+258000
+258100     END-IF.
+258200
+258300
+258400****============================================================
+258500**** CHC - NO QIP REDUCTION  CODE = 0652
+258600****============================================================
+258700     IF BILL-QIP-IND NOT = '1'
+258800
+258900*---------------------------------------------------------------
+259000*    PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+259100*---------------------------------------------------------------
+259200        IF BILL-UNITS2 < 32
+259300
+259400*---------------------------------------------------------------
+259500*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+259600*---------------------------------------------------------------
+259700           IF PRIOR-SVC-DAYS < 60
+259800              COMPUTE WRK-PAY-RATE2 ROUNDED =
+259900                      ((2017-V170-HIGH-RHC-LS-RATE *
+260000                        BILL-BENE-WAGE-INDEX) +
+260100                        2017-V170-HIGH-RHC-NLS-RATE)
+260200
+260300*---------------------------------------------------------------
+260400*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+260500*---------------------------------------------------------------
+260600           ELSE
+260700              COMPUTE WRK-PAY-RATE2 ROUNDED =
+260800                      ((2017-V170-LOW-RHC-LS-RATE *
+260900                        BILL-BENE-WAGE-INDEX) +
+261000                        2017-V170-LOW-RHC-NLS-RATE)
+261100           END-IF
+261200
+261300*---------------------------------------------------------------
+261400*    PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+261500*        - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+261600*        - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+261700*---------------------------------------------------------------
+261800        ELSE
+261900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+262000                     (((2017-V170-CHC-LS-RATE *
+262100                        BILL-BENE-WAGE-INDEX) +
+262200                        2017-V170-CHC-NLS-RATE) / 24) *
+262300                        (BILL-UNITS2 / 4)
+262400        END-IF
+262500     END-IF.
+262600
+262700
+262800 2017-V170-CHC-0652-EXIT.
+262900     EXIT.
+263000
+263100
+263200
+263300****************************************************************
+263400**** V17.0 IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+263500****************************************************************
+263600 2017-V170-IRC-0655.
+263700
+263800****============================================================
+263900**** CALCULATE IRC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+264000****============================================================
+264100     IF BILL-QIP-IND = '1'
+264200        COMPUTE WRK-PAY-RATE3 ROUNDED =
+264300               ((2017-V170-IRC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+264400                 + 2017-V170-IRC-NLS-RATE-Q) *  BILL-UNITS3
+264500
+264600****============================================================
+264700**** CALCULATE IRC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+264800****============================================================
+264900     ELSE
+265000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+265100               ((2017-V170-IRC-LS-RATE * BILL-PROV-WAGE-INDEX)
+265200                 + 2017-V170-IRC-NLS-RATE) *  BILL-UNITS3
+265300     END-IF.
+265400
+265500
+265600 2017-V170-IRC-0655-EXIT.
+265700     EXIT.
+265800
+265900
+266000
+266100****************************************************************
+266200****    GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+266300****************************************************************
+266400 2017-V170-GIC-0656.
+266500
+266600****============================================================
+266700**** CALCULATE GIC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+266800****============================================================
+266900     IF BILL-QIP-IND = '1'
+267000        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267100               ((2017-V170-GIC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+267200                 + 2017-V170-GIC-NLS-RATE-Q) *  BILL-UNITS4
+267300
+267400****============================================================
+267500**** CALCULATE GIC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+267600****============================================================
+267700     ELSE
+267800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267900               ((2017-V170-GIC-LS-RATE * BILL-PROV-WAGE-INDEX)
+268000                 + 2017-V170-GIC-NLS-RATE) *  BILL-UNITS4
+268100     END-IF.
+268200
+268300 2017-V170-GIC-0656-EXIT.
+268400     EXIT.
+268500
+268600
+268700
+268800****************************************************************
+268900 V170-CALC-PRIOR-SVC-DAYS.
+269000****************************************************************
+269100
+269200*---------------------------------------------------------------
+269300* GET ADMISSION DATE (SERVICE DATE SET PRIOR TO THIS PARAGRAPH)
+269400*---------------------------------------------------------------
+269500     MOVE BILL-ADMISSION-DATE TO DATE-1-ADM.
+269600
+269700
+269800*---------------------------------------------------------------
+269900* CONVERT ADMISSION AND SERVICE DATES INTO INTEGERS
+270000*---------------------------------------------------------------
+270100     COMPUTE DATE-1-ADM-INTEGER =
+270200             FUNCTION INTEGER-OF-DATE (DATE-1-ADM).
+270300
+270400     COMPUTE DATE-2-DOS-INTEGER =
+270500             FUNCTION INTEGER-OF-DATE (DATE-2-DOS).
+270600
+270700
+270800*---------------------------------------------------------------
+270900* CALCULATE DAYS ELAPSED BETWEEN ADMISSION AND SERVICE DATES
+271000*---------------------------------------------------------------
+271100     COMPUTE DAYS-BETWEEN-DATES =
+271200             DATE-2-DOS-INTEGER - DATE-1-ADM-INTEGER.
+271300
+271400
+271500*---------------------------------------------------------------
+271600* DETERMINE THE NUMBER OF PRIOR BENEFIT DAYS
+271700*---------------------------------------------------------------
+271800     IF BILL-NA-ADD-ON-DAY1-UNITS > ZEROES
+271900         COMPUTE PRIOR-BENEFIT-DAYS = BILL-NA-ADD-ON-DAY1-UNITS
+272100     ELSE
+272200         MOVE ZERO TO PRIOR-BENEFIT-DAYS
+272300     END-IF.
+272400
+272500
+272600*---------------------------------------------------------------
+272700* CALCULATE TOTAL DAYS SINCE ADMISSION & BEFORE SERVICE DATE
+272800*---------------------------------------------------------------
+272900     COMPUTE PRIOR-SVC-DAYS =
+273000             DAYS-BETWEEN-DATES + PRIOR-BENEFIT-DAYS.
+273100
+273200
+273300 V170-CALC-PRIOR-SVC-DAYS-EXIT.
+273400     EXIT.
+273500
+273600
+273700
+273800
+200300****==============  BEGIN V180 PROCESS  ====================****
+200400****=========  VALID FROM 10/01/17 THRU 09/30/18  ==========****
+200500****========================================================****
+200600
+200700
+200800****************************************************************
+200900**** V18.0   MAINLINE PROCESS FOR V180
+201000****************************************************************
+201100 2018-V180-PROCESS-DATA.
+201200
+201300
+201400*---------------------------------------------------------------
+201500*  VALIDATE BILL INPUT DATA - UNITS
+201600*---------------------------------------------------------------
+201700     IF BILL-UNITS1 > 1000 OR
+201800        BILL-UNITS2 > 1000 OR
+201900        BILL-UNITS3 > 1000 OR
+202000        BILL-UNITS4 > 1000
+202100        MOVE '10' TO BILL-RTC
+202200        GO TO 2018-V180-PROCESS-EXIT
+202300     END-IF.
+202400
+202500
+202600*---------------------------------------------------------------
+202700*  CALCULATE PAYMENT FOR EACH LEVEL OF CARE BY REVENUE CODE
+202800*---------------------------------------------------------------
+202900     IF BILL-REV1 = '0651'
+203000        PERFORM 2018-V180-RHC-0651
+203100           THRU 2018-V180-RHC-0651-EXIT.
+203200
+203300
+203400     IF BILL-REV2 = '0652'
+203500        PERFORM 2018-V180-CHC-0652
+203600           THRU 2018-V180-CHC-0652-EXIT.
+203700
+203800
+203900     IF BILL-REV3 = '0655'
+204000        PERFORM 2018-V180-IRC-0655
+204100           THRU 2018-V180-IRC-0655-EXIT.
+204200
+204300
+204400     IF BILL-REV4 = '0656'
+204500        PERFORM 2018-V180-GIC-0656
+204600           THRU 2018-V180-GIC-0656-EXIT.
+204700
+204800
+204900*---------------------------------------------------------------
+205000*  CALCULATE TOTAL CLAIM PAYMENT
+205100*---------------------------------------------------------------
+205200     COMPUTE BILL-PAY-AMT-TOTAL =
+205300             WRK-PAY-RATE1 +
+205400             WRK-PAY-RATE2 +
+205500             WRK-PAY-RATE3 +
+205600             WRK-PAY-RATE4 +
+205700             SIA-PAY-AMT-TOTAL.
+205800
+205900
+206000*---------------------------------------------------------------
+206100*  MOVE EACH LEVEL OF CARE'S PAYMENT TO THE OUTPUT RECORD
+206200*---------------------------------------------------------------
+206300     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+206400     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+206500     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+206600     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+206700
+206800
+206900*---------------------------------------------------------------
+207000*  INITIALIZE WORKING STORAGE PAYMENT VARIABLES
+207100*---------------------------------------------------------------
+207200     MOVE ZEROES               TO WRK-PAY-RATE1
+207300                                  WRK-PAY-RATE2
+207400                                  WRK-PAY-RATE3
+207500                                  WRK-PAY-RATE4.
+207600
+207700 2018-V180-PROCESS-EXIT.
+207800     EXIT.
+207900
+208000
+208100
+208200****************************************************************
+208300**** V18.0   RHC - ROUTINE HOME CARE = REVENUE CODE = 0651
+208400****************************************************************
+208500 2018-V180-RHC-0651.
+208600
+208700
+208800*==================================================
+208900*  >>> IF REVENUE CODE '0651' UNITS > 0         <<<
+209000*  >>> [THE DAY IS AN RHC LEVEL OF CARE DAY]    <<<
+209100*  >>> 1 UNIT = 1 DAY                           <<<
+209200*==================================================
+209300     IF BILL-UNITS1 NOT > 0
+209400        GO TO 2018-V180-RHC-0651-EXIT
+209500     END-IF.
+209600
+209700
+209800*---------------------------------------------------------------
+209900* DATE ERROR - CANNOT CONTINUE RHC LEVEL OF CARE DAY PROCESSING
+210000*---------------------------------------------------------------
+210100     IF BILL-LINE-ITEM-DOS1 < BILL-ADMISSION-DATE
+210200        GO TO 2018-V180-RHC-0651-EXIT
+210300     END-IF.
+210400
+210500
+210600*---------------------------------------------------------------
+210700* CALCULATE RHC LEVEL OF CARE DAY PAYMENT
+210800*---------------------------------------------------------------
+210900
+211000     MOVE BILL-LINE-ITEM-DOS1 TO DATE-2-DOS.
+211100     PERFORM V180-CALC-PRIOR-SVC-DAYS
+211200        THRU V180-CALC-PRIOR-SVC-DAYS-EXIT.
+211300
+211400     PERFORM V180-EVAL-RHC-DAYS
+211500        THRU V180-EVAL-RHC-DAYS-EXIT.
+211600
+211800     PERFORM V180-CALC-RHC-EOL-SIA
+211800        THRU V180-CALC-RHC-EOL-SIA-EXIT.
+211900
+212000     PERFORM V180-SUM-RHC-0651-RATE
+212100        THRU V180-SUM-RHC-0651-RATE-EXIT.
+212200
+212300
+212400 2018-V180-RHC-0651-EXIT.
+212500     EXIT.
+212600
+212700
+212800
+212900****************************************************************
+213000 V180-EVAL-RHC-DAYS.
+213100****************************************************************
+213200
+213300*---------------------------------------------------------------
+213400* SERVICE BEYOND 60TH DAY - APPLY RHC LOW RATE TO ALL RHC DAYS
+213500*---------------------------------------------------------------
+213600     IF PRIOR-SVC-DAYS >= 60
+213700        MOVE BILL-UNITS1 TO LR-BILL-UNITS1
+213800        PERFORM V180-APPLY-LOW-RHC-RATE
+213900           THRU V180-APPLY-LOW-RHC-RATE-EXIT
+214000        GO TO V180-EVAL-RHC-DAYS-EXIT
+214100     END-IF.
+214200
+214300
+214400*---------------------------------------------------------------
+214500* SERVICE ON 60TH DAY OR EARLIER - APPLY RHC HIGH/LOW RATES
+214600*---------------------------------------------------------------
+214700     IF PRIOR-SVC-DAYS < 60
+214800        COMPUTE HIGH-RATE-DAYS-LEFT = 60 - PRIOR-SVC-DAYS
+214900
+215000
+215100*---------------------------------------------------------------
+215200* - RHC DAYS <= HIGH RATE DAYS LEFT - APPLY RHC HIGH RATE TO ALL
+215300*---------------------------------------------------------------
+215400        IF BILL-UNITS1 <= HIGH-RATE-DAYS-LEFT
+215500           MOVE BILL-UNITS1 TO HR-BILL-UNITS1
+215600           PERFORM V180-APPLY-HIGH-RHC-RATE
+215700              THRU V180-APPLY-HIGH-RHC-RATE-EXIT
+215800           GO TO V180-EVAL-RHC-DAYS-EXIT
+215900
+216000
+216100*---------------------------------------------------------------
+216200* - RHC DAYS > HIGH RATE DAYS LEFT - APPLY RHC HIGH & LOW RATES
+216300*---------------------------------------------------------------
+216400        ELSE
+216500
+216600           MOVE HIGH-RATE-DAYS-LEFT TO HR-BILL-UNITS1
+216700           PERFORM V180-APPLY-HIGH-RHC-RATE
+216800              THRU V180-APPLY-HIGH-RHC-RATE-EXIT
+216900
+217000           COMPUTE LR-BILL-UNITS1 =
+217100                   BILL-UNITS1 - HR-BILL-UNITS1
+217200           PERFORM V180-APPLY-LOW-RHC-RATE
+217300              THRU V180-APPLY-LOW-RHC-RATE-EXIT
+217400
+217500        END-IF
+217600     END-IF.
+217700
+217800
+217900 V180-EVAL-RHC-DAYS-EXIT.
+218000     EXIT.
+218100
+218200
+218300
+218400****************************************************************
+218500**** V18.0   CALCULATE RHC LOW-RATE PAYMENT
+218600****************************************************************
+218700 V180-APPLY-LOW-RHC-RATE.
+218800
+218900*---------------------------------------------------------------
+219000* QIP REDUCTION APPLIED
+219100*---------------------------------------------------------------
+219200     IF BILL-QIP-IND = '1'
+219300        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+219400           ((2018-V180-LOW-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+219500           + 2018-V180-LOW-RHC-NLS-RATE-Q) *  LR-BILL-UNITS1
+219600
+219700*---------------------------------------------------------------
+219800* NO QIP REDUCTION
+219900*---------------------------------------------------------------
+220000     ELSE
+220100        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+220200           ((2018-V180-LOW-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+220300           + 2018-V180-LOW-RHC-NLS-RATE) *  LR-BILL-UNITS1
+220400     END-IF.
+220500
+220600     MOVE 'Y' TO RHC-LOW-DAY-IND.
+220700
+220800
+220900 V180-APPLY-LOW-RHC-RATE-EXIT.
+221000     EXIT.
+221100
+221200
+221300
+221400****************************************************************
+221500**** V18.0   CALCULATE RHC HIGH-RATE PAYMENT
+221600****************************************************************
+221700 V180-APPLY-HIGH-RHC-RATE.
+221800
+221900*---------------------------------------------------------------
+222000* QIP REDUCTION APPLIED
+222100*---------------------------------------------------------------
+222200     IF BILL-QIP-IND = '1'
+222300        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+222400           ((2018-V180-HIGH-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+222500           + 2018-V180-HIGH-RHC-NLS-RATE-Q) *  HR-BILL-UNITS1
+222600
+222700*---------------------------------------------------------------
+222800* NO QIP REDUCTION
+222900*---------------------------------------------------------------
+223000     ELSE
+223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+223200           ((2018-V180-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+223300           + 2018-V180-HIGH-RHC-NLS-RATE) *  HR-BILL-UNITS1
+223400     END-IF.
+223500
+223600     MOVE 'Y' TO RHC-HIGH-DAY-IND.
+223700
+223800
+223900 V180-APPLY-HIGH-RHC-RATE-EXIT.
+224000     EXIT.
+224100
+224200
+224300
+224400****************************************************************
+224500**** V18.0   CALCULATE END-OF-LIFE SERVICE-INTENSITY ADD-ON
+224600****************************************************************
+224700 V180-CALC-RHC-EOL-SIA.
+224800
+224900*===============================================================
+225000*  SET  INDICATOR  [SIA-UNITS-IND = 'Y']
+225100*  SIA INDICATOR WILL BE USED TO HELP DETERMINE THE CORRECT RTC
+225200*===============================================================
+225300     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES OR
+225400         BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES OR
+225500         BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES OR
+225600         BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES OR
+225700         BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES OR
+225800         BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES OR
+225900         BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+226000
+226100         MOVE 'Y' TO SIA-UNITS-IND
+226200     ELSE
+226300         MOVE 'N' TO SIA-UNITS-IND
+226400         GO TO V180-CALC-RHC-EOL-SIA-EXIT
+226500     END-IF.
+226600
+226700
+226800*===============================================================
+226900*     IF ANY OF THE EOL FIELDS ARE GREATER THAN ZERO
+227000*     THEN COMPUTE THE >> CHC-WAGE-INDEXED-RATE << FOR
+227100*     SIA PAYMENT AMOUNT CALCULATION (QIP OR NON-QIP)
+227200*===============================================================
+227300
+227400*---------------------------------------------------------------
+227500* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/ QIP REDUCTION
+227600*---------------------------------------------------------------
+227700     IF  BILL-QIP-IND = '1'
+227800         COMPUTE SIA-PYMT-RATE ROUNDED =
+227900           (((2018-V180-CHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+228000                + 2018-V180-CHC-NLS-RATE-Q) / 24)
+228100
+228200*---------------------------------------------------------------
+228300* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/OUT QIP REDUCT.
+228400*---------------------------------------------------------------
+228500     ELSE
+228600         COMPUTE SIA-PYMT-RATE ROUNDED =
+228700           (((2018-V180-CHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+228800                + 2018-V180-CHC-NLS-RATE) / 24)
+228900     END-IF.
+229000
+229100
+229200*===============================================================
+229300*     CALCULATE END OF LIFE SIA PAYMENT FOR UP TO 7 DAYS
+229400*       - SIA UNITS IN 15 MIN BLOCKS - CONVERT TO HOURS
+229500*       - SIA PAYMENT AMT IS CAPPED AT 4 HOURS
+229600*===============================================================
+229700
+229800*---------------------------------------------------------------
+229900* CALCULATE >> DAY 1 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+230000*---------------------------------------------------------------
+230100     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES
+230200         COMPUTE EOL-UNITS1 = BILL-EOL-ADD-ON-DAY1-UNITS
+230400
+230500         IF EOL-UNITS1 >= 16
+230600             MOVE 4 TO EOL-HOURS1
+230700         ELSE
+230800             COMPUTE EOL-HOURS1 ROUNDED = (EOL-UNITS1 / 4)
+230900         END-IF
+231000
+231100         COMPUTE BILL-EOL-ADD-ON-DAY1-PAY ROUNDED =
+231200                 EOL-HOURS1 * SIA-PYMT-RATE
+231300
+231400     END-IF.
+231500
+231600
+231700*---------------------------------------------------------------
+231800* CALCULATE >> DAY 2 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+231900*---------------------------------------------------------------
+232000     IF  BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES
+232100         COMPUTE EOL-UNITS2 = BILL-EOL-ADD-ON-DAY2-UNITS
+232300
+232400         IF EOL-UNITS2 >= 16
+232500             MOVE 4 TO EOL-HOURS2
+232600         ELSE
+232700             COMPUTE EOL-HOURS2 ROUNDED = (EOL-UNITS2 / 4)
+232800         END-IF
+232900
+233000         COMPUTE BILL-EOL-ADD-ON-DAY2-PAY  ROUNDED =
+233100                 EOL-HOURS2 * SIA-PYMT-RATE
+233200     END-IF.
+233300
+233400
+233500*---------------------------------------------------------------
+233600* CALCULATE >> DAY 3 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+233700*---------------------------------------------------------------
+233800     IF  BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES
+233900         COMPUTE EOL-UNITS3 = BILL-EOL-ADD-ON-DAY3-UNITS
+234100
+234200         IF EOL-UNITS3 >= 16
+234300             MOVE 4 TO EOL-HOURS3
+234400         ELSE
+234500             COMPUTE EOL-HOURS3 ROUNDED = (EOL-UNITS3 / 4)
+234600         END-IF
+234700
+234800         COMPUTE BILL-EOL-ADD-ON-DAY3-PAY  ROUNDED =
+234900                 EOL-HOURS3 * SIA-PYMT-RATE
+235000     END-IF.
+235100
+235200
+235300*---------------------------------------------------------------
+235400* CALCULATE >> DAY 4 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+235500*---------------------------------------------------------------
+235600     IF  BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES
+235700         COMPUTE EOL-UNITS4 = BILL-EOL-ADD-ON-DAY4-UNITS
+235900
+236000         IF EOL-UNITS4 >= 16
+236100             MOVE 4 TO EOL-HOURS4
+236200         ELSE
+236300             COMPUTE EOL-HOURS4 ROUNDED = (EOL-UNITS4 / 4)
+236400         END-IF
+236500
+236600         COMPUTE BILL-EOL-ADD-ON-DAY4-PAY ROUNDED =
+236700                 EOL-HOURS4 * SIA-PYMT-RATE
+236800     END-IF.
+236900
+237000
+237100*---------------------------------------------------------------
+237200* CALCULATE >> DAY 5 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+237300*---------------------------------------------------------------
+237400     IF  BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES
+237500         COMPUTE EOL-UNITS5 = BILL-EOL-ADD-ON-DAY5-UNITS
+237700
+237800         IF EOL-UNITS5 >= 16
+237900             MOVE 4 TO EOL-HOURS5
+238000         ELSE
+238100             COMPUTE EOL-HOURS5 ROUNDED = (EOL-UNITS5 / 4)
+238200         END-IF
+238300
+238400         COMPUTE BILL-EOL-ADD-ON-DAY5-PAY ROUNDED =
+238500                 EOL-HOURS5 * SIA-PYMT-RATE
+238600     END-IF.
+238700
+238800
+238900*---------------------------------------------------------------
+239000* CALCULATE >> DAY 6 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+239100*---------------------------------------------------------------
+239200     IF  BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES
+239300         COMPUTE EOL-UNITS6 = BILL-EOL-ADD-ON-DAY6-UNITS
+239500
+239600         IF EOL-UNITS6 >= 16
+239700             MOVE 4 TO EOL-HOURS6
+239800         ELSE
+239900             COMPUTE EOL-HOURS6 ROUNDED = (EOL-UNITS6 / 4)
+240000         END-IF
+240100
+240200         COMPUTE BILL-EOL-ADD-ON-DAY6-PAY ROUNDED =
+240300                 EOL-HOURS6 * SIA-PYMT-RATE
+240400     END-IF.
+240500
+240600
+240700*---------------------------------------------------------------
+240800* CALCULATE >> DAY 7 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+240900*---------------------------------------------------------------
+241000     IF  BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+241100         COMPUTE EOL-UNITS7 = BILL-EOL-ADD-ON-DAY7-UNITS
+241300
+241400         IF EOL-UNITS7 >= 16
+241500             MOVE 4 TO EOL-HOURS7
+241600         ELSE
+241700             COMPUTE EOL-HOURS7 ROUNDED = (EOL-UNITS7 / 4)
+241800         END-IF
+241900
+242000         COMPUTE BILL-EOL-ADD-ON-DAY7-PAY ROUNDED =
+242100                 EOL-HOURS7 * SIA-PYMT-RATE
+242200     END-IF.
+242300
+242400
+242500*---------------------------------------------------------------
+242600*  CALCULATE >> TOTAL CLAIM EOL SIA ADD-ON PAYMENT
+242700*---------------------------------------------------------------
+242800     COMPUTE SIA-PAY-AMT-TOTAL =
+242900             BILL-EOL-ADD-ON-DAY1-PAY +
+243000             BILL-EOL-ADD-ON-DAY2-PAY +
+243100             BILL-EOL-ADD-ON-DAY3-PAY +
+243200             BILL-EOL-ADD-ON-DAY4-PAY +
+243300             BILL-EOL-ADD-ON-DAY5-PAY +
+243400             BILL-EOL-ADD-ON-DAY6-PAY +
+243500             BILL-EOL-ADD-ON-DAY7-PAY.
+243600
+243700
+243800 V180-CALC-RHC-EOL-SIA-EXIT.
+243900     EXIT.
+244000
+244100
+244200
+244300****************************************************************
+244400**** V18.0   RHC - SUM RHC '0651' COMPONENTS
+244500****************************************************************
+244600 V180-SUM-RHC-0651-RATE.
+244700
+244800
+244900****============================================================
+245000**** CALCULATE TOTAL RHC PAYMENT
+245100****============================================================
+245200     COMPUTE WRK-PAY-RATE1 =
+245300             HR-BILL-PAY-AMT1 + LR-BILL-PAY-AMT1.
+245400
+245500
+245600****============================================================
+245700**** ASSIGN RHC RETURN CODE (RTC)
+245800****============================================================
+245900
+246000*---------------------------------------------------------------
+246100* END-OF-LIFE (EOL) SERVICE INTENSITY (SIA) ADD-ON PRESENT
+246200*---------------------------------------------------------------
+246300     IF SIA-UNITS-IND = 'Y'
+246400
+246500*---------------------------------------------------------------
+246600*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & EOL SIA
+246700*---------------------------------------------------------------
+246800        IF RHC-HIGH-DAY-IND = 'Y'
+246900           MOVE '77' TO BILL-RTC
+247000
+247100*---------------------------------------------------------------
+247200*     LOW RHC RATE APPLIES TO ALL RHC & EOL SIA
+247300*---------------------------------------------------------------
+247400        ELSE
+247500           IF RHC-LOW-DAY-IND = 'Y'
+247600              MOVE '74' TO BILL-RTC
+247700           END-IF
+247800        END-IF
+247900     END-IF.
+248000
+248100
+248200*---------------------------------------------------------------
+248300* END-OF-LIFE (EOL) SERVICE INTENSITY ADD-ON (SIA) NOT PRESENT
+248400*---------------------------------------------------------------
+248500     IF SIA-UNITS-IND = 'N'
+248600
+248700*---------------------------------------------------------------
+248800*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & NO EOL SIA
+248900*---------------------------------------------------------------
+249000        IF RHC-HIGH-DAY-IND = 'Y'
+249100           MOVE '75' TO BILL-RTC
+249200
+249300*---------------------------------------------------------------
+249400*     LOW RHC RATE APPLIES TO ALL RHC & NO EOL SIA
+249500*---------------------------------------------------------------
+249600        ELSE
+249700           IF RHC-LOW-DAY-IND = 'Y'
+249800              MOVE '73' TO BILL-RTC
+249900           END-IF
+250000        END-IF
+250100     END-IF.
+250200
+250300
+250400 V180-SUM-RHC-0651-RATE-EXIT.
+250500     EXIT.
+250600
+250700
+250800
+250900****************************************************************
+251000**** V18.0   CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+251100****************************************************************
+251200 2018-V180-CHC-0652.
+251300
+251400*==================================================
+251500*  >>> IF REVENUE CODE '0652' UNITS > 0         <<<
+251600*  >>> [THE DAY IS A CHC LEVEL OF CARE DAY]     <<<
+251700*  >>> 1 UNIT = 15 MIN.                         <<<
+251800*==================================================
+251900     IF BILL-UNITS2 NOT > 0
+252000        GO TO 2018-V180-CHC-0652-EXIT
+252100     END-IF.
+252200
+252300
+252400*---------------------------------------------------------------
+252500* IF USING THE RHC RATE (LESS THAN 32 UNITS/8 HOURS):
+252600*    CALCULATE NUMBER OF SERVICE DAYS PRIOR TO CHC SERVICE DATE
+252700*---------------------------------------------------------------
+252800     IF BILL-UNITS2 < 32
+252900        INITIALIZE DATE-CALCULATION-FIELDS
+253000        MOVE BILL-LINE-ITEM-DOS2 TO DATE-2-DOS
+253100        PERFORM V180-CALC-PRIOR-SVC-DAYS
+253200           THRU V180-CALC-PRIOR-SVC-DAYS-EXIT
+253300     END-IF.
+253400
+253500
+253600****============================================================
+253700**** CHC - APPLY QIP REDUCTION
+253800****============================================================
+253900     IF BILL-QIP-IND = '1'
+254000
+254100*---------------------------------------------------------------
+254200*  PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+254300*---------------------------------------------------------------
+254400        IF BILL-UNITS2 < 32
+254500
+254600*---------------------------------------------------------------
+254700*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+254800*---------------------------------------------------------------
+254900           IF PRIOR-SVC-DAYS < 60
+255000              COMPUTE WRK-PAY-RATE2 ROUNDED =
+255100                      ((2018-V180-HIGH-RHC-LS-RATE-Q *
+255200                        BILL-BENE-WAGE-INDEX) +
+255300                        2018-V180-HIGH-RHC-NLS-RATE-Q)
+255400
+255500*---------------------------------------------------------------
+255600*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+255700*---------------------------------------------------------------
+255800           ELSE
+255900              COMPUTE WRK-PAY-RATE2 ROUNDED =
+256000                      ((2018-V180-LOW-RHC-LS-RATE-Q *
+256100                        BILL-BENE-WAGE-INDEX) +
+256200                        2018-V180-LOW-RHC-NLS-RATE-Q)
+256300           END-IF
+256400
+256500
+256600*---------------------------------------------------------------
+256700*  PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+256800*      - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+256900*      - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+257000*---------------------------------------------------------------
+257100        ELSE
+257200           COMPUTE WRK-PAY-RATE2 ROUNDED =
+257300                   (((2018-V180-CHC-LS-RATE-Q *
+257400                      BILL-BENE-WAGE-INDEX) +
+257500                      2018-V180-CHC-NLS-RATE-Q) / 24) *
+257600                      (BILL-UNITS2 / 4)
+257700        END-IF
+257800
+257900        GO TO 2018-V180-CHC-0652-EXIT
+258000
+258100     END-IF.
+258200
+258300
+258400****============================================================
+258500**** CHC - NO QIP REDUCTION  CODE = 0652
+258600****============================================================
+258700     IF BILL-QIP-IND NOT = '1'
+258800
+258900*---------------------------------------------------------------
+259000*    PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+259100*---------------------------------------------------------------
+259200        IF BILL-UNITS2 < 32
+259300
+259400*---------------------------------------------------------------
+259500*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+259600*---------------------------------------------------------------
+259700           IF PRIOR-SVC-DAYS < 60
+259800              COMPUTE WRK-PAY-RATE2 ROUNDED =
+259900                      ((2018-V180-HIGH-RHC-LS-RATE *
+260000                        BILL-BENE-WAGE-INDEX) +
+260100                        2018-V180-HIGH-RHC-NLS-RATE)
+260200
+260300*---------------------------------------------------------------
+260400*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+260500*---------------------------------------------------------------
+260600           ELSE
+260700              COMPUTE WRK-PAY-RATE2 ROUNDED =
+260800                      ((2018-V180-LOW-RHC-LS-RATE *
+260900                        BILL-BENE-WAGE-INDEX) +
+261000                        2018-V180-LOW-RHC-NLS-RATE)
+261100           END-IF
+261200
+261300*---------------------------------------------------------------
+261400*    PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+261500*        - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+261600*        - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+261700*---------------------------------------------------------------
+261800        ELSE
+261900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+262000                     (((2018-V180-CHC-LS-RATE *
+262100                        BILL-BENE-WAGE-INDEX) +
+262200                        2018-V180-CHC-NLS-RATE) / 24) *
+262300                        (BILL-UNITS2 / 4)
+262400        END-IF
+262500     END-IF.
+262600
+262700
+262800 2018-V180-CHC-0652-EXIT.
+262900     EXIT.
+263000
+263100
+263200
+263300****************************************************************
+263400**** V18.0 IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+263500****************************************************************
+263600 2018-V180-IRC-0655.
+263700
+263800****============================================================
+263900**** CALCULATE IRC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+264000****============================================================
+264100     IF BILL-QIP-IND = '1'
+264200        COMPUTE WRK-PAY-RATE3 ROUNDED =
+264300               ((2018-V180-IRC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+264400                 + 2018-V180-IRC-NLS-RATE-Q) *  BILL-UNITS3
+264500
+264600****============================================================
+264700**** CALCULATE IRC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+264800****============================================================
+264900     ELSE
+265000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+265100               ((2018-V180-IRC-LS-RATE * BILL-PROV-WAGE-INDEX)
+265200                 + 2018-V180-IRC-NLS-RATE) *  BILL-UNITS3
+265300     END-IF.
+265400
+265500
+265600 2018-V180-IRC-0655-EXIT.
+265700     EXIT.
+265800
+265900
+266000
+266100****************************************************************
+266200****    GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+266300****************************************************************
+266400 2018-V180-GIC-0656.
+266500
+266600****============================================================
+266700**** CALCULATE GIC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+266800****============================================================
+266900     IF BILL-QIP-IND = '1'
+267000        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267100               ((2018-V180-GIC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+267200                 + 2018-V180-GIC-NLS-RATE-Q) *  BILL-UNITS4
+267300
+267400****============================================================
+267500**** CALCULATE GIC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+267600****============================================================
+267700     ELSE
+267800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267900               ((2018-V180-GIC-LS-RATE * BILL-PROV-WAGE-INDEX)
+268000                 + 2018-V180-GIC-NLS-RATE) *  BILL-UNITS4
+268100     END-IF.
+268200
+268300 2018-V180-GIC-0656-EXIT.
+268400     EXIT.
+268500
+268600
+268700
+268800****************************************************************
+268900 V180-CALC-PRIOR-SVC-DAYS.
+269000****************************************************************
+269100
+269200*---------------------------------------------------------------
+269300* GET ADMISSION DATE (SERVICE DATE SET PRIOR TO THIS PARAGRAPH)
+269400*---------------------------------------------------------------
+269500     MOVE BILL-ADMISSION-DATE TO DATE-1-ADM.
+269600
+269700
+269800*---------------------------------------------------------------
+269900* CONVERT ADMISSION AND SERVICE DATES INTO INTEGERS
+270000*---------------------------------------------------------------
+270100     COMPUTE DATE-1-ADM-INTEGER =
+270200             FUNCTION INTEGER-OF-DATE (DATE-1-ADM).
+270300
+270400     COMPUTE DATE-2-DOS-INTEGER =
+270500             FUNCTION INTEGER-OF-DATE (DATE-2-DOS).
+270600
+270700
+270800*---------------------------------------------------------------
+270900* CALCULATE DAYS ELAPSED BETWEEN ADMISSION AND SERVICE DATES
+271000*---------------------------------------------------------------
+271100     COMPUTE DAYS-BETWEEN-DATES =
+271200             DATE-2-DOS-INTEGER - DATE-1-ADM-INTEGER.
+271300
+271400
+271500*---------------------------------------------------------------
+271600* DETERMINE THE NUMBER OF PRIOR BENEFIT DAYS
+271800*---------------------------------------------------------------
+271800     IF BILL-NA-ADD-ON-DAY1-UNITS > ZEROES
+271900         COMPUTE PRIOR-BENEFIT-DAYS = BILL-NA-ADD-ON-DAY1-UNITS
+272100     ELSE
+272200         MOVE ZERO TO PRIOR-BENEFIT-DAYS
+272300     END-IF.
+272400
+272500
+272600*---------------------------------------------------------------
+272700* CALCULATE TOTAL DAYS SINCE ADMISSION & BEFORE SERVICE DATE
+272800*---------------------------------------------------------------
+272900     COMPUTE PRIOR-SVC-DAYS =
+273000             DAYS-BETWEEN-DATES + PRIOR-BENEFIT-DAYS.
+273100
+273200
+273300 V180-CALC-PRIOR-SVC-DAYS-EXIT.
+273400     EXIT.
+273500
+273600
+273800
+200300****=============  BEGIN FY 2019 LOGIC =====================****
+200300****==============  BEGIN V190 PROCESS  ====================****
+200400****=========  VALID FROM 10/01/18 THRU 09/30/19  ==========****
+200500****========================================================****
+200600
+200700
+273700
+273800
+200800****************************************************************
+200900**** V190   MAINLINE PROCESS FOR V190
+201000****************************************************************
+201100 2019-V190-PROCESS-DATA.
+201200
+201300
+201400*---------------------------------------------------------------
+201500*  VALIDATE BILL INPUT DATA - UNITS
+201600*---------------------------------------------------------------
+201700     IF BILL-UNITS1 > 1000 OR
+201900        BILL-UNITS2 > 1000 OR
+201900        BILL-UNITS3 > 1000 OR
+202000        BILL-UNITS4 > 1000
+202100        MOVE '10' TO BILL-RTC
+202200        GO TO 2019-V190-PROCESS-EXIT
+202300     END-IF.
+202400
+202500
+202600*---------------------------------------------------------------
+202700*  CALCULATE PAYMENT FOR EACH LEVEL OF CARE BY REVENUE CODE
+202800*---------------------------------------------------------------
+202900     IF BILL-REV1 = '0651'
+203000        PERFORM 2019-V190-RHC-0651
+203100           THRU 2019-V190-RHC-0651-EXIT.
+203200
+203300
+203400     IF BILL-REV2 = '0652'
+203500        PERFORM 2019-V190-CHC-0652
+203600           THRU 2019-V190-CHC-0652-EXIT.
+203700
+203800
+203900     IF BILL-REV3 = '0655'
+204000        PERFORM 2019-V190-IRC-0655
+204100           THRU 2019-V190-IRC-0655-EXIT.
+204200
+204300
+204400     IF BILL-REV4 = '0656'
+204500        PERFORM 2019-V190-GIC-0656
+204600           THRU 2019-V190-GIC-0656-EXIT.
+204700
+204800
+204900*---------------------------------------------------------------
+205000*  CALCULATE TOTAL CLAIM PAYMENT
+205100*---------------------------------------------------------------
+205200     COMPUTE BILL-PAY-AMT-TOTAL =
+205300             WRK-PAY-RATE1 +
+205400             WRK-PAY-RATE2 +
+205500             WRK-PAY-RATE3 +
+205600             WRK-PAY-RATE4 +
+205700             SIA-PAY-AMT-TOTAL.
+205800
+205900
+206000*---------------------------------------------------------------
+206100*  MOVE EACH LEVEL OF CARE'S PAYMENT TO THE OUTPUT RECORD
+206200*---------------------------------------------------------------
+206300     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+206400     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+206500     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+206600     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+206700
+206800
+206900*---------------------------------------------------------------
+207000*  INITIALIZE WORKING STORAGE PAYMENT VARIABLES
+207100*---------------------------------------------------------------
+207200     MOVE ZEROES               TO WRK-PAY-RATE1
+207300                                  WRK-PAY-RATE2
+207400                                  WRK-PAY-RATE3
+207500                                  WRK-PAY-RATE4.
+207600
+207700 2019-V190-PROCESS-EXIT.
+207800     EXIT.
+207900
+208000
+208100
+208200****************************************************************
+208300**** V190   RHC - ROUTINE HOME CARE = REVENUE CODE = 0651
+208400****************************************************************
+208500 2019-V190-RHC-0651.
+208600
+208700
+208800*==================================================
+208900*  >>> IF REVENUE CODE '0651' UNITS > 0         <<<
+209000*  >>> [THE DAY IS AN RHC LEVEL OF CARE DAY]    <<<
+209100*  >>> 1 UNIT = 1 DAY                           <<<
+209200*==================================================
+209300     IF BILL-UNITS1 NOT > 0
+209400        GO TO 2019-V190-RHC-0651-EXIT
+209500     END-IF.
+209600
+209700
+209800*---------------------------------------------------------------
+209900* DATE ERROR - CANNOT CONTINUE RHC LEVEL OF CARE DAY PROCESSING
+210000*---------------------------------------------------------------
+210100     IF BILL-LINE-ITEM-DOS1 < BILL-ADMISSION-DATE
+210200        GO TO 2019-V190-RHC-0651-EXIT
+210300     END-IF.
+210400
+210500
+210600*---------------------------------------------------------------
+210700* CALCULATE RHC LEVEL OF CARE DAY PAYMENT
+210800*---------------------------------------------------------------
+210900
+211000     MOVE BILL-LINE-ITEM-DOS1 TO DATE-2-DOS.
+211100     PERFORM V190-CALC-PRIOR-SVC-DAYS
+211200        THRU V190-CALC-PRIOR-SVC-DAYS-EXIT.
+211300
+211400     PERFORM V190-EVAL-RHC-DAYS
+211500        THRU V190-EVAL-RHC-DAYS-EXIT.
+211600
+211800     PERFORM V190-CALC-RHC-EOL-SIA
+211800        THRU V190-CALC-RHC-EOL-SIA-EXIT.
+211900
+212000     PERFORM V190-SUM-RHC-0651-RATE
+212100        THRU V190-SUM-RHC-0651-RATE-EXIT.
+212200
+212300
+212400 2019-V190-RHC-0651-EXIT.
+212500     EXIT.
+212600
+212700
+212800
+212900****************************************************************
+213000 V190-EVAL-RHC-DAYS.
+213100****************************************************************
+213200
+213300*---------------------------------------------------------------
+213400* SERVICE BEYOND 60TH DAY - APPLY RHC LOW RATE TO ALL RHC DAYS
+213500*---------------------------------------------------------------
+213600     IF PRIOR-SVC-DAYS >= 60
+213700        MOVE BILL-UNITS1 TO LR-BILL-UNITS1
+213800        PERFORM V190-APPLY-LOW-RHC-RATE
+213900           THRU V190-APPLY-LOW-RHC-RATE-EXIT
+214000        GO TO V190-EVAL-RHC-DAYS-EXIT
+214100     END-IF.
+214200
+214300
+214400*---------------------------------------------------------------
+214500* SERVICE ON 60TH DAY OR EARLIER - APPLY RHC HIGH/LOW RATES
+214600*---------------------------------------------------------------
+214700     IF PRIOR-SVC-DAYS < 60
+214800        COMPUTE HIGH-RATE-DAYS-LEFT = 60 - PRIOR-SVC-DAYS
+214900
+215000
+215100*---------------------------------------------------------------
+215200* - RHC DAYS <= HIGH RATE DAYS LEFT - APPLY RHC HIGH RATE TO ALL
+215300*---------------------------------------------------------------
+215400        IF BILL-UNITS1 <= HIGH-RATE-DAYS-LEFT
+215500           MOVE BILL-UNITS1 TO HR-BILL-UNITS1
+215600           PERFORM V190-APPLY-HIGH-RHC-RATE
+215700              THRU V190-APPLY-HIGH-RHC-RATE-EXIT
+215800           GO TO V190-EVAL-RHC-DAYS-EXIT
+215900
+216000
+216100*---------------------------------------------------------------
+216200* - RHC DAYS > HIGH RATE DAYS LEFT - APPLY RHC HIGH & LOW RATES
+216300*---------------------------------------------------------------
+216400        ELSE
+216500
+216600           MOVE HIGH-RATE-DAYS-LEFT TO HR-BILL-UNITS1
+216700           PERFORM V190-APPLY-HIGH-RHC-RATE
+216800              THRU V190-APPLY-HIGH-RHC-RATE-EXIT
+216900
+217000           COMPUTE LR-BILL-UNITS1 =
+217100                   BILL-UNITS1 - HR-BILL-UNITS1
+217200           PERFORM V190-APPLY-LOW-RHC-RATE
+217300              THRU V190-APPLY-LOW-RHC-RATE-EXIT
+217400
+217500        END-IF
+217600     END-IF.
+217700
+217800
+217900 V190-EVAL-RHC-DAYS-EXIT.
+218000     EXIT.
+218100
+218200
+218300
+218400****************************************************************
+218500**** V190    CALCULATE RHC LOW-RATE PAYMENT
+218600****************************************************************
+218700 V190-APPLY-LOW-RHC-RATE.
+218800
+218900*---------------------------------------------------------------
+219000* FY 2019 CR # 10573
+219100*---------------------------------------------------------------
+218800
+219200     MOVE LR-BILL-UNITS1  TO BILL-LOW-RHC-DAYS.
+218800
+218800
+218800
+218900*---------------------------------------------------------------
+219000* QIP REDUCTION APPLIED
+219100*---------------------------------------------------------------
+219200     IF BILL-QIP-IND = '1'
+219300        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+219400           ((2019-V190-LOW-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+219500           + 2019-V190-LOW-RHC-NLS-RATE-Q) *  LR-BILL-UNITS1
+219600
+219700*---------------------------------------------------------------
+219800* NO QIP REDUCTION
+219900*---------------------------------------------------------------
+220000     ELSE
+220100        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+220200           ((2019-V190-LOW-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+220300           + 2019-V190-LOW-RHC-NLS-RATE) *  LR-BILL-UNITS1
+220400     END-IF.
+220500
+220600     MOVE 'Y' TO RHC-LOW-DAY-IND.
+220700
+220800
+220900 V190-APPLY-LOW-RHC-RATE-EXIT.
+221000     EXIT.
+221100
+221200
+221300
+221400****************************************************************
+221500**** V190   CALCULATE RHC HIGH-RATE PAYMENT
+221600****************************************************************
+221700 V190-APPLY-HIGH-RHC-RATE.
+221800
+218800
+218900*---------------------------------------------------------------
+219000* FY 2019 CR # 10573
+219100*---------------------------------------------------------------
+218800
+219200     MOVE HR-BILL-UNITS1  TO BILL-HIGH-RHC-DAYS.
+218800
+221900*---------------------------------------------------------------
+222000* QIP REDUCTION APPLIED
+222100*---------------------------------------------------------------
+222200     IF BILL-QIP-IND = '1'
+222300        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+222400           ((2019-V190-HIGH-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+222500           + 2019-V190-HIGH-RHC-NLS-RATE-Q) *  HR-BILL-UNITS1
+222600
+222700*---------------------------------------------------------------
+222800* NO QIP REDUCTION
+222900*---------------------------------------------------------------
+223000     ELSE
+223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+223200           ((2019-V190-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+223300           + 2019-V190-HIGH-RHC-NLS-RATE) *  HR-BILL-UNITS1
+223400     END-IF.
+223500
+223600     MOVE 'Y' TO RHC-HIGH-DAY-IND.
+223700
+223800
+223900 V190-APPLY-HIGH-RHC-RATE-EXIT.
+224000     EXIT.
+224100
+224200
+224300
+224400****************************************************************
+224500**** V190    CALCULATE END-OF-LIFE SERVICE-INTENSITY ADD-ON
+224600****************************************************************
+224700 V190-CALC-RHC-EOL-SIA.
+224800
+224900*===============================================================
+225000*  SET  INDICATOR  [SIA-UNITS-IND = 'Y']
+225100*  SIA INDICATOR WILL BE USED TO HELP DETERMINE THE CORRECT RTC
+225200*===============================================================
+225300     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES OR
+225400         BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES OR
+225500         BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES OR
+225600         BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES OR
+225700         BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES OR
+225800         BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES OR
+225900         BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+226000
+226100         MOVE 'Y' TO SIA-UNITS-IND
+226200     ELSE
+226300         MOVE 'N' TO SIA-UNITS-IND
+226400         GO TO V190-CALC-RHC-EOL-SIA-EXIT
+226500     END-IF.
+226600
+226700
+226800*===============================================================
+226900*     IF ANY OF THE EOL FIELDS ARE GREATER THAN ZERO
+227000*     THEN COMPUTE THE >> CHC-WAGE-INDEXED-RATE << FOR
+227100*     SIA PAYMENT AMOUNT CALCULATION (QIP OR NON-QIP)
+227200*===============================================================
+227300
+227400*---------------------------------------------------------------
+227500* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/ QIP REDUCTION
+227600*---------------------------------------------------------------
+227700     IF  BILL-QIP-IND = '1'
+227800         COMPUTE SIA-PYMT-RATE ROUNDED =
+227900           (((2019-V190-CHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+228000                + 2019-V190-CHC-NLS-RATE-Q) / 24)
+228100
+228200*---------------------------------------------------------------
+228300* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/OUT QIP REDUCT.
+228400*---------------------------------------------------------------
+228500     ELSE
+228600         COMPUTE SIA-PYMT-RATE ROUNDED =
+228700           (((2019-V190-CHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+228800                + 2019-V190-CHC-NLS-RATE) / 24)
+228900     END-IF.
+229000
+229100
+229200*===============================================================
+229300*     CALCULATE END OF LIFE SIA PAYMENT FOR UP TO 7 DAYS
+229400*       - SIA UNITS IN 15 MIN BLOCKS - CONVERT TO HOURS
+229500*       - SIA PAYMENT AMT IS CAPPED AT 4 HOURS
+229600*===============================================================
+229700
+229800*---------------------------------------------------------------
+229900* CALCULATE >> DAY 1 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+230000*---------------------------------------------------------------
+230100     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES
+230200         COMPUTE EOL-UNITS1 = BILL-EOL-ADD-ON-DAY1-UNITS
+230400
+230500         IF EOL-UNITS1 >= 16
+230600             MOVE 4 TO EOL-HOURS1
+230700         ELSE
+230800             COMPUTE EOL-HOURS1 ROUNDED = (EOL-UNITS1 / 4)
+230900         END-IF
+231000
+231100         COMPUTE BILL-EOL-ADD-ON-DAY1-PAY ROUNDED =
+231200                 EOL-HOURS1 * SIA-PYMT-RATE
+231300
+231400     END-IF.
+231500
+231600
+231700*---------------------------------------------------------------
+231800* CALCULATE >> DAY 2 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+231900*---------------------------------------------------------------
+232000     IF  BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES
+232100         COMPUTE EOL-UNITS2 = BILL-EOL-ADD-ON-DAY2-UNITS
+232300
+232400         IF EOL-UNITS2 >= 16
+232500             MOVE 4 TO EOL-HOURS2
+232600         ELSE
+232700             COMPUTE EOL-HOURS2 ROUNDED = (EOL-UNITS2 / 4)
+232800         END-IF
+232900
+233000         COMPUTE BILL-EOL-ADD-ON-DAY2-PAY  ROUNDED =
+233100                 EOL-HOURS2 * SIA-PYMT-RATE
+233200     END-IF.
+233300
+233400
+233500*---------------------------------------------------------------
+233600* CALCULATE >> DAY 3 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+233700*---------------------------------------------------------------
+233800     IF  BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES
+233900         COMPUTE EOL-UNITS3 = BILL-EOL-ADD-ON-DAY3-UNITS
+234100
+234200         IF EOL-UNITS3 >= 16
+234300             MOVE 4 TO EOL-HOURS3
+234400         ELSE
+234500             COMPUTE EOL-HOURS3 ROUNDED = (EOL-UNITS3 / 4)
+234600         END-IF
+234700
+234800         COMPUTE BILL-EOL-ADD-ON-DAY3-PAY  ROUNDED =
+234900                 EOL-HOURS3 * SIA-PYMT-RATE
+235000     END-IF.
+235100
+235200
+235300*---------------------------------------------------------------
+235400* CALCULATE >> DAY 4 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+235500*---------------------------------------------------------------
+235600     IF  BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES
+235700         COMPUTE EOL-UNITS4 = BILL-EOL-ADD-ON-DAY4-UNITS
+235900
+236000         IF EOL-UNITS4 >= 16
+236100             MOVE 4 TO EOL-HOURS4
+236200         ELSE
+236300             COMPUTE EOL-HOURS4 ROUNDED = (EOL-UNITS4 / 4)
+236400         END-IF
+236500
+236600         COMPUTE BILL-EOL-ADD-ON-DAY4-PAY ROUNDED =
+236700                 EOL-HOURS4 * SIA-PYMT-RATE
+236800     END-IF.
+236900
+237000
+237100*---------------------------------------------------------------
+237200* CALCULATE >> DAY 5 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+237300*---------------------------------------------------------------
+237400     IF  BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES
+237500         COMPUTE EOL-UNITS5 = BILL-EOL-ADD-ON-DAY5-UNITS
+237700
+237800         IF EOL-UNITS5 >= 16
+237900             MOVE 4 TO EOL-HOURS5
+238000         ELSE
+238100             COMPUTE EOL-HOURS5 ROUNDED = (EOL-UNITS5 / 4)
+238200         END-IF
+238300
+238400         COMPUTE BILL-EOL-ADD-ON-DAY5-PAY ROUNDED =
+238500                 EOL-HOURS5 * SIA-PYMT-RATE
+238600     END-IF.
+238700
+238800
+238900*---------------------------------------------------------------
+239000* CALCULATE >> DAY 6 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+239100*---------------------------------------------------------------
+239200     IF  BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES
+239300         COMPUTE EOL-UNITS6 = BILL-EOL-ADD-ON-DAY6-UNITS
+239500
+239600         IF EOL-UNITS6 >= 16
+239700             MOVE 4 TO EOL-HOURS6
+239800         ELSE
+239900             COMPUTE EOL-HOURS6 ROUNDED = (EOL-UNITS6 / 4)
+240000         END-IF
+240100
+240200         COMPUTE BILL-EOL-ADD-ON-DAY6-PAY ROUNDED =
+240300                 EOL-HOURS6 * SIA-PYMT-RATE
+240400     END-IF.
+240500
+240600
+240700*---------------------------------------------------------------
+240800* CALCULATE >> DAY 7 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+240900*---------------------------------------------------------------
+241000     IF  BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+241100         COMPUTE EOL-UNITS7 = BILL-EOL-ADD-ON-DAY7-UNITS
+241300
+241400         IF EOL-UNITS7 >= 16
+241500             MOVE 4 TO EOL-HOURS7
+241600         ELSE
+241700             COMPUTE EOL-HOURS7 ROUNDED = (EOL-UNITS7 / 4)
+241800         END-IF
+241900
+242000         COMPUTE BILL-EOL-ADD-ON-DAY7-PAY ROUNDED =
+242100                 EOL-HOURS7 * SIA-PYMT-RATE
+242200     END-IF.
+242300
+242400
+242500*---------------------------------------------------------------
+242600*  CALCULATE >> TOTAL CLAIM EOL SIA ADD-ON PAYMENT
+242700*---------------------------------------------------------------
+242800     COMPUTE SIA-PAY-AMT-TOTAL =
+242900             BILL-EOL-ADD-ON-DAY1-PAY +
+243000             BILL-EOL-ADD-ON-DAY2-PAY +
+243100             BILL-EOL-ADD-ON-DAY3-PAY +
+243200             BILL-EOL-ADD-ON-DAY4-PAY +
+243300             BILL-EOL-ADD-ON-DAY5-PAY +
+243400             BILL-EOL-ADD-ON-DAY6-PAY +
+243500             BILL-EOL-ADD-ON-DAY7-PAY.
+243600
+243700
+243800 V190-CALC-RHC-EOL-SIA-EXIT.
+243900     EXIT.
+244000
+244100
+244200
+244300****************************************************************
+244400**** V19.B   RHC - SUM RHC '0651' COMPONENTS
+244500****************************************************************
+244600 V190-SUM-RHC-0651-RATE.
+244700
+244800
+244900****============================================================
+245000**** CALCULATE TOTAL RHC PAYMENT
+245100****============================================================
+245200     COMPUTE WRK-PAY-RATE1 =
+245300             HR-BILL-PAY-AMT1 + LR-BILL-PAY-AMT1.
+245400
+245500
+245600****============================================================
+245700**** ASSIGN RHC RETURN CODE (RTC)
+245800****============================================================
+245900
+246000*---------------------------------------------------------------
+246100* END-OF-LIFE (EOL) SERVICE INTENSITY (SIA) ADD-ON PRESENT
+246200*---------------------------------------------------------------
+246300     IF SIA-UNITS-IND = 'Y'
+246400
+246500*---------------------------------------------------------------
+246600*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & EOL SIA
+246700*---------------------------------------------------------------
+246800        IF RHC-HIGH-DAY-IND = 'Y'
+246900           MOVE '77' TO BILL-RTC
+247000
+247100*---------------------------------------------------------------
+247200*     LOW RHC RATE APPLIES TO ALL RHC & EOL SIA
+247300*---------------------------------------------------------------
+247400        ELSE
+247500           IF RHC-LOW-DAY-IND = 'Y'
+247600              MOVE '74' TO BILL-RTC
+247700           END-IF
+247800        END-IF
+247900     END-IF.
+248000
+248100
+248200*---------------------------------------------------------------
+248300* END-OF-LIFE (EOL) SERVICE INTENSITY ADD-ON (SIA) NOT PRESENT
+248400*---------------------------------------------------------------
+248500     IF SIA-UNITS-IND = 'N'
+248600
+248700*---------------------------------------------------------------
+248800*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & NO EOL SIA
+248900*---------------------------------------------------------------
+249000        IF RHC-HIGH-DAY-IND = 'Y'
+249100           MOVE '75' TO BILL-RTC
+249200
+249300*---------------------------------------------------------------
+249400*     LOW RHC RATE APPLIES TO ALL RHC & NO EOL SIA
+249500*---------------------------------------------------------------
+249600        ELSE
+249700           IF RHC-LOW-DAY-IND = 'Y'
+249800              MOVE '73' TO BILL-RTC
+249900           END-IF
+250000        END-IF
+250100     END-IF.
+250200
+250300
+250400 V190-SUM-RHC-0651-RATE-EXIT.
+250500     EXIT.
+250600
+250700
+250800
+250900****************************************************************
+251000**** V19.B   CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+251100****************************************************************
+251200 2019-V190-CHC-0652.
+251300
+251400*==================================================
+251500*  >>> IF REVENUE CODE '0652' UNITS > 0         <<<
+251600*  >>> [THE DAY IS A CHC LEVEL OF CARE DAY]     <<<
+251700*  >>> 1 UNIT = 15 MIN.                         <<<
+251800*==================================================
+251900     IF BILL-UNITS2 NOT > 0
+252000        GO TO 2019-V190-CHC-0652-EXIT
+252100     END-IF.
+252200
+252300
+252400*---------------------------------------------------------------
+252500* IF USING THE RHC RATE (LESS THAN 32 UNITS/8 HOURS):
+252600*    CALCULATE NUMBER OF SERVICE DAYS PRIOR TO CHC SERVICE DATE
+252700*---------------------------------------------------------------
+252800     IF BILL-UNITS2 < 32
+252900        INITIALIZE DATE-CALCULATION-FIELDS
+253000        MOVE BILL-LINE-ITEM-DOS2 TO DATE-2-DOS
+253100        PERFORM V190-CALC-PRIOR-SVC-DAYS
+253200           THRU V190-CALC-PRIOR-SVC-DAYS-EXIT
+253300     END-IF.
+253400
+253500
+253600****============================================================
+253700**** CHC - APPLY QIP REDUCTION
+253800****============================================================
+253900     IF BILL-QIP-IND = '1'
+254000
+254100*---------------------------------------------------------------
+254200*  PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+254300*---------------------------------------------------------------
+254400        IF BILL-UNITS2 < 32
+254500
+254600*---------------------------------------------------------------
+254700*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+254800*---------------------------------------------------------------
+254900           IF PRIOR-SVC-DAYS < 60
+255000              COMPUTE WRK-PAY-RATE2 ROUNDED =
+255100                      ((2019-V190-HIGH-RHC-LS-RATE-Q *
+255200                        BILL-BENE-WAGE-INDEX) +
+255300                        2019-V190-HIGH-RHC-NLS-RATE-Q)
+255400
+255500*---------------------------------------------------------------
+255600*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+255700*---------------------------------------------------------------
+255800           ELSE
+255900              COMPUTE WRK-PAY-RATE2 ROUNDED =
+256000                      ((2019-V190-LOW-RHC-LS-RATE-Q *
+256100                        BILL-BENE-WAGE-INDEX) +
+256200                        2019-V190-LOW-RHC-NLS-RATE-Q)
+256300           END-IF
+256400
+256500
+256600*---------------------------------------------------------------
+256700*  PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+256800*      - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+256900*      - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+257000*---------------------------------------------------------------
+257100        ELSE
+257200           COMPUTE WRK-PAY-RATE2 ROUNDED =
+257300                   (((2019-V190-CHC-LS-RATE-Q *
+257400                      BILL-BENE-WAGE-INDEX) +
+257500                      2019-V190-CHC-NLS-RATE-Q) / 24) *
+257600                      (BILL-UNITS2 / 4)
+257700        END-IF
+257800
+257900        GO TO 2019-V190-CHC-0652-EXIT
+258000
+258100     END-IF.
+258200
+258300
+258400****============================================================
+258500**** CHC - NO QIP REDUCTION  CODE = 0652
+258600****============================================================
+258700     IF BILL-QIP-IND NOT = '1'
+258800
+258900*---------------------------------------------------------------
+259000*    PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+259100*---------------------------------------------------------------
+259200        IF BILL-UNITS2 < 32
+259300
+259400*---------------------------------------------------------------
+259500*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+259600*---------------------------------------------------------------
+259700           IF PRIOR-SVC-DAYS < 60
+259800              COMPUTE WRK-PAY-RATE2 ROUNDED =
+259900                      ((2019-V190-HIGH-RHC-LS-RATE *
+260000                        BILL-BENE-WAGE-INDEX) +
+260100                        2019-V190-HIGH-RHC-NLS-RATE)
+260200
+260300*---------------------------------------------------------------
+260400*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+260500*---------------------------------------------------------------
+260600           ELSE
+260700              COMPUTE WRK-PAY-RATE2 ROUNDED =
+260800                      ((2019-V190-LOW-RHC-LS-RATE *
+260900                        BILL-BENE-WAGE-INDEX) +
+261000                        2019-V190-LOW-RHC-NLS-RATE)
+261100           END-IF
+261200
+261300*---------------------------------------------------------------
+261400*    PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+261500*        - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+261600*        - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+261700*---------------------------------------------------------------
+261800        ELSE
+261900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+262000                     (((2019-V190-CHC-LS-RATE *
+262100                        BILL-BENE-WAGE-INDEX) +
+262200                        2019-V190-CHC-NLS-RATE) / 24) *
+262300                        (BILL-UNITS2 / 4)
+262400        END-IF
+262500     END-IF.
+262600
+262700
+262800 2019-V190-CHC-0652-EXIT.
+262900     EXIT.
+263000
+263100
+263200
+263300****************************************************************
+263400**** V16.1 IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+263500****************************************************************
+263600 2019-V190-IRC-0655.
+263700
+263800****============================================================
+263900**** CALCULATE IRC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+264000****============================================================
+264100     IF BILL-QIP-IND = '1'
+264200        COMPUTE WRK-PAY-RATE3 ROUNDED =
+264300               ((2019-V190-IRC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+264400                 + 2019-V190-IRC-NLS-RATE-Q) *  BILL-UNITS3
+264500
+264600****============================================================
+264700**** CALCULATE IRC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+264800****============================================================
+264900     ELSE
+265000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+265100               ((2019-V190-IRC-LS-RATE * BILL-PROV-WAGE-INDEX)
+265200                 + 2019-V190-IRC-NLS-RATE) *  BILL-UNITS3
+265300     END-IF.
+265400
+265500
+265600 2019-V190-IRC-0655-EXIT.
+265700     EXIT.
+265800
+265900
+266000
+266100****************************************************************
+266200****    GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+266300****************************************************************
+266400 2019-V190-GIC-0656.
+266500
+266600****============================================================
+266700**** CALCULATE GIC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+266800****============================================================
+266900     IF BILL-QIP-IND = '1'
+267000        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267100               ((2019-V190-GIC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+267200                 + 2019-V190-GIC-NLS-RATE-Q) *  BILL-UNITS4
+267300
+267400****============================================================
+267500**** CALCULATE GIC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+267600****============================================================
+267700     ELSE
+267800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267900               ((2019-V190-GIC-LS-RATE * BILL-PROV-WAGE-INDEX)
+268000                 + 2019-V190-GIC-NLS-RATE) *  BILL-UNITS4
+268100     END-IF.
+268200
+268300 2019-V190-GIC-0656-EXIT.
+268400     EXIT.
+268500
+268600
+268700
+268800****************************************************************
+268900 V190-CALC-PRIOR-SVC-DAYS.
+269000****************************************************************
+269100
+269200*---------------------------------------------------------------
+269300* GET ADMISSION DATE (SERVICE DATE SET PRIOR TO THIS PARAGRAPH)
+269400*---------------------------------------------------------------
+269500     MOVE BILL-ADMISSION-DATE TO DATE-1-ADM.
+269600
+269700
+269800*---------------------------------------------------------------
+269900* CONVERT ADMISSION AND SERVICE DATES INTO INTEGERS
+270000*---------------------------------------------------------------
+270100     COMPUTE DATE-1-ADM-INTEGER =
+270200             FUNCTION INTEGER-OF-DATE (DATE-1-ADM).
+270300
+270400     COMPUTE DATE-2-DOS-INTEGER =
+270500             FUNCTION INTEGER-OF-DATE (DATE-2-DOS).
+270600
+270700
+270800*---------------------------------------------------------------
+270900* CALCULATE DAYS ELAPSED BETWEEN ADMISSION AND SERVICE DATES
+271000*---------------------------------------------------------------
+271100     COMPUTE DAYS-BETWEEN-DATES =
+271200             DATE-2-DOS-INTEGER - DATE-1-ADM-INTEGER.
+271300
+271400
+271500*---------------------------------------------------------------
+271600* DETERMINE THE NUMBER OF PRIOR BENEFIT DAYS
+271800*---------------------------------------------------------------
+271800     IF BILL-NA-ADD-ON-DAY1-UNITS > ZEROES
+271900         COMPUTE PRIOR-BENEFIT-DAYS = BILL-NA-ADD-ON-DAY1-UNITS
+272100     ELSE
+272200         MOVE ZERO TO PRIOR-BENEFIT-DAYS
+272300     END-IF.
+272400
+272500
+272600*---------------------------------------------------------------
+272700* CALCULATE TOTAL DAYS SINCE ADMISSION & BEFORE SERVICE DATE
+272800*---------------------------------------------------------------
+272900     COMPUTE PRIOR-SVC-DAYS =
+273000             DAYS-BETWEEN-DATES + PRIOR-BENEFIT-DAYS.
+273100
+273200
+273300 V190-CALC-PRIOR-SVC-DAYS-EXIT.
+273400     EXIT.
+273500
+273700
+273800
+200300****=============  BEGIN FY 2020 LOGIC =====================****
+200300****==============  BEGIN V200 PROCESS  ====================****
+200400****======  VALID FROM 10/01/2019 THRU 09/30/2020  =========****
+200500****========================================================****
+200600
+200700
+273700
+273800
+200800****************************************************************
+200900**** V200   MAINLINE PROCESS FOR V200
+201000****************************************************************
+201100 2020-V200-PROCESS-DATA.
+201200
+201300
+201400*---------------------------------------------------------------
+201500*  VALIDATE BILL INPUT DATA - UNITS
+201600*---------------------------------------------------------------
+201700     IF BILL-UNITS1 > 1000 OR
+201900        BILL-UNITS2 > 1000 OR
+201900        BILL-UNITS3 > 1000 OR
+202000        BILL-UNITS4 > 1000
+202100        MOVE '10' TO BILL-RTC
+202200        GO TO 2020-V200-PROCESS-EXIT
+202300     END-IF.
+202400
+202500
+202600*---------------------------------------------------------------
+202700*  CALCULATE PAYMENT FOR EACH LEVEL OF CARE BY REVENUE CODE
+202800*---------------------------------------------------------------
+202900     IF BILL-REV1 = '0651'
+203000        PERFORM 2020-V200-RHC-0651
+203100           THRU 2020-V200-RHC-0651-EXIT.
+203200
+203300
+203400     IF BILL-REV2 = '0652'
+203500        PERFORM 2020-V200-CHC-0652
+203600           THRU 2020-V200-CHC-0652-EXIT.
+203700
+203800
+203900     IF BILL-REV3 = '0655'
+204000        PERFORM 2020-V200-IRC-0655
+204100           THRU 2020-V200-IRC-0655-EXIT.
+204200
+204300
+204400     IF BILL-REV4 = '0656'
+204500        PERFORM 2020-V200-GIC-0656
+204600           THRU 2020-V200-GIC-0656-EXIT.
+204700
+204800
+204900*---------------------------------------------------------------
+205000*  CALCULATE TOTAL CLAIM PAYMENT
+205100*---------------------------------------------------------------
+205200     COMPUTE BILL-PAY-AMT-TOTAL =
+205300             WRK-PAY-RATE1 +
+205400             WRK-PAY-RATE2 +
+205500             WRK-PAY-RATE3 +
+205600             WRK-PAY-RATE4 +
+205700             SIA-PAY-AMT-TOTAL.
+205800
+205900
+206000*---------------------------------------------------------------
+206100*  MOVE EACH LEVEL OF CARE'S PAYMENT TO THE OUTPUT RECORD
+206200*---------------------------------------------------------------
+206300     MOVE WRK-PAY-RATE1        TO  BILL-PAY-AMT1.
+206400     MOVE WRK-PAY-RATE2        TO  BILL-PAY-AMT2.
+206500     MOVE WRK-PAY-RATE3        TO  BILL-PAY-AMT3.
+206600     MOVE WRK-PAY-RATE4        TO  BILL-PAY-AMT4.
+206700
+206800
+206900*---------------------------------------------------------------
+207000*  INITIALIZE WORKING STORAGE PAYMENT VARIABLES
+207100*---------------------------------------------------------------
+207200     MOVE ZEROES               TO WRK-PAY-RATE1
+207300                                  WRK-PAY-RATE2
+207400                                  WRK-PAY-RATE3
+207500                                  WRK-PAY-RATE4.
+207600
+207700 2020-V200-PROCESS-EXIT.
+207800     EXIT.
+207900
+208000
+208100
+208200****************************************************************
+208300**** V200   RHC - ROUTINE HOME CARE = REVENUE CODE = 0651
+208400****************************************************************
+208500 2020-V200-RHC-0651.
+208600
+208700
+208800*==================================================
+208900*  >>> IF REVENUE CODE '0651' UNITS > 0         <<<
+209000*  >>> [THE DAY IS AN RHC LEVEL OF CARE DAY]    <<<
+209100*  >>> 1 UNIT = 1 DAY                           <<<
+209200*==================================================
+209300     IF BILL-UNITS1 NOT > 0
+209400        GO TO 2020-V200-RHC-0651-EXIT
+209500     END-IF.
+209600
+209700
+209800*---------------------------------------------------------------
+209900* DATE ERROR - CANNOT CONTINUE RHC LEVEL OF CARE DAY PROCESSING
+210000*---------------------------------------------------------------
+210100     IF BILL-LINE-ITEM-DOS1 < BILL-ADMISSION-DATE
+210200        GO TO 2020-V200-RHC-0651-EXIT
+210300     END-IF.
+210400
+210500
+210600*---------------------------------------------------------------
+210700* CALCULATE RHC LEVEL OF CARE DAY PAYMENT
+210800*---------------------------------------------------------------
+210900
+211000     MOVE BILL-LINE-ITEM-DOS1 TO DATE-2-DOS.
+211100     PERFORM V200-CALC-PRIOR-SVC-DAYS
+211200        THRU V200-CALC-PRIOR-SVC-DAYS-EXIT.
+211300
+211400     PERFORM V200-EVAL-RHC-DAYS
+211500        THRU V200-EVAL-RHC-DAYS-EXIT.
+211600
+211800     PERFORM V200-CALC-RHC-EOL-SIA
+211800        THRU V200-CALC-RHC-EOL-SIA-EXIT.
+211900
+212000     PERFORM V200-SUM-RHC-0651-RATE
+212100        THRU V200-SUM-RHC-0651-RATE-EXIT.
+212200
+212300
+212400 2020-V200-RHC-0651-EXIT.
+212500     EXIT.
+212600
+212700
+212800
+212900****************************************************************
+213000 V200-EVAL-RHC-DAYS.
+213100****************************************************************
+213200
+213300*---------------------------------------------------------------
+213400* SERVICE BEYOND 60TH DAY - APPLY RHC LOW RATE TO ALL RHC DAYS
+213500*---------------------------------------------------------------
+213600     IF PRIOR-SVC-DAYS >= 60
+213700        MOVE BILL-UNITS1 TO LR-BILL-UNITS1
+213800        PERFORM V200-APPLY-LOW-RHC-RATE
+213900           THRU V200-APPLY-LOW-RHC-RATE-EXIT
+214000        GO TO V200-EVAL-RHC-DAYS-EXIT
+214100     END-IF.
+214200
+214300
+214400*---------------------------------------------------------------
+214500* SERVICE ON 60TH DAY OR EARLIER - APPLY RHC HIGH/LOW RATES
+214600*---------------------------------------------------------------
+214700     IF PRIOR-SVC-DAYS < 60
+214800        COMPUTE HIGH-RATE-DAYS-LEFT = 60 - PRIOR-SVC-DAYS
+214900
+215000
+215100*---------------------------------------------------------------
+215200* - RHC DAYS <= HIGH RATE DAYS LEFT - APPLY RHC HIGH RATE TO ALL
+215300*---------------------------------------------------------------
+215400        IF BILL-UNITS1 <= HIGH-RATE-DAYS-LEFT
+215500           MOVE BILL-UNITS1 TO HR-BILL-UNITS1
+215600           PERFORM V200-APPLY-HIGH-RHC-RATE
+215700              THRU V200-APPLY-HIGH-RHC-RATE-EXIT
+215800           GO TO V200-EVAL-RHC-DAYS-EXIT
+215900
+216000
+216100*---------------------------------------------------------------
+216200* - RHC DAYS > HIGH RATE DAYS LEFT - APPLY RHC HIGH & LOW RATES
+216300*---------------------------------------------------------------
+216400        ELSE
+216500
+216600           MOVE HIGH-RATE-DAYS-LEFT TO HR-BILL-UNITS1
+216700           PERFORM V200-APPLY-HIGH-RHC-RATE
+216800              THRU V200-APPLY-HIGH-RHC-RATE-EXIT
+216900
+217000           COMPUTE LR-BILL-UNITS1 =
+217100                   BILL-UNITS1 - HR-BILL-UNITS1
+217200           PERFORM V200-APPLY-LOW-RHC-RATE
+217300              THRU V200-APPLY-LOW-RHC-RATE-EXIT
+217400
+217500        END-IF
+217600     END-IF.
+217700
+217800
+217900 V200-EVAL-RHC-DAYS-EXIT.
+218000     EXIT.
+218100
+218200
+218300
+218400****************************************************************
+218500**** V200    CALCULATE RHC LOW-RATE PAYMENT
+218600****************************************************************
+218700 V200-APPLY-LOW-RHC-RATE.
+218800
+218900*---------------------------------------------------------------
+219000* FY 2020- CR # 11411
+219100*---------------------------------------------------------------
+218800
+219200     MOVE LR-BILL-UNITS1  TO BILL-LOW-RHC-DAYS.
+218800
+218800
+218800
+218900*---------------------------------------------------------------
+219000* QIP REDUCTION APPLIED
+219100*---------------------------------------------------------------
+219200     IF BILL-QIP-IND = '1'
+219300        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+219400           ((2020-V200-LOW-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+219500           + 2020-V200-LOW-RHC-NLS-RATE-Q) *  LR-BILL-UNITS1
+219600
+219700*---------------------------------------------------------------
+219800* NO QIP REDUCTION
+219900*---------------------------------------------------------------
+220000     ELSE
+220100        COMPUTE LR-BILL-PAY-AMT1 ROUNDED =
+220200           ((2020-V200-LOW-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+220300           + 2020-V200-LOW-RHC-NLS-RATE) *  LR-BILL-UNITS1
+220400     END-IF.
+220500
+220600     MOVE 'Y' TO RHC-LOW-DAY-IND.
+220700
+220800
+220900 V200-APPLY-LOW-RHC-RATE-EXIT.
+221000     EXIT.
+221100
+221200
+221300
+221400****************************************************************
+221500**** V200   CALCULATE RHC HIGH-RATE PAYMENT
+221600****************************************************************
+221700 V200-APPLY-HIGH-RHC-RATE.
+221800
+218800
+218900*---------------------------------------------------------------
+219000* FY 2020- CR # 11411
+219100*---------------------------------------------------------------
+218800
+219200     MOVE HR-BILL-UNITS1  TO BILL-HIGH-RHC-DAYS.
+218800
+221900*---------------------------------------------------------------
+222000* QIP REDUCTION APPLIED
+222100*---------------------------------------------------------------
+222200     IF BILL-QIP-IND = '1'
+222300        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+222400           ((2020-V200-HIGH-RHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+222500           + 2020-V200-HIGH-RHC-NLS-RATE-Q) *  HR-BILL-UNITS1
+222600
+222700*---------------------------------------------------------------
+222800* NO QIP REDUCTION
+222900*---------------------------------------------------------------
+223000     ELSE
+223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+223200           ((2020-V200-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+223300           + 2020-V200-HIGH-RHC-NLS-RATE) *  HR-BILL-UNITS1
+223400     END-IF.
+223500
+223600     MOVE 'Y' TO RHC-HIGH-DAY-IND.
+223700
+223800
+223900 V200-APPLY-HIGH-RHC-RATE-EXIT.
+224000     EXIT.
+224100
+224200
+224300
+224400****************************************************************
+224500**** V200    CALCULATE END-OF-LIFE SERVICE-INTENSITY ADD-ON
+224600****************************************************************
+224700 V200-CALC-RHC-EOL-SIA.
+224800
+224900*===============================================================
+225000*  SET  INDICATOR  [SIA-UNITS-IND = 'Y']
+225100*  SIA INDICATOR WILL BE USED TO HELP DETERMINE THE CORRECT RTC
+225200*===============================================================
+225300     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES OR
+225400         BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES OR
+225500         BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES OR
+225600         BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES OR
+225700         BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES OR
+225800         BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES OR
+225900         BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+226000
+226100         MOVE 'Y' TO SIA-UNITS-IND
+226200     ELSE
+226300         MOVE 'N' TO SIA-UNITS-IND
+226400         GO TO V200-CALC-RHC-EOL-SIA-EXIT
+226500     END-IF.
+226600
+226700
+226800*===============================================================
+226900*     IF ANY OF THE EOL FIELDS ARE GREATER THAN ZERO
+227000*     THEN COMPUTE THE >> CHC-WAGE-INDEXED-RATE << FOR
+227100*     SIA PAYMENT AMOUNT CALCULATION (QIP OR NON-QIP)
+227200*===============================================================
+227300
+227400*---------------------------------------------------------------
+227500* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/ QIP REDUCTION
+227600*---------------------------------------------------------------
+227700     IF  BILL-QIP-IND = '1'
+227800         COMPUTE SIA-PYMT-RATE ROUNDED =
+227900           (((2020-V200-CHC-LS-RATE-Q * BILL-BENE-WAGE-INDEX)
+228000                + 2020-V200-CHC-NLS-RATE-Q) / 24)
+228100
+228200*---------------------------------------------------------------
+228300* CALCULATE SIA PAYMENT RATE: HOURLY CHC RATE W/OUT QIP REDUCT.
+228400*---------------------------------------------------------------
+228500     ELSE
+228600         COMPUTE SIA-PYMT-RATE ROUNDED =
+228700           (((2020-V200-CHC-LS-RATE * BILL-BENE-WAGE-INDEX)
+228800                + 2020-V200-CHC-NLS-RATE) / 24)
+228900     END-IF.
+229000
+229100
+229200*===============================================================
+229300*     CALCULATE END OF LIFE SIA PAYMENT FOR UP TO 7 DAYS
+229400*       - SIA UNITS IN 15 MIN BLOCKS - CONVERT TO HOURS
+229500*       - SIA PAYMENT AMT IS CAPPED AT 4 HOURS
+229600*===============================================================
+229700
+229800*---------------------------------------------------------------
+229900* CALCULATE >> DAY 1 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+230000*---------------------------------------------------------------
+230100     IF  BILL-EOL-ADD-ON-DAY1-UNITS > ZEROES
+230200         COMPUTE EOL-UNITS1 = BILL-EOL-ADD-ON-DAY1-UNITS
+230400
+230500         IF EOL-UNITS1 >= 16
+230600             MOVE 4 TO EOL-HOURS1
+230700         ELSE
+230800             COMPUTE EOL-HOURS1 ROUNDED = (EOL-UNITS1 / 4)
+230900         END-IF
+231000
+231100         COMPUTE BILL-EOL-ADD-ON-DAY1-PAY ROUNDED =
+231200                 EOL-HOURS1 * SIA-PYMT-RATE
+231300
+231400     END-IF.
+231500
+231600
+231700*---------------------------------------------------------------
+231800* CALCULATE >> DAY 2 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+231900*---------------------------------------------------------------
+232000     IF  BILL-EOL-ADD-ON-DAY2-UNITS > ZEROES
+232100         COMPUTE EOL-UNITS2 = BILL-EOL-ADD-ON-DAY2-UNITS
+232300
+232400         IF EOL-UNITS2 >= 16
+232500             MOVE 4 TO EOL-HOURS2
+232600         ELSE
+232700             COMPUTE EOL-HOURS2 ROUNDED = (EOL-UNITS2 / 4)
+232800         END-IF
+232900
+233000         COMPUTE BILL-EOL-ADD-ON-DAY2-PAY  ROUNDED =
+233100                 EOL-HOURS2 * SIA-PYMT-RATE
+233200     END-IF.
+233300
+233400
+233500*---------------------------------------------------------------
+233600* CALCULATE >> DAY 3 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+233700*---------------------------------------------------------------
+233800     IF  BILL-EOL-ADD-ON-DAY3-UNITS > ZEROES
+233900         COMPUTE EOL-UNITS3 = BILL-EOL-ADD-ON-DAY3-UNITS
+234100
+234200         IF EOL-UNITS3 >= 16
+234300             MOVE 4 TO EOL-HOURS3
+234400         ELSE
+234500             COMPUTE EOL-HOURS3 ROUNDED = (EOL-UNITS3 / 4)
+234600         END-IF
+234700
+234800         COMPUTE BILL-EOL-ADD-ON-DAY3-PAY  ROUNDED =
+234900                 EOL-HOURS3 * SIA-PYMT-RATE
+235000     END-IF.
+235100
+235200
+235300*---------------------------------------------------------------
+235400* CALCULATE >> DAY 4 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+235500*---------------------------------------------------------------
+235600     IF  BILL-EOL-ADD-ON-DAY4-UNITS > ZEROES
+235700         COMPUTE EOL-UNITS4 = BILL-EOL-ADD-ON-DAY4-UNITS
+235900
+236000         IF EOL-UNITS4 >= 16
+236100             MOVE 4 TO EOL-HOURS4
+236200         ELSE
+236300             COMPUTE EOL-HOURS4 ROUNDED = (EOL-UNITS4 / 4)
+236400         END-IF
+236500
+236600         COMPUTE BILL-EOL-ADD-ON-DAY4-PAY ROUNDED =
+236700                 EOL-HOURS4 * SIA-PYMT-RATE
+236800     END-IF.
+236900
+237000
+237100*---------------------------------------------------------------
+237200* CALCULATE >> DAY 5 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+237300*---------------------------------------------------------------
+237400     IF  BILL-EOL-ADD-ON-DAY5-UNITS > ZEROES
+237500         COMPUTE EOL-UNITS5 = BILL-EOL-ADD-ON-DAY5-UNITS
+237700
+237800         IF EOL-UNITS5 >= 16
+237900             MOVE 4 TO EOL-HOURS5
+238000         ELSE
+238100             COMPUTE EOL-HOURS5 ROUNDED = (EOL-UNITS5 / 4)
+238200         END-IF
+238300
+238400         COMPUTE BILL-EOL-ADD-ON-DAY5-PAY ROUNDED =
+238500                 EOL-HOURS5 * SIA-PYMT-RATE
+238600     END-IF.
+238700
+238800
+238900*---------------------------------------------------------------
+239000* CALCULATE >> DAY 6 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+239100*---------------------------------------------------------------
+239200     IF  BILL-EOL-ADD-ON-DAY6-UNITS > ZEROES
+239300         COMPUTE EOL-UNITS6 = BILL-EOL-ADD-ON-DAY6-UNITS
+239500
+239600         IF EOL-UNITS6 >= 16
+239700             MOVE 4 TO EOL-HOURS6
+239800         ELSE
+239900             COMPUTE EOL-HOURS6 ROUNDED = (EOL-UNITS6 / 4)
+240000         END-IF
+240100
+240200         COMPUTE BILL-EOL-ADD-ON-DAY6-PAY ROUNDED =
+240300                 EOL-HOURS6 * SIA-PYMT-RATE
+240400     END-IF.
+240500
+240600
+240700*---------------------------------------------------------------
+240800* CALCULATE >> DAY 7 EOL SIA PYMT UP TO 4 HRS, 1 UNIT = 15 MIN
+240900*---------------------------------------------------------------
+241000     IF  BILL-EOL-ADD-ON-DAY7-UNITS > ZEROES
+241100         COMPUTE EOL-UNITS7 = BILL-EOL-ADD-ON-DAY7-UNITS
+241300
+241400         IF EOL-UNITS7 >= 16
+241500             MOVE 4 TO EOL-HOURS7
+241600         ELSE
+241700             COMPUTE EOL-HOURS7 ROUNDED = (EOL-UNITS7 / 4)
+241800         END-IF
+241900
+242000         COMPUTE BILL-EOL-ADD-ON-DAY7-PAY ROUNDED =
+242100                 EOL-HOURS7 * SIA-PYMT-RATE
+242200     END-IF.
+242300
+242400
+242500*---------------------------------------------------------------
+242600*  CALCULATE >> TOTAL CLAIM EOL SIA ADD-ON PAYMENT
+242700*---------------------------------------------------------------
+242800     COMPUTE SIA-PAY-AMT-TOTAL =
+242900             BILL-EOL-ADD-ON-DAY1-PAY +
+243000             BILL-EOL-ADD-ON-DAY2-PAY +
+243100             BILL-EOL-ADD-ON-DAY3-PAY +
+243200             BILL-EOL-ADD-ON-DAY4-PAY +
+243300             BILL-EOL-ADD-ON-DAY5-PAY +
+243400             BILL-EOL-ADD-ON-DAY6-PAY +
+243500             BILL-EOL-ADD-ON-DAY7-PAY.
+243600
+243700
+243800 V200-CALC-RHC-EOL-SIA-EXIT.
+243900     EXIT.
+244000
+244100
+244200
+244300****************************************************************
+244400**** V19.B   RHC - SUM RHC '0651' COMPONENTS
+244500****************************************************************
+244600 V200-SUM-RHC-0651-RATE.
+244700
+244800
+244900****============================================================
+245000**** CALCULATE TOTAL RHC PAYMENT
+245100****============================================================
+245200     COMPUTE WRK-PAY-RATE1 =
+245300             HR-BILL-PAY-AMT1 + LR-BILL-PAY-AMT1.
+245400
+245500
+245600****============================================================
+245700**** ASSIGN RHC RETURN CODE (RTC)
+245800****============================================================
+245900
+246000*---------------------------------------------------------------
+246100* END-OF-LIFE (EOL) SERVICE INTENSITY (SIA) ADD-ON PRESENT
+246200*---------------------------------------------------------------
+246300     IF SIA-UNITS-IND = 'Y'
+246400
+246500*---------------------------------------------------------------
+246600*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & EOL SIA
+246700*---------------------------------------------------------------
+246800        IF RHC-HIGH-DAY-IND = 'Y'
+246900           MOVE '77' TO BILL-RTC
+247000
+247100*---------------------------------------------------------------
+247200*     LOW RHC RATE APPLIES TO ALL RHC & EOL SIA
+247300*---------------------------------------------------------------
+247400        ELSE
+247500           IF RHC-LOW-DAY-IND = 'Y'
+247600              MOVE '74' TO BILL-RTC
+247700           END-IF
+247800        END-IF
+247900     END-IF.
+248000
+248100
+248200*---------------------------------------------------------------
+248300* END-OF-LIFE (EOL) SERVICE INTENSITY ADD-ON (SIA) NOT PRESENT
+248400*---------------------------------------------------------------
+248500     IF SIA-UNITS-IND = 'N'
+248600
+248700*---------------------------------------------------------------
+248800*     HIGH RHC RATE (APPLIES TO SOME OR ALL RHC) & NO EOL SIA
+248900*---------------------------------------------------------------
+249000        IF RHC-HIGH-DAY-IND = 'Y'
+249100           MOVE '75' TO BILL-RTC
+249200
+249300*---------------------------------------------------------------
+249400*     LOW RHC RATE APPLIES TO ALL RHC & NO EOL SIA
+249500*---------------------------------------------------------------
+249600        ELSE
+249700           IF RHC-LOW-DAY-IND = 'Y'
+249800              MOVE '73' TO BILL-RTC
+249900           END-IF
+250000        END-IF
+250100     END-IF.
+250200
+250300
+250400 V200-SUM-RHC-0651-RATE-EXIT.
+250500     EXIT.
+250600
+250700
+250800
+250900****************************************************************
+251000**** V20.0   CHC - CONTINUOUS HOME CARE = REVENUE CODE = 0652
+251100****************************************************************
+251200 2020-V200-CHC-0652.
+251300
+251400*==================================================
+251500*  >>> IF REVENUE CODE '0652' UNITS > 0         <<<
+251600*  >>> [THE DAY IS A CHC LEVEL OF CARE DAY]     <<<
+251700*  >>> 1 UNIT = 15 MIN.                         <<<
+251800*==================================================
+251900     IF BILL-UNITS2 NOT > 0
+252000        GO TO 2020-V200-CHC-0652-EXIT
+252100     END-IF.
+252200
+252300
+252400*---------------------------------------------------------------
+252500* IF USING THE RHC RATE (LESS THAN 32 UNITS/8 HOURS):
+252600*    CALCULATE NUMBER OF SERVICE DAYS PRIOR TO CHC SERVICE DATE
+252700*---------------------------------------------------------------
+252800     IF BILL-UNITS2 < 32
+252900        INITIALIZE DATE-CALCULATION-FIELDS
+253000        MOVE BILL-LINE-ITEM-DOS2 TO DATE-2-DOS
+253100        PERFORM V200-CALC-PRIOR-SVC-DAYS
+253200           THRU V200-CALC-PRIOR-SVC-DAYS-EXIT
+253300     END-IF.
+253400
+253500
+253600****============================================================
+253700**** CHC - APPLY QIP REDUCTION
+253800****============================================================
+253900     IF BILL-QIP-IND = '1'
+254000
+254100*---------------------------------------------------------------
+254200*  PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+254300*---------------------------------------------------------------
+254400        IF BILL-UNITS2 < 32
+254500
+254600*---------------------------------------------------------------
+254700*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+254800*---------------------------------------------------------------
+254900           IF PRIOR-SVC-DAYS < 60
+255000              COMPUTE WRK-PAY-RATE2 ROUNDED =
+255100                      ((2020-V200-HIGH-RHC-LS-RATE-Q *
+255200                        BILL-BENE-WAGE-INDEX) +
+255300                        2020-V200-HIGH-RHC-NLS-RATE-Q)
+255400
+255500*---------------------------------------------------------------
+255600*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+255700*---------------------------------------------------------------
+255800           ELSE
+255900              COMPUTE WRK-PAY-RATE2 ROUNDED =
+256000                      ((2020-V200-LOW-RHC-LS-RATE-Q *
+256100                        BILL-BENE-WAGE-INDEX) +
+256200                        2020-V200-LOW-RHC-NLS-RATE-Q)
+256300           END-IF
+256400
+256500
+256600*---------------------------------------------------------------
+256700*  PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+256800*      - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+256900*      - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+257000*---------------------------------------------------------------
+257100        ELSE
+257200           COMPUTE WRK-PAY-RATE2 ROUNDED =
+257300                   (((2020-V200-CHC-LS-RATE-Q *
+257400                      BILL-BENE-WAGE-INDEX) +
+257500                      2020-V200-CHC-NLS-RATE-Q) / 24) *
+257600                      (BILL-UNITS2 / 4)
+257700        END-IF
+257800
+257900        GO TO 2020-V200-CHC-0652-EXIT
+258000
+258100     END-IF.
+258200
+258300
+258400****============================================================
+258500**** CHC - NO QIP REDUCTION  CODE = 0652
+258600****============================================================
+258700     IF BILL-QIP-IND NOT = '1'
+258800
+258900*---------------------------------------------------------------
+259000*    PAY 1 DAY USING THE RHC RATE IF LESS THAN 32 UNITS/8 HOURS
+259100*---------------------------------------------------------------
+259200        IF BILL-UNITS2 < 32
+259300
+259400*---------------------------------------------------------------
+259500*  - USE HIGH RATE IF CHC DAY IS WITHIN 60 DAYS OF ADMISSION
+259600*---------------------------------------------------------------
+259700           IF PRIOR-SVC-DAYS < 60
+259800              COMPUTE WRK-PAY-RATE2 ROUNDED =
+259900                      ((2020-V200-HIGH-RHC-LS-RATE *
+260000                        BILL-BENE-WAGE-INDEX) +
+260100                        2020-V200-HIGH-RHC-NLS-RATE)
+260200
+260300*---------------------------------------------------------------
+260400*  - USE LOW RATE IF CHC DAY ISN'T WITHIN 60 DAYS OF ADMISSION
+260500*---------------------------------------------------------------
+260600           ELSE
+260700              COMPUTE WRK-PAY-RATE2 ROUNDED =
+260800                      ((2020-V200-LOW-RHC-LS-RATE *
+260900                        BILL-BENE-WAGE-INDEX) +
+261000                        2020-V200-LOW-RHC-NLS-RATE)
+261100           END-IF
+261200
+261300*---------------------------------------------------------------
+261400*    PAY USING CHC RATE FOR 32 OR MORE UNITS (8 - 24 HOURS)
+261500*        - 1 UNIT = 15 MIN., DIVIDE BY 4 TO GET HOURS
+261600*        - DIVIDE DAILY CHC RATE BY 24 TO GET HOURLY RATE
+261700*---------------------------------------------------------------
+261800        ELSE
+261900             COMPUTE WRK-PAY-RATE2 ROUNDED =
+262000                     (((2020-V200-CHC-LS-RATE *
+262100                        BILL-BENE-WAGE-INDEX) +
+262200                        2020-V200-CHC-NLS-RATE) / 24) *
+262300                        (BILL-UNITS2 / 4)
+262400        END-IF
+262500     END-IF.
+262600
+262700
+262800 2020-V200-CHC-0652-EXIT.
+262900     EXIT.
+263000
+263100
+263200
+263300****************************************************************
+263400**** V20.0 IRC - INPATIENT RESPITE CARE = REVENUE CODE = 0655
+263500****************************************************************
+263600 2020-V200-IRC-0655.
+263700
+263800****============================================================
+263900**** CALCULATE IRC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+264000****============================================================
+264100     IF BILL-QIP-IND = '1'
+264200        COMPUTE WRK-PAY-RATE3 ROUNDED =
+264300               ((2020-V200-IRC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+264400                 + 2020-V200-IRC-NLS-RATE-Q) *  BILL-UNITS3
+264500
+264600****============================================================
+264700**** CALCULATE IRC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+264800****============================================================
+264900     ELSE
+265000        COMPUTE WRK-PAY-RATE3 ROUNDED =
+265100               ((2020-V200-IRC-LS-RATE * BILL-PROV-WAGE-INDEX)
+265200                 + 2020-V200-IRC-NLS-RATE) *  BILL-UNITS3
+265300     END-IF.
+265400
+265500
+265600 2020-V200-IRC-0655-EXIT.
+265700     EXIT.
+265800
+265900
+266000
+266100****************************************************************
+266200****    GIC - GENERAL INPATIENT CARE = REVENUE CODE = 0656
+266300****************************************************************
+266400 2020-V200-GIC-0656.
+266500
+266600****============================================================
+266700**** CALCULATE GIC PAYMENT WITH QIP REDUCTION (1 UNIT = 1 DAY)
+266800****============================================================
+266900     IF BILL-QIP-IND = '1'
+267000        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267100               ((2020-V200-GIC-LS-RATE-Q * BILL-PROV-WAGE-INDEX)
+267200                 + 2020-V200-GIC-NLS-RATE-Q) *  BILL-UNITS4
+267300
+267400****============================================================
+267500**** CALCULATE GIC PAYMENT W/OUT QIP REDUCTION (1 UNIT = 1 DAY)
+267600****============================================================
+267700     ELSE
+267800        COMPUTE WRK-PAY-RATE4 ROUNDED =
+267900               ((2020-V200-GIC-LS-RATE * BILL-PROV-WAGE-INDEX)
+268000                 + 2020-V200-GIC-NLS-RATE) *  BILL-UNITS4
+268100     END-IF.
+268200
+268300 2020-V200-GIC-0656-EXIT.
+268400     EXIT.
+268500
+268600
+268700
+268800****************************************************************
+268900 V200-CALC-PRIOR-SVC-DAYS.
+269000****************************************************************
+269100
+269200*---------------------------------------------------------------
+269300* GET ADMISSION DATE (SERVICE DATE SET PRIOR TO THIS PARAGRAPH)
+269400*---------------------------------------------------------------
+269500     MOVE BILL-ADMISSION-DATE TO DATE-1-ADM.
+269600
+269700
+269800*---------------------------------------------------------------
+269900* CONVERT ADMISSION AND SERVICE DATES INTO INTEGERS
+270000*---------------------------------------------------------------
+270100     COMPUTE DATE-1-ADM-INTEGER =
+270200             FUNCTION INTEGER-OF-DATE (DATE-1-ADM).
+270300
+270400     COMPUTE DATE-2-DOS-INTEGER =
+270500             FUNCTION INTEGER-OF-DATE (DATE-2-DOS).
+270600
+270700
+270800*---------------------------------------------------------------
+270900* CALCULATE DAYS ELAPSED BETWEEN ADMISSION AND SERVICE DATES
+271000*---------------------------------------------------------------
+271100     COMPUTE DAYS-BETWEEN-DATES =
+271200             DATE-2-DOS-INTEGER - DATE-1-ADM-INTEGER.
+271300
+271400
+271500*---------------------------------------------------------------
+271600* DETERMINE THE NUMBER OF PRIOR BENEFIT DAYS
+271800*---------------------------------------------------------------
+271800     IF BILL-NA-ADD-ON-DAY1-UNITS > ZEROES
+271900         COMPUTE PRIOR-BENEFIT-DAYS = BILL-NA-ADD-ON-DAY1-UNITS
+272100     ELSE
+272200         MOVE ZERO TO PRIOR-BENEFIT-DAYS
+272300     END-IF.
+272400
+272500
+272600*---------------------------------------------------------------
+272700* CALCULATE TOTAL DAYS SINCE ADMISSION & BEFORE SERVICE DATE
+272800*---------------------------------------------------------------
+272900     COMPUTE PRIOR-SVC-DAYS =
+273000             DAYS-BETWEEN-DATES + PRIOR-BENEFIT-DAYS.
+273100
+273200
+273300 V200-CALC-PRIOR-SVC-DAYS-EXIT.
+273400     EXIT.
+273500
+273700
+273800
+273900****-------------------------------------------------------****
+274000******     L A S T   S O U R C E   S T A T E M E N T     ******
+274100****-------------------------------------------------------****
+

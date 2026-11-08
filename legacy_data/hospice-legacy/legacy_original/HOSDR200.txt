@@ -1,0 +1,988 @@
+000100 IDENTIFICATION DIVISION.
+000200 PROGRAM-ID.           HOSDR200.
+000300*AUTHOR.  DDS TEAM
+000400*         (CENTERS FOR MEDICARE AND MEDICAID SERVICES)
+000500*REMARKS. A). HOSPICE DRIVER WILL CALL HOSPR___ MODULE.
+000600*             CALLS THE HOSPR___ MODULE.
+000700*             LOADS THE PROV FILE MSA FILEAND CBSA FILE.
+000800*             FINDS THE PROV RECORD AND WAGE-INDEX RECORD FOR
+000900*             GIVEN HOSPICE DATA TO BE PASSED TO HOSPR___ MODULE.
+001000******************************************************************
+001100*REMARKS.
+001200******** PROD VERSION FOR FY2020   ************************
+001300*
+001400*     HOSPR200   REVISIONS FOR OCT 1, 2019
+001500*                2020 RATE REVISIONS
+001600*     HOSDR200   NEW PROCESSES OCT 1, 2019
+001700*                2019 CBSA WAGE INDEX DATA
+001800*                CALL TO HOSPR200
+001900*     HOSOP200   NEW PROCESSES OCT 1, 2019
+002000*                CICS VERSION TO OPEN FILES CALL HOSDR200
+002100*
+002200******** PROD VERSION FOR FY2019 - PRODUCTION     ****************
+002300*
+002400*     HOSPR190   REVISIONS FOR OCT 1, 2018
+002500*                2019 RATE REVISIONS
+002600*     HOSDR190   NEW PROCESSES OCT 1, 2018
+002700*                2019 CBSA WAGE INDEX DATA
+002800*                CALL TO HOSPR190
+002900*     HOSOP190   NEW PROCESSES OCT 1, 2018
+003000*                CICS VERSION TO OPEN FILES CALL HOSDR190
+003100*
+003200******** BETA VERSION FOR FY2019 - TESTING ONLY ***********
+003300*
+003400*     HOSPR19B   REVISIONS FOR OCT 1, 2018
+003500*                2017 RATE REVISIONS
+003600*     HOSDR19B   NEW PROCESSES OCT 1, 2018
+003700*                CALL TO HOSPR19B
+003800*     HOSOP19B   NEW PROCESSES OCT 1, 2018
+003900*                CICS VERSION TO OPEN FILES CALL HOSDR19B
+004000******** BETA VERSION FOR FY2019 - TESTING ONLY ***********
+004100*
+004200*
+004300*     HOSPR180   REVISIONS FOR OCT 1, 2017
+004400*                2017 RATE REVISIONS
+004500*     HOSDR180   NEW PROCESSES OCT 1, 2017
+004600*                CALL TO HOSPR180
+004700*     HOSOP180   NEW PROCESSES OCT 1, 2017
+004800*                CICS VERSION TO OPEN FILES CALL HOSDR180
+004900*
+005000*
+005100*     HOSPR170   REVISIONS FOR OCT 1, 2016
+005200*                2017 RATE REVISIONS
+005300*     HOSDR170   NEW PROCESSES OCT 1, 2016
+005400*                CALL TO HOSPR170
+005500*     HOSOP170   NEW PROCESSES OCT 1, 2016
+005600*                CICS VERSION TO OPEN FILES CALL HOSDR170
+005700*
+005800*     HOSPR162   REVISIONS FOR JAN 1, 2016
+005900*         ==>>>> 2016 LOGIC UPDATE - TYPO CORRECTION
+006000*     HOSDR162   NEW PROCESSES JAN 1, 2016
+006100*                CALL TO HOSPR162
+006200*     HOSOP162   NEW PROCESSES JAN 1, 2016
+006300*                CICS VERSION TO OPEN FILES CALL HOSDR162
+006400*
+006500*     HOSPR161   REVISIONS FOR JAN 1, 2016
+006600*                2016 RATE REVISIONS
+006700*         ==>>>> REVISED BILL RECORD LENGTH FROM 215 TO 315
+006800*         ==>>>> 2016 LOGIC CHANGES
+006900*     HOSDR161   NEW PROCESSES JAN 1, 2016
+007000*                CALL TO HOSPR161
+007100*         ==>>>> REVISED BILL RECORD LENGTH FROM 215 TO 315
+007200*     HOSOP161   NEW PROCESSES JAN 1, 2016
+007300*                CICS VERSION TO OPEN FILES CALL HOSDR161
+007400*
+007500*     HOSPR160   REVISIONS FOR OCT 1, 2015
+007600*                2016 RATE REVISIONS
+007700*     HOSDR160   NEW PROCESSES OCT 1, 2015
+007800*                CALL TO HOSPR160
+007900*     HOSOP160   NEW PROCESSES OCT 1, 2015
+008000*                CICS VERSION TO OPEN FILES CALL HOSDR160
+008100*
+008200*     HOSPR150   REVISIONS FOR OCT 1, 2014
+008300*                2015 RATE REVISIONS
+008400*     HOSDR150   NEW PROCESSES OCT 1, 2014
+008500*                CALL TO HOSPR150
+008600*     HOSOP150   NEW PROCESSES OCT 1, 2014
+008700*                CICS VERSION TO OPEN FILES CALL HOSDR150
+008800*
+008900*     HOSPR140   REVISIONS FOR OCT 1, 2013
+009000*                2014 RATE REVISIONS
+009100*         ==>>>> REVISED BILL & RATE RECORD LENGTH FROM 135 TO 215
+009200*         ==>>>> NEW LOGIC FOR QIP INDICATOR
+009300*     HOSDR140   NEW PROCESSES OCT 1, 2013
+009400*                CALL TO HOSPR140
+009500*     HOSOP140   NEW PROCESSES OCT 1, 2013
+009600*                CICS VERSION TO OPEN FILES CALL HOSDR140
+009700*
+009800*     HOSPR130   REVISIONS FOR OCT 1, 2012
+009900*                2013 RATE REVISIONS
+010000*     HOSDR130   NEW PROCESSES OCT 1, 2012
+010100*                CALL TO HOSPR130
+010200*     HOSOP130   NEW PROCESSES OCT 1, 2012
+010300*                CICS VERSION TO OPEN FILES CALL HOSDR130
+010400*
+010500*     HOSPR120   REVISIONS FOR OCT 1, 2011
+010600*                2012 RATE REVISIONS
+010700*     HOSDR120   NEW PROCESSES OCT 1, 2011
+010800*                CALL TO HOSPR120
+010900*     HOSOP120   NEW PROCESSES OCT 1, 2011
+011000*                CICS VERSION TO OPEN FILES CALL HOSDR120
+011100*
+011200*     HOSPR110   REVISIONS FOR OCT 1, 2010
+011300*                2011 RATE REVISIONS
+011400*     HOSDR110   NEW PROCESSES OCT 1, 2010
+011500*                CALL TO HOSPR110
+011600*     HOSOP110   NEW PROCESSES OCT 1, 2010
+011700*                CICS VERSION TO OPEN FILES CALL HOSDR110
+011800*
+011900*     HOSPR100   REVISIONS FOR OCT 1, 2009
+012000*                2010 RATE REVISIONS
+012100*     HOSDR100   NEW PROCESSES OCT 1, 2009
+012200*                CALL TO HOSPR100
+012300*     HOSOP100   NEW PROCESSES OCT 1, 2009
+012400*                CICS VERSION TO OPEN FILES CALL HOSDR100
+012500*
+012600*     HOSPR091   REVISIONS FOR JAN 1, 2008
+012700*                2009 RATE REVISIONS
+012800*     HOSDR091   NEW PROCESSES JAN 1, 2008
+012900*                CALL TO HOSPR091
+013000*                STIMULUS PKG RECOMPILE
+013100*     HOSOP091   NEW PROCESSES JAN 1, 2008
+013200*                CICS VERSION TO OPEN FILES CALL HOSDR091
+013300*
+013400*     HOSPR090   REVISIONS FOR OCT 1, 2008
+013500*                2008 RATE REVISIONS
+013600*     HOSDR090   NEW PROCESSES OCT 1, 2008
+013700*                CALL TO HOSPR090
+013800*     HOSOP090   NEW PROCESSES OCT 1, 2008
+013900*                CICS VERSION TO OPEN FILES CALL HOSDR090
+014000*
+014100*     HOSPR081   REVISIONS FOR OCT 1, 2007
+014200*                2008 RATE REVISIONS
+014300*     HOSDR081   NEW PROCESSES OCT 1, 2007
+014400*                CALL TO HOSPR081
+014500*     HOSOP081   NEW PROCESSES OCT 1, 2007
+014600*                CICS VERSION TO OPEN FILES CALL HOSDR081
+014700*
+014800*     HOSPR071   REVISIONS FOR JAN 1, 2007
+014900*                2007.1-PROCESS-DATA 1 UNIT = 15 MIN CODE 652
+015000*                2007 CALCULATE HOME RATE BY REVENUE CODE FACTORS
+015100*     HOSDR071   NEW PROCESSES JAN 1, 2007
+015200*                CALL TO HOSPR071
+015300*     HOSOP071   NEW PROCESSES JAN 1, 2007
+015400*                CICS VERSION TO OPEN FILES CALL HOSDR071
+015500*
+015600*     HOSPR070   REVISIONS FOR OCT 1, 2006
+015700*                2007-PROCESS-DATA
+015800*                2007 CALCULATE HOME RATE BY REVENUE CODE FACTORS
+015900*     HOSDR070   NEW PROCESSES OCT 1, 2006
+016000*                CBSA FILE PROCESSING
+016100*     HOSOP070   NEW PROCESSES OCT 1, 2006
+016200*                CICS VERSION TO OPEN FILES
+016300*
+016400***************************************************************
+016500 DATE-COMPILED.
+016600 ENVIRONMENT DIVISION.
+016700 CONFIGURATION SECTION.
+016800 SOURCE-COMPUTER.            IBM-370.
+016900 OBJECT-COMPUTER.            IBM-370.
+017000 INPUT-OUTPUT  SECTION.
+017100 FILE-CONTROL.
+017200
+017300 DATA DIVISION.
+017400 FILE SECTION.
+017500
+017600 WORKING-STORAGE SECTION.
+017700 01  W-STORAGE-REF                  PIC X(46)  VALUE
+017800     'HOSDR200      - W O R K I N G   S T O R A G E'.
+017900 01  HOS-VERSION                    PIC X(09)  VALUE 'HOSDR200'.
+018000 01  HOSOP200                       PIC X(08)  VALUE 'HOSOP200'.
+018100 01  HOSPR200                       PIC X(08)  VALUE 'HOSPR200'.
+018200 01  EOF-MSA-SW                     PIC 9(01)  VALUE 0.
+018300 01  EOF-CBSA-SW                    PIC 9(01)  VALUE 0.
+018400 01  EOF-BILL-SW                    PIC 9(01)  VALUE 0.
+018500 01  EOF-PROV-SW                    PIC 9(01)  VALUE 0.
+018600 01  BILL-CTR                       PIC 9(09)  VALUE 0.
+018700 01  RATE-CTR                       PIC 9(09)  VALUE 0.
+018800 01  PROV-CTR                       PIC 9(09)  VALUE 0.
+018900
+019000 01  SEARCH-MSA-LUGAR.
+019100     05  SEARCH-MSA.
+019200         10  SEARCH-MSA-POS12  PIC 9(02).
+019300         10  SEARCH-MSA-POS34  PIC 9(02).
+019400     05  SEARCH-LUGAR          PIC X.
+019500
+019600 01  SEARCH-CBSA.
+019700     05  SEARCH-CBSA-POS123    PIC 9(03).
+019800     05  SEARCH-CBSA-POS45     PIC 9(02).
+019900
+020000 01  UT1-STAT.
+020100     05  UT1-STAT1             PIC X.
+020200     05  UT1-STAT2             PIC X.
+020300 01  UT2-STAT.
+020400     05  UT2-STAT1             PIC X.
+020500     05  UT2-STAT2             PIC X.
+020600 01  UT3-STAT.
+020700     05  UT3-STAT1             PIC X.
+020800     05  UT3-STAT2             PIC X.
+020900 01  UT4-STAT.
+021000     05  UT4-STAT1             PIC X.
+021100     05  UT4-STAT2             PIC X.
+021200 01  UT5-STAT.
+021300     05  UT5-STAT1             PIC X.
+021400     05  UT5-STAT2             PIC X.
+021500
+021700**************************************************************
+021800*      MILLINNIUM COMPATIBLE                                 *
+021900**************************************************************
+022000 01  PROV-NEW-HOLD.
+022100     02  PROV-NEWREC-HOLD1.
+022200         05  P-NEW-NPI10.
+022300             10  P-NEW-NPI8             PIC X(08).
+022400             10  P-NEW-NPI-FILLER       PIC X(02).
+022500         05  P-NEW-PROVIDER-NO.
+022600             10  P-NEW-STATE            PIC 9(02).
+022700             10  FILLER                 PIC X(04).
+022800         05  P-NEW-DATE-DATA.
+022900             10  P-NEW-EFF-DATE.
+023000                 15  P-NEW-EFF-DT-CC    PIC 9(02).
+023100                 15  P-NEW-EFF-DT-YY    PIC 9(02).
+023200                 15  P-NEW-EFF-DT-MM    PIC 9(02).
+023300                 15  P-NEW-EFF-DT-DD    PIC 9(02).
+023400             10  P-NEW-FY-BEGIN-DATE.
+023500                 15  P-NEW-FY-BEG-DT-CC PIC 9(02).
+023600                 15  P-NEW-FY-BEG-DT-YY PIC 9(02).
+023700                 15  P-NEW-FY-BEG-DT-MM PIC 9(02).
+023800                 15  P-NEW-FY-BEG-DT-DD PIC 9(02).
+023900             10  P-NEW-REPORT-DATE.
+024000                 15  P-NEW-REPORT-DT-CC PIC 9(02).
+024100                 15  P-NEW-REPORT-DT-YY PIC 9(02).
+024200                 15  P-NEW-REPORT-DT-MM PIC 9(02).
+024300                 15  P-NEW-REPORT-DT-DD PIC 9(02).
+024400             10  P-NEW-TERMINATION-DATE.
+024500                 15  P-NEW-TERM-DT-CC   PIC 9(02).
+024600                 15  P-NEW-TERM-DT-YY   PIC 9(02).
+024700                 15  P-NEW-TERM-DT-MM   PIC 9(02).
+024800                 15  P-NEW-TERM-DT-DD   PIC 9(02).
+024900         05  P-NEW-WAIVER-CODE          PIC X(01).
+025000             88  P-NEW-WAIVER-STATE       VALUE 'Y'.
+025100         05  P-NEW-INTER-NO             PIC 9(05).
+025200         05  P-NEW-PROVIDER-TYPE        PIC X(02).
+025300             88  P-N-SOLE-COMMUNITY-PROV    VALUE '01' '11'.
+025400             88  P-N-REFERRAL-CENTER        VALUE '07' '11'
+025500                                                  '15' '17'
+025600                                                  '22'.
+025700             88  P-N-INDIAN-HEALTH-SERVICE  VALUE '08'.
+025800             88  P-N-REDESIGNATED-RURAL-YR1 VALUE '09'.
+025900             88  P-N-REDESIGNATED-RURAL-YR2 VALUE '10'.
+026000             88  P-N-SOLE-COM-REF-CENT      VALUE '11'.
+026100             88  P-N-MDH-REBASED-FY90       VALUE '14' '15'.
+026200             88  P-N-MDH-RRC-REBASED-FY90   VALUE '15'.
+026300             88  P-N-SCH-REBASED-FY90       VALUE '16' '17'.
+026400             88  P-N-SCH-RRC-REBASED-FY90   VALUE '17'.
+026500             88  P-N-MEDICAL-ASSIST-FACIL   VALUE '18'.
+026600             88  P-N-EACH                   VALUE '21' '22'.
+026700             88  P-N-EACH-REFERRAL-CENTER   VALUE '22'.
+026800             88  P-N-NHCMQ-II-SNF           VALUE '32'.
+026900             88  P-N-NHCMQ-III-SNF          VALUE '33'.
+027000         05  P-NEW-CURRENT-CENSUS-DIV   PIC 9(01).
+027100             88  P-N-NEW-ENGLAND            VALUE  1.
+027200             88  P-N-MIDDLE-ATLANTIC        VALUE  2.
+027300             88  P-N-SOUTH-ATLANTIC         VALUE  3.
+027400             88  P-N-EAST-NORTH-CENTRAL     VALUE  4.
+027500             88  P-N-EAST-SOUTH-CENTRAL     VALUE  5.
+027600             88  P-N-WEST-NORTH-CENTRAL     VALUE  6.
+027700             88  P-N-WEST-SOUTH-CENTRAL     VALUE  7.
+027800             88  P-N-MOUNTAIN               VALUE  8.
+027900             88  P-N-PACIFIC                VALUE  9.
+028000         05  P-NEW-CURRENT-DIV   REDEFINES
+028100                    P-NEW-CURRENT-CENSUS-DIV   PIC 9(01).
+028200             88  P-N-VALID-CENSUS-DIV    VALUE 1 THRU 9.
+028300         05  P-NEW-MSA-DATA.
+028400             10  P-NEW-CHG-CODE-INDEX       PIC X.
+028500             10  P-NEW-GEO-LOC-MSAX         PIC X(04) JUST RIGHT.
+028600             10  P-NEW-GEO-LOC-MSAX-RUR REDEFINES
+028700                                     P-NEW-GEO-LOC-MSAX.
+028800                 15  P-NEW-RURAL1    PIC X(02).
+028900                     88  P-NEW-GEO-RURAL1   VALUE '  '.
+029000                 15  P-NEW-GEO-RURAL2    PIC X(02).
+029100             10  P-NEW-GEO-LOC-MSA9   REDEFINES
+029200                             P-NEW-GEO-LOC-MSAX-RUR PIC 9(04).
+029300             10  P-NEW-WAGE-INDEX-LOC-MSA   PIC X(04) JUST RIGHT.
+029400             10  P-NEW-STAND-AMT-LOC-MSA    PIC X(04) JUST RIGHT.
+029500             10  P-NEW-STAND-AMT-LOC-MSA9
+029600       REDEFINES P-NEW-STAND-AMT-LOC-MSA.
+029700                 15  P-NEW-RURAL-1ST.
+029800                     20  P-NEW-STAND-RURAL  PIC XX.
+029900                         88  P-NEW-STD-RURAL-CHECK VALUE '  '.
+030000                 15  P-NEW-RURAL-2ND        PIC XX.
+030100         05  P-NEW-SOL-COM-DEP-HOSP-YR PIC XX.
+030200                 88  P-NEW-SCH-YRBLANK    VALUE   '  '.
+030300                 88  P-NEW-SCH-YR82       VALUE   '82'.
+030400                 88  P-NEW-SCH-YR87       VALUE   '87'.
+030500         05  P-NEW-LUGAR                    PIC X.
+030600         05  P-NEW-TEMP-RELIEF-IND          PIC X.
+030700         05  P-NEW-FED-PPS-BLEND-IND        PIC X.
+030800         05  FILLER                         PIC X(05).
+030900     02  PROV-NEWREC-HOLD2.
+031000         05  P-NEW-VARIABLES.
+031100             10  P-NEW-FAC-SPEC-RATE       PIC 9(05)V9(02).
+031200             10  P-NEW-COLA                PIC 9(01)V9(03).
+031300             10  P-NEW-INTERN-RATIO        PIC 9(01)V9(04).
+031400             10  P-NEW-BED-SIZE            PIC 9(05).
+031500             10  P-NEW-OPER-CSTCHG-RATIO   PIC 9(01)V9(03).
+031600             10  P-NEW-CMI                 PIC 9(01)V9(04).
+031700             10  P-NEW-SSI-RATIO           PIC V9(04).
+031800             10  P-NEW-MEDICAID-RATIO      PIC V9(04).
+031900             10  P-NEW-PPS-BLEND-YR-IND    PIC X(01).
+032000             10  P-NEW-PRUP-UPDATE-FACTOR  PIC 9(01)V9(05).
+032100             10  P-NEW-DSH-PERCENT         PIC V9(04).
+032200             10  P-NEW-FYE-DATE            PIC 9(08).
+032300         05  P-NEW-CBSA-DATA.
+032400             10  W-P-NEW-CBSA-SPEC-PAY-IND     PIC X.
+032500                 88  P-NEW-CBSA-WI-GEO        VALUE 'N'.
+032600                 88  P-NEW-CBSA-WI-RECLASS    VALUE 'Y'.
+032700                 88  P-NEW-CBSA-WI-SPECIAL    VALUE '1' '2'.
+032800***                  1 = ANYTHING OR HOLD HARMLESS WITH SPEC WI
+032900***                  2 = RECLASS WITH SPEC WI
+033000             10  W-P-NEW-CBSA-HOSP-QUAL-IND    PIC X.
+033100
+033200             10  W-P-NEW-CBSA-GEO-LOC       PIC X(05) JUST RIGHT.
+033300             10  W-P-NEW-CBSA-GEO-RURAL REDEFINES
+033400                 W-P-NEW-CBSA-GEO-LOC.
+033500                 15  W-P-NEW-CBSA-GEO-RURAL1ST PIC XXX.
+033600                     88  W-P-NEW-CBSA-GEO-RURAL1  VALUE '   '.
+033700                 15  W-P-NEW-CBSA-GEO-RURAL2ND PIC XX.
+033800
+033900             10  W-P-NEW-CBSA-RECLASS-LOC   PIC X(05) JUST RIGHT.
+034000             10  W-P-NEW-CBSA-STAND-AMT-LOC PIC X(05) JUST RIGHT.
+034100             10  W-P-NEW-CBSA-SPEC-WAGE-INDEX  PIC 9(02)V9(04).
+034200     02  PROV-NEWREC-HOLD3.
+034300         05  P-NEW-PASS-AMT-DATA.
+034400             10  P-NEW-PASS-AMT-CAPITAL    PIC 9(04)V99.
+034500             10  P-NEW-PASS-AMT-DIR-MED-ED PIC 9(04)V99.
+034600             10  P-NEW-PASS-AMT-ORGAN-ACQ  PIC 9(04)V99.
+034700             10  P-NEW-PASS-AMT-PLUS-MISC  PIC 9(04)V99.
+034800         05  P-NEW-CAPI-DATA.
+034900             15  P-NEW-CAPI-PPS-PAY-CODE   PIC X.
+035000             15  P-NEW-CAPI-HOSP-SPEC-RATE PIC 9(04)V99.
+035100             15  P-NEW-CAPI-OLD-HARM-RATE  PIC 9(04)V99.
+035200             15  P-NEW-CAPI-NEW-HARM-RATIO PIC 9(01)V9999.
+035300             15  P-NEW-CAPI-CSTCHG-RATIO   PIC 9V999.
+035400             15  P-NEW-CAPI-NEW-HOSP       PIC X.
+035500             15  P-NEW-CAPI-IME            PIC 9V9999.
+035600             15  P-NEW-CAPI-EXCEPTIONS     PIC 9(04)V99.
+035700             15  P-VAL-BASED-PURCH-SCORE   PIC 9V999.
+035800         05  FILLER                        PIC X(18).
+035900
+036000
+036100*-------------------------------------------------------------*
+036200* VARIABLES TO HOLD THE BILL'S FY BEGIN AND END DATES         *
+036300*-------------------------------------------------------------*
+036400 01  W-FY-BEGIN-DATE.
+036500     05  W-FY-BEGIN-CC              PIC 9(02).
+036600     05  W-FY-BEGIN-YY              PIC 9(02).
+036700     05  W-FY-BEGIN-MM              PIC 9(02) VALUE 10.
+036800     05  W-FY-BEGIN-DD              PIC 9(02) VALUE 01.
+036900
+037000 01  W-FY-END-DATE.
+037100     05  W-FY-END-CC                PIC 9(02).
+037200     05  W-FY-END-YY                PIC 9(02).
+037300     05  W-FY-END-MM                PIC 9(02) VALUE 09.
+037400     05  W-FY-END-DD                PIC 9(02) VALUE 30.
+037500
+037600
+037700
+037800******************************************************************
+037900 LINKAGE SECTION.
+038000***************************************************************
+038100*                 * * * * * * * * *                           *
+038200***************************************************************
+038300***************************************************************
+038400*    THIS DATA IS CALCULATED BY THIS HOSPRICER PROGRAM        *
+038500*    AND PASSED BACK                                          *
+038600*            RETURN CODE VALUES (BILL-RTC)                    *
+038700*                                                             *
+038800*            BILL-RTC                                         *
+038900*              00 = HOME RATE RETURNED                        *
+039000*                                                             *
+039100*              73 = LOW RHC RATE APPLIES TO ALL RHC           *
+039200*                                                             *
+039300*              74 = LOW RHC RATE WITH EOL SIA                 *
+039400*                                                             *
+039500*              75 = HIGH RHC RATE APPLIES TO SOME OR ALL RHC  *
+039600*                                                             *
+039700*              77 = HIGH RHC WITH EOL SIA                     *
+039800*                                                             *
+039900*            BILL-RTC  NO RATE RETURNED                       *
+040000*              10 = BAD UNITS                                 *
+040100*                                                             *
+040200*              20 = BAD UNITS2 < 8                            *
+040300*                                                             *
+040400*              30 = BAD MSA CODE OR CBSA CODE                 *
+040500*                                                             *
+040600*              40 = BAD PROV WAGE INDEX CBSA OR MSAFILE       *
+040700*                                                             *
+040800*              50 = BAD BENE WAGE INDEX CBSA OR MSAFILE       *
+040900*                                                             *
+041000*              51 = BAD PROV NUMBER                           *
+041100*                                                             *
+041200***************************************************************
+041300
+041400*-------------------------------------------------------------*
+041500*  BILL RECORD - 315 RECORD LENGTH LAYOUT                     *
+041600*  CONTAINS INPUT AND OUTPUT VALUES                           *
+041700*-------------------------------------------------------------*
+041800 01  BILL-315-DATA.
+041900     10  BILL-NPI                PIC X(10).
+042000     10  BILL-PROV-NO            PIC X(06).
+042100*
+042200     10  BILL-FROM-DATE.
+042300         15  BILL-FROM-CC        PIC 99.
+042400         15  BILL-FROM-YY        PIC 99.
+042500         15  BILL-FROM-MM        PIC 99.
+042600         15  BILL-FROM-DD        PIC 99.
+042700*
+042800     10  BILL-ADMISSION-DATE.
+042900         15  BILL-ADM-CC         PIC 99.
+043000         15  BILL-ADM-YY         PIC 99.
+043100         15  BILL-ADM-MM         PIC 99.
+043200         15  BILL-ADM-DD         PIC 99.
+043300*
+043400     10  FILLER                  PIC X(10).
+043500*
+043600     10  BILL-PROV-MSA-LUGAR.
+043700         15  BILL-PROV-MSA       PIC X(04).
+043800         15  BILL-PROV-LUGAR     PIC X.
+043900     10  BILL-PROV-CBSA          REDEFINES
+044000             BILL-PROV-MSA-LUGAR         PIC X(05).
+044100*
+044200     10  BILL-BENE-MSA-LUGAR.
+044300         15 BILL-BENE-MSA        PIC X(04).
+044400         15 BILL-BENE-LUGAR      PIC X.
+044500     10  BILL-BENE-CBSA          REDEFINES
+044600              BILL-BENE-MSA-LUGAR         PIC X(05).
+044700*
+044800     10  BILL-PROV-WAGE-INDEX    PIC 9(02)V9(04).
+044900     10  BILL-BENE-WAGE-INDEX    PIC 9(02)V9(04).
+045000*
+045100     10  BILL-SIA-ADD-ON-UNITS.
+045200         15  BILL-NA-ADD-ON-DAY1-UNITS   PIC 99.
+045300         15  BILL-NA-ADD-ON-DAY2-UNITS   PIC 99.
+045400         15  BILL-EOL-ADD-ON-DAY1-UNITS  PIC 99.
+045500         15  BILL-EOL-ADD-ON-DAY2-UNITS  PIC 99.
+045600         15  BILL-EOL-ADD-ON-DAY3-UNITS  PIC 99.
+045700         15  BILL-EOL-ADD-ON-DAY4-UNITS  PIC 99.
+045800         15  BILL-EOL-ADD-ON-DAY5-UNITS  PIC 99.
+045900         15  BILL-EOL-ADD-ON-DAY6-UNITS  PIC 99.
+046000         15  BILL-EOL-ADD-ON-DAY7-UNITS  PIC 99.
+046100*
+046200     10  FILLER                       PIC X(10).
+046300     10  BILL-QIP-IND                 PIC X.
+046400*
+046500     10  BILL-GROUP1.
+046600         15  BILL-REV1                PIC XXXX.
+046700         15  BILL-HCPC1               PIC X(05).
+046800         15  BILL-LINE-ITEM-DOS1.
+046900             20  BILL-LIDOS1-CC       PIC 99.
+047000             20  BILL-LIDOS1-YY       PIC 99.
+047100             20  BILL-LIDOS1-MM       PIC 99.
+047200             20  BILL-LIDOS1-DD       PIC 99.
+047300         15  BILL-UNITS1              PIC 9(07).
+047400         15  BILL-PAY-AMT1            PIC 9(06)V99.
+047500*
+047600     10  BILL-GROUP2.
+047700         15  BILL-REV2                PIC XXXX.
+047800         15  BILL-HCPC2               PIC X(05).
+047900         15  BILL-LINE-ITEM-DOS2.
+048000             20  BILL-LIDOS2-CC       PIC 99.
+048100             20  BILL-LIDOS2-YY       PIC 99.
+048200             20  BILL-LIDOS2-MM       PIC 99.
+048300             20  BILL-LIDOS2-DD       PIC 99.
+048400         15  BILL-UNITS2              PIC 9(07).
+048500         15  BILL-PAY-AMT2            PIC 9(06)V99.
+048600*
+048700     10  BILL-GROUP3.
+048800         15  BILL-REV3                PIC XXXX.
+048900         15  BILL-HCPC3               PIC X(05).
+049000         15  BILL-LINE-ITEM-DOS3.
+049100             20  BILL-LIDOS3-CC       PIC 99.
+049200             20  BILL-LIDOS3-YY       PIC 99.
+049300             20  BILL-LIDOS3-MM       PIC 99.
+049400             20  BILL-LIDOS3-DD       PIC 99.
+049500         15  BILL-UNITS3              PIC 9(07).
+049600         15  BILL-PAY-AMT3            PIC 9(06)V99.
+049700*
+049800     10  BILL-GROUP4.
+049900         15  BILL-REV4                PIC XXXX.
+050000         15  BILL-HCPC4               PIC X(05).
+050100         15  BILL-LINE-ITEM-DOS4.
+050200             20  BILL-LIDOS4-CC       PIC 99.
+050300             20  BILL-LIDOS4-YY       PIC 99.
+050400             20  BILL-LIDOS4-MM       PIC 99.
+050500             20  BILL-LIDOS4-DD       PIC 99.
+050600         15  BILL-UNITS4              PIC 9(07).
+050700         15  BILL-PAY-AMT4            PIC 9(06)V99.
+050800*
+050900     10  BILL-SIA-ADD-ON-PYMTS.
+051000         15  BILL-NA-ADD-ON-DAY1-PAY   PIC 9(06)V99.
+051100         15  BILL-NA-ADD-ON-DAY2-PAY   PIC 9(06)V99.
+051200         15  BILL-EOL-ADD-ON-DAY1-PAY  PIC 9(06)V99.
+051300         15  BILL-EOL-ADD-ON-DAY2-PAY  PIC 9(06)V99.
+051400         15  BILL-EOL-ADD-ON-DAY3-PAY  PIC 9(06)V99.
+051500         15  BILL-EOL-ADD-ON-DAY4-PAY  PIC 9(06)V99.
+051600         15  BILL-EOL-ADD-ON-DAY5-PAY  PIC 9(06)V99.
+051700         15  BILL-EOL-ADD-ON-DAY6-PAY  PIC 9(06)V99.
+051800         15  BILL-EOL-ADD-ON-DAY7-PAY  PIC 9(06)V99.
+051900*
+052000     10  BILL-RETURNED-DATA.
+052100         15  BILL-PAY-AMT-TOTAL       PIC 9(06)V99.
+052200         15  BILL-RTC                 PIC XX.
+052300*
+052400     10  BILL-RHC-DAYS-PAID.
+052500         15  BILL-HIGH-RHC-DAYS        PIC 99.
+052600         15  BILL-LOW-RHC-DAYS         PIC 99.
+052700     10  FILLER                        PIC X(08).
+052800*
+052900
+053000
+053100***************************************************************
+053200
+053300***************************************************************
+053400*----------------------------------------------------------****
+053500******************************************************************
+053600*
+053700*    FILE MUST BE PROV-NO EFF-DATE SEQUENCE
+053800*
+053900******************************************************************
+054000
+054100 01  PROV-TABLE.
+054200     02  PROV-ENTRIES               OCCURS 2400
+054300                                    ASCENDING KEY IS PROV-NO
+054400                                    INDEXED BY PX1 PX2 PX3.
+054500         10  PROV-DATA1.
+054600             15  PROV-NPI10.
+054700                 20  PROV-NPI8     PIC X(08).
+054800                 20  PROV-NPI-FIL  PIC X(02).
+054900             15  PROV-NO           PIC X(06).
+055000             15  PROV-EFF-DATE     PIC X(08).
+055100             15  FILLER            PIC X(56).
+055200
+055300 01  PROV-DATA-2.
+055400     02  PROV-ENTRIES2              OCCURS 2400
+055500                                    INDEXED BY PD2.
+055600         10  PROV-DATA2            PIC X(80).
+055700
+055800 01  PROV-DATA-3.
+055900     02  PROV-ENTRIES3              OCCURS 2400
+056000                                    INDEXED BY PD3.
+056100         10  PROV-DATA3            PIC X(80).
+056200
+056300***************************************************************
+056400***************************************************************
+056500 01  MSA-WI-TABLE.
+056600     05  M-MSA-DATA              OCCURS 4000
+056700                                 INDEXED BY MU1 MU2 MU3.
+056800         10  MSA-MSA-LUGAR.
+056900             15  MSA-MSA       PIC 9(04).
+057000             15  MSA-LUGAR     PIC X.
+057100         10  MSA-EFFDTE        PIC X(08).
+057200         10  MSA-WAGE-IND      PIC S9(02)V9(04).
+057300
+057400***************************************************************
+057500***************************************************************
+057600 01  CBSA-WI-TABLE.
+057700     05  M-CBSA-DATA             OCCURS 9000
+057800                                 INDEXED BY CU1 CU2 CU3.
+057900         10  M-CBSA              PIC 9(05).
+058000         10  M-CBSA-EFFDTE       PIC X(08).
+058100         10  M-CBSA-WAGE-IND     PIC S9(02)V9(04).
+058200
+058300***************************************************************
+058400**-----------------------------------------------------------**
+058500
+058600**-----------------------------------------------------------**
+058700**-----------------------------------------------------------**
+058800**-----------------------------------------------------------**
+058900
+059000 PROCEDURE DIVISION USING  BILL-315-DATA
+059100                           PROV-TABLE
+059200                           PROV-DATA-2
+059300                           PROV-DATA-3
+059400                           MSA-WI-TABLE
+059500                           CBSA-WI-TABLE.
+059600**-----------------------------------------------------------**
+059700**-----------------------------------------------------------**
+059800
+059900     PERFORM 0200-PROCESS-RECORDS
+060000        THRU 0200-EXIT.
+060100
+060200     GOBACK.
+060300
+060400
+060500 0200-PROCESS-RECORDS.
+060600**
+060700*----------------------------------------------------------*
+060800* INITIALIZE VARIABLES                                     *
+060900*----------------------------------------------------------*
+061000     MOVE ALL '0' TO BILL-RETURNED-DATA
+061100                     BILL-PAY-AMT1
+061200                     BILL-PAY-AMT2
+061300                     BILL-PAY-AMT3
+061400                     BILL-PAY-AMT4
+061500                     BILL-SIA-ADD-ON-PYMTS.
+061600
+061700     INITIALIZE W-FY-BEGIN-CC
+061800                W-FY-BEGIN-YY
+061900                W-FY-END-CC
+062000                W-FY-END-YY.
+062100
+062200*----------------------------------------------------------*
+062300* SET FY BEGIN AND END DATES USING BILL DISCHARGE DATE     *
+062400*----------------------------------------------------------*
+062500     MOVE BILL-FROM-CC TO W-FY-BEGIN-CC.
+062600     MOVE BILL-FROM-CC TO W-FY-END-CC.
+062700
+062800*----------------------------------*
+062900* FOR CLAIMS DISCHARGED JAN - SEPT *
+063000*----------------------------------*
+063100     IF BILL-FROM-MM >= 01 AND
+063200        BILL-FROM-MM <= 09
+063300        COMPUTE W-FY-BEGIN-YY = BILL-FROM-YY - 1
+063400        MOVE BILL-FROM-YY TO W-FY-END-YY
+063500
+063600*----------------------------------*
+063700* FOR CLAIMS DISCHARGED OCT - DEC  *
+063800*----------------------------------*
+063900     ELSE
+064000        MOVE BILL-FROM-YY TO W-FY-BEGIN-YY
+064100        COMPUTE W-FY-END-YY = BILL-FROM-YY + 1
+064200     END-IF.
+064300
+064400     IF EOF-BILL-SW = 0
+064500           ADD 1               TO BILL-CTR
+064600           PERFORM 0300-PROCESS-DATA
+064700              THRU 0300-EXIT.
+064800
+064900 0200-EXIT.  EXIT.
+065000
+065100 0300-PROCESS-DATA.
+065200****-------------------------------------------****
+065300****    GET PROV RECORD FOR HOSPICE MSA OR CBSA
+065200****-------------------------------------------****
+065400
+065500     PERFORM 0700-GET-PROVIDER
+065600        THRU 0700-EXIT.
+065700
+065800     IF BILL-RTC NOT = 00
+065900        GO TO 0300-EXIT.
+066000
+066100     IF P-NEW-EFF-DATE < 20051001 AND
+066200        BILL-FROM-DATE > 20050930
+066300        MOVE 51                TO BILL-RTC
+066400
+066500
+066600        GO TO 0300-EXIT.
+066700
+066800
+066900     IF BILL-FROM-DATE > 20050930
+067000        PERFORM 0375-GET-CBSA
+067100           THRU 0375-EXIT
+067200     ELSE
+067300        PERFORM 0350-GET-MSA
+067400           THRU 0350-EXIT.
+067500
+067600 0300-EXIT.   EXIT.
+067700
+067800 0350-GET-MSA.
+067900
+065200****-------------------------------------------****
+068000****    GET PROV-HOSP WAGE INDEX
+065200****-------------------------------------------****
+068200
+068300     IF P-NEW-GEO-RURAL1
+068400        MOVE '99'              TO SEARCH-MSA-POS12
+068500        MOVE P-NEW-GEO-RURAL2  TO SEARCH-MSA-POS34
+068600     ELSE
+068700        MOVE P-NEW-GEO-LOC-MSA9
+068800                               TO SEARCH-MSA.
+068900
+069000     IF BILL-FROM-DATE < 19991001
+069100        MOVE P-NEW-LUGAR       TO SEARCH-LUGAR
+069200     ELSE
+069300        MOVE SPACE             TO SEARCH-LUGAR.
+069400
+069500     MOVE P-NEW-GEO-LOC-MSAX   TO BILL-PROV-MSA.
+069600
+069700     IF BILL-FROM-DATE < 19991001
+069800        MOVE P-NEW-LUGAR       TO BILL-PROV-LUGAR
+069900     ELSE
+070000        MOVE SPACE             TO BILL-PROV-LUGAR.
+070100
+070200        IF BILL-FROM-DATE < 19991001
+070300           MOVE P-NEW-LUGAR       TO SEARCH-LUGAR
+070400        ELSE
+070500           MOVE SPACE             TO SEARCH-LUGAR.
+070600
+070700        MOVE P-NEW-GEO-LOC-MSAX   TO BILL-PROV-MSA.
+070800
+070900        IF BILL-FROM-DATE < 19991001
+071000           MOVE P-NEW-LUGAR       TO BILL-PROV-LUGAR
+071100        ELSE
+071200           MOVE SPACE             TO BILL-PROV-LUGAR.
+071300
+071400     PERFORM 0400-SEARCH-4-MSA
+071500        THRU 0400-SEARCH-EXIT.
+071600
+071700     IF BILL-RTC = 00
+071800        PERFORM 0500-GET-HOSP-WAGE-INDEX
+071900                THRU 0500-EXIT  VARYING MU2
+072000                FROM MU1 BY 1 UNTIL
+072100                MSA-MSA-LUGAR (MU2) NOT = SEARCH-MSA-LUGAR
+072200     ELSE
+072300        MOVE 0                 TO BILL-PROV-WAGE-INDEX
+072400                                  BILL-BENE-WAGE-INDEX
+072500        GO TO 0350-EXIT.
+072600
+072700     IF (BILL-PROV-WAGE-INDEX  NOT NUMERIC) OR
+072800        (BILL-PROV-WAGE-INDEX  = ZERO)
+072900        MOVE '40'              TO BILL-RTC
+073000        GO TO 0350-EXIT.
+073100
+073200
+065200****-------------------------------------------****
+073300****    GET BENE WAGE INDEX
+065200****-------------------------------------------****
+073500
+073600     MOVE BILL-BENE-MSA        TO SEARCH-MSA.
+073700
+073800     IF BILL-FROM-DATE  < 19991001
+073900        MOVE BILL-BENE-LUGAR   TO SEARCH-LUGAR
+074000     ELSE
+074100        MOVE SPACE             TO SEARCH-LUGAR.
+074200
+074300     PERFORM 0400-SEARCH-4-MSA
+074400        THRU 0400-SEARCH-EXIT.
+074500
+074600     IF BILL-RTC = 00
+074700        PERFORM 0550-GET-BENE-WAGE-INDEX
+074800                THRU 0550-EXIT  VARYING MU2
+074900                FROM MU1 BY 1 UNTIL
+075000                MSA-MSA-LUGAR (MU2) NOT = SEARCH-MSA-LUGAR
+075100     ELSE
+075200        MOVE 0                   TO BILL-PROV-WAGE-INDEX
+075300                                    BILL-BENE-WAGE-INDEX
+075400        GO TO 0350-EXIT.
+075500
+075600     IF (BILL-BENE-WAGE-INDEX NOT NUMERIC) OR
+075700        (BILL-BENE-WAGE-INDEX = ZERO)
+075800        MOVE '50'                TO BILL-RTC
+075900        GO TO 0350-EXIT.
+076000
+076100
+076200 0350-EXIT.  EXIT.
+076300
+076400 0375-GET-CBSA.
+076500
+065200****------------------------------------------------****
+076700****    GET PROV-HOSP WAGE INDEX
+076800****    AS OF 01/01/2008 PROV CBSA ONLY COMES FROM CLAIM
+065200****------------------------------------------------****
+076900
+077000     IF BILL-FROM-DATE < 20080101
+077100       IF W-P-NEW-CBSA-GEO-RURAL1
+077200          MOVE '999'           TO SEARCH-CBSA-POS123
+077300          MOVE W-P-NEW-CBSA-GEO-RURAL2ND
+077400                               TO SEARCH-CBSA-POS45
+077500       ELSE
+077600          MOVE W-P-NEW-CBSA-GEO-LOC
+077700                               TO SEARCH-CBSA
+077800          MOVE W-P-NEW-CBSA-GEO-LOC
+077900                               TO BILL-PROV-CBSA
+078000     ELSE
+078100          MOVE BILL-PROV-CBSA  TO SEARCH-CBSA.
+078200
+078300
+065200****------------------------------------------------****
+078400****    CBSA BETWEEN 50000 AND 59999 NOT VALID FOR 2007
+065200****------------------------------------------------****
+078600
+078700*    IF BILL-FROM-DATE > 20060930 AND
+078800*       BILL-PROV-CBSA > 49999 AND
+078900*       BILL-PROV-CBSA < 99900
+079000*       MOVE '30'              TO BILL-RTC
+079100*       GO TO 0375-EXIT.
+079200
+079300
+079400     PERFORM 0450-SEARCH-4-CBSA
+079500        THRU 0450-SEARCH-EXIT.
+079600
+079700     IF BILL-RTC = 00
+079800        PERFORM 0525-GET-HOSP-WAGE-INDEX
+079900                THRU 0525-EXIT  VARYING CU2
+080000                FROM CU1 BY 1 UNTIL
+080100                M-CBSA (CU2) NOT = SEARCH-CBSA
+080200     ELSE
+080300        MOVE 0                 TO BILL-PROV-WAGE-INDEX
+080400                                  BILL-BENE-WAGE-INDEX
+080500        GO TO 0375-EXIT.
+080600
+080700     IF (BILL-PROV-WAGE-INDEX NOT NUMERIC) OR
+080800        (BILL-PROV-WAGE-INDEX = ZERO)
+080900        MOVE '40'          TO BILL-RTC
+081000        GO TO 0375-EXIT.
+081100
+081200
+065200****------------------------------------------------****
+081300****    GET BENE WAGE INDEX
+065200****------------------------------------------------****
+081500
+081600     MOVE BILL-BENE-CBSA   TO SEARCH-CBSA.
+081700
+081800     PERFORM 0450-SEARCH-4-CBSA
+081900        THRU 0450-SEARCH-EXIT.
+082000
+082100     IF BILL-RTC = 00
+082200        PERFORM 0575-GET-BENE-WAGE-INDEX
+082300           THRU 0575-EXIT
+082400               VARYING CU2
+082500                  FROM CU1 BY 1 UNTIL
+082600                       M-CBSA (CU2) NOT = SEARCH-CBSA
+082700     ELSE
+082800        MOVE 0             TO BILL-PROV-WAGE-INDEX
+082900                              BILL-BENE-WAGE-INDEX
+083000        GO TO 0375-EXIT.
+083100
+083200     IF (BILL-BENE-WAGE-INDEX NOT NUMERIC) OR
+083300        (BILL-BENE-WAGE-INDEX = ZERO)
+083400        MOVE '50'          TO BILL-RTC
+083500        GO TO 0375-EXIT.
+083600
+083700     PERFORM 1000-CALL
+083800        THRU 1000-EXIT.
+083900
+084000 0375-EXIT.  EXIT.
+084100
+084200 0400-SEARCH-4-MSA.
+065200****------------------------------------------------****
+084300****   SEARCH FOR MSA
+065200****------------------------------------------------****
+084400     SET MU1               TO 1.
+084500     SEARCH M-MSA-DATA VARYING MU1
+084600            AT END
+084700                MOVE 30    TO BILL-RTC
+084800
+084900
+085000     WHEN MSA-MSA-LUGAR (MU1) = SEARCH-MSA-LUGAR
+085100          SET MU2          TO MU1.
+085200
+085300 0400-SEARCH-EXIT.  EXIT.
+085400
+085500 0450-SEARCH-4-CBSA.
+065200****------------------------------------------------****
+085600****   SEARCH FOR CBSA
+065200****------------------------------------------------****
+085700
+085800     SET CU1               TO 1.
+085900
+086000
+086100     SEARCH M-CBSA-DATA VARYING CU1
+086200            AT END
+086300                MOVE 30    TO BILL-RTC
+086400
+086500
+086600     WHEN M-CBSA (CU1) = SEARCH-CBSA
+086700          SET CU2          TO CU1.
+086800
+086900 0450-SEARCH-EXIT.  EXIT.
+087000
+087100 0500-GET-HOSP-WAGE-INDEX.
+087200
+065200****------------------------------------------------****
+087300****   LOOKUP FOR MSA
+065200****------------------------------------------------****
+087400     IF BILL-FROM-DATE NOT < MSA-EFFDTE (MU2)
+087500        MOVE MSA-WAGE-IND (MU2)
+087600                           TO BILL-PROV-WAGE-INDEX.
+087700
+087800 0500-EXIT.   EXIT.
+087900
+088000 0525-GET-HOSP-WAGE-INDEX.
+088100
+065200****------------------------------------------------****
+088200****   LOOKUP FOR CBSA
+088300****   MUST BE EFFECTIVE WITHIN THE CLAIM'S FY
+065200****------------------------------------------------****
+088400     IF BILL-FROM-DATE NOT < M-CBSA-EFFDTE (CU2) AND
+088500
+088600        (M-CBSA-EFFDTE (CU2)  >= W-FY-BEGIN-DATE AND
+088700         M-CBSA-EFFDTE (CU2)  <= W-FY-END-DATE)
+088800
+088900        MOVE M-CBSA-WAGE-IND (CU2)
+089000                           TO BILL-PROV-WAGE-INDEX.
+089100
+089200 0525-EXIT.   EXIT.
+089300
+089400 0550-GET-BENE-WAGE-INDEX.
+089500
+065200****------------------------------------------------****
+089600****   LOOKUP FOR MSA
+065200****------------------------------------------------****
+089700     IF BILL-FROM-DATE NOT < MSA-EFFDTE (MU2)
+089800        MOVE MSA-WAGE-IND (MU2)
+089900                           TO BILL-BENE-WAGE-INDEX.
+090000
+090100 0550-EXIT.   EXIT.
+090200
+090300 0575-GET-BENE-WAGE-INDEX.
+090400
+065200****------------------------------------------------****
+090500****   LOOKUP FOR CBSA
+090600****   MUST BE EFFECTIVE WITHIN THE CLAIM'S FY
+065200****------------------------------------------------****
+090700     IF BILL-FROM-DATE NOT < M-CBSA-EFFDTE (CU2) AND
+090800
+090900        (M-CBSA-EFFDTE(CU2)  >= W-FY-BEGIN-DATE AND
+091000         M-CBSA-EFFDTE(CU2)  <= W-FY-END-DATE)
+091100
+091200        MOVE M-CBSA-WAGE-IND (CU2)
+091300                           TO BILL-BENE-WAGE-INDEX.
+091400
+091500 0575-EXIT.   EXIT.
+091600
+091700 0700-GET-PROVIDER.
+065200****------------------------------------------------****
+091900*    ON A PROVIDER BREAK:                              *
+092000*    FIND THE PROVIDER MSA AND LUGAR ELEMENTS          *
+092100*    FILE MUST BE PROV-NO EFF-DATE SEQUENCE            *
+065200****------------------------------------------------****
+092300
+092400     IF  BILL-PROV-NO NOT = P-NEW-PROVIDER-NO
+092500         SET PX2               TO 1
+092600         SEARCH PROV-ENTRIES VARYING PX2
+092700             AT END
+092800                 MOVE 51       TO BILL-RTC
+092900                 GO TO 0700-EXIT
+093000             WHEN BILL-PROV-NO = PROV-NO (PX2)
+093100                 MOVE 00       TO BILL-RTC.
+093200
+093300     MOVE PROV-DATA1 (PX2)     TO PROV-NEWREC-HOLD1.
+093400     SET PD2                   TO PX2.
+093500     SET PD3                   TO PX2.
+093600     MOVE PROV-DATA2 (PD2)     TO PROV-NEWREC-HOLD2.
+093700     MOVE PROV-DATA3 (PD3)     TO PROV-NEWREC-HOLD3.
+093800
+093900     PERFORM 0800-GET-CURR-PROV
+094000        THRU 0800-EXIT
+094100             VARYING PX3
+094200             FROM PX2 BY 1 UNTIL PROV-NO (PX3) NOT =
+094300                  BILL-PROV-NO OR PROV-NO (PX3) = '999999'.
+094400
+094500 0700-EXIT.  EXIT.
+094600
+094700 0800-GET-CURR-PROV.
+094800
+094900     IF BILL-FROM-DATE NOT < PROV-EFF-DATE (PX3)
+095000         MOVE PROV-DATA1 (PX3) TO PROV-NEWREC-HOLD1
+095100         SET PD2               TO PX3
+095200         SET PD3               TO PX3
+095300         MOVE PROV-DATA2 (PD2) TO PROV-NEWREC-HOLD2
+095400         MOVE PROV-DATA3 (PD3) TO PROV-NEWREC-HOLD3.
+095500
+095600
+095700 0800-EXIT.  EXIT.
+095800
+095900
+096000 1000-CALL.
+096100*
+096200*
+096300     CALL HOSPR200            USING BILL-315-DATA.
+096400
+096500
+096600 1000-EXIT.   EXIT.
+096700
+096900***************************************************************
+096800******        L A S T   S O U R C E   S T A T E M E N T   *****
+096900***************************************************************
+

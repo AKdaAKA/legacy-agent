@@ -1,0 +1,11 @@
+claim_id,cbsa,admit_date,from_date,rhc_days,chc_units,irc_days,gic_days,qip,wage_index,area,rhc_pay,chc_pay,irc_pay,gic_pay,total,rtc,high_rhc_days,low_rhc_days,meaning
+H001,19124,2020-02-01,2020-03-01,10,0,0,0,False,0.9747,"Dallas-Plano-Irving, TX",1911.19,0.0,0.0,0.0,1911.19,75,10,00,Paid - high RHC rate (first 60 days) for some/all days
+H002,19124,2019-10-15,2020-03-01,10,0,0,0,False,0.9747,"Dallas-Plano-Irving, TX",1510.48,0.0,0.0,0.0,1510.48,73,00,10,Paid - low routine-home-care rate (day 61+)
+H003,19124,2020-01-20,2020-03-01,15,0,0,0,False,0.9747,"Dallas-Plano-Irving, TX",2866.78,0.0,0.0,0.0,2866.78,75,15,00,Paid - high RHC rate (first 60 days) for some/all days
+H004,26420,2020-02-01,2020-03-01,0,0,0,5,False,1.0018,"Houston-The Woodlands-Sugar Land, TX",0.0,0.0,0.0,5112.13,5112.13,00,00,00,Paid - home rate
+H005,12420,2020-02-01,2020-03-01,0,0,5,0,False,0.9396,"Austin-Round Rock, TX",0.0,0.0,2176.92,0.0,2176.92,00,00,00,Paid - home rate
+H006,19124,2020-02-01,2020-03-01,0,32,0,0,False,0.9747,"Dallas-Plano-Irving, TX",0.0,457.12,0.0,0.0,457.12,00,00,00,Paid - home rate
+H007,19124,2020-02-01,2020-03-01,10,0,0,0,True,0.9747,"Dallas-Plano-Irving, TX",1873.95,0.0,0.0,0.0,1873.95,75,10,00,Paid - high RHC rate (first 60 days) for some/all days
+H008,23104,2020-02-01,2020-03-01,20,0,0,3,False,0.9792,"Fort Worth-Arlington, TX",3834.41,0.0,0.0,3022.96,6857.37,75,20,00,Paid - high RHC rate (first 60 days) for some/all days
+H009,19124,2020-02-01,2020-03-01,0,4,0,0,False,0.9747,"Dallas-Plano-Irving, TX",0.0,191.12,0.0,0.0,191.12,00,00,00,Paid - home rate
+H010,10180,2020-02-01,2020-03-01,30,0,0,0,False,0.852,"Abilene, TX",5241.64,0.0,0.0,0.0,5241.64,75,30,00,Paid - high RHC rate (first 60 days) for some/all days
