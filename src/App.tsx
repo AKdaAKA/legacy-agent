@@ -439,13 +439,13 @@ Review the converted code and its dependencies before running it. This conversio
                 <div className="flex items-start space-x-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
                   <div>
-                    <strong className="text-zinc-100">Its inputs are fragile:</strong> Every claim must be packed into an exact 315-character record. Shift one field by one character and the claim silently breaks.
+                    <strong className="text-zinc-100">One character off breaks everything:</strong> Each claim is a single 315-character line. Shift a field by one space and the claim is misread, with no warning.
                   </div>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
                   <div>
-                    <strong className="text-zinc-100">It never says "I don't know":</strong> In our test battery of broken claims, it accepted 7 out of 8 as success without throwing errors.
+                    <strong className="text-zinc-100">It doesn't check its inputs:</strong> Impossible dates, typos, wrong years. It pays them anyway. 7 of our 8 bad test claims went through as “success.”
                   </div>
                 </div>
               </div>
