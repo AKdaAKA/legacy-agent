@@ -1,4 +1,4 @@
-# legacy-agent ⚡
+# legacy-agent 
 
 > Turn legacy COBOL into readable Python with Gemini and local BM25 retrieval.
 
