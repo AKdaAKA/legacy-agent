@@ -7,7 +7,7 @@
 [![Node](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](#quickstart)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
 
-Ten days of home hospice care in Dallas should cost Medicare **$1,911**. Feed the government's own pricing code one bad wage value and it pays **$134,248**, then reports success. legacy-agent helps you read, convert, and test code like that.
+Ten days of Dallas hospice care should cost **$1,911**. One typo made Medicare's code pay **$134,248**, with no error. legacy-agent helps you read, convert, and test code like that.
 
 ---
 

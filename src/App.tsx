@@ -387,7 +387,7 @@ Review the converted code and its dependencies before running it. This conversio
                 COBOL → Python modernization, proven to the penny
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
-                Ten days of home hospice care in Dallas should cost Medicare $1,911. We got the government’s own code to pay $134,248, and it called that a success.
+                Ten days of Dallas hospice care should cost $1,911. One typo made Medicare’s code pay $134,248, with no error.
               </h1>
               <p className="text-sm text-zinc-300 leading-relaxed">
                 Most of that is missing paperwork, but every payment is calculated by software, and much of that software is decades-old COBOL that nobody can safely change.
