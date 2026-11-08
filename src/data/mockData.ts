@@ -428,31 +428,22 @@ def price_claim(claim: HospiceClaim) -> dict:
 
 export const RATES_JSON_SNIPPET = `{
   "fiscal_year": "2020",
+  "source": "CMS HOSPRATE.cpy (2020-V200-HOSPICE-RATES) and data/CBSA2020.txt",
   "effective_dates": {
     "start": "2019-10-01",
     "end": "2020-09-30"
   },
-  "rhc_high": {
-    "labor": "137.94",
-    "non_labor": "62.70"
-  },
-  "rhc_low": {
-    "labor": "133.72",
-    "non_labor": "60.78"
-  },
-  "chc_daily": {
-    "labor": "980.20",
-    "non_labor": "420.10"
-  },
-  "gip_daily": {
-    "labor": "714.28",
-    "non_labor": "306.12"
-  },
+  "rhc_high": { "labor": "133.64", "non_labor": "60.86" },
+  "rhc_low":  { "labor": "105.62", "non_labor": "48.10" },
+  "chc_daily": { "labor": "958.94", "non_labor": "436.69" },
+  "irc_daily": { "labor": "243.64", "non_labor": "206.46" },
+  "gip_daily": { "labor": "653.70", "non_labor": "367.55" },
   "cbsa_wage_table": {
-    "19124": 0.9747,
-    "47894": 0.8752,
-    "16980": 1.0450,
-    "35620": 1.3210
+    "19124": "0.9747",
+    "23104": "0.9792",
+    "26420": "1.0018",
+    "12420": "0.9396",
+    "47894": "1.0197"
   }
 }`;
 
