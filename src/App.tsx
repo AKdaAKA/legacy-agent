@@ -9,6 +9,15 @@ interface FileDetails {
   lines?: number;
 }
 
+interface ContextPoolDetails {
+  mode: 'full-source' | 'langchain-bm25';
+  sourceCharacters: number;
+  contextCharacters: number;
+  totalChunks: number;
+  includedChunks: number;
+  includedRanges: { fileName: string; lineStart: number; lineEnd: number }[];
+}
+
 export function App() {
   const [stage, setStage] = useState<'home' | 'uploading' | 'analyzing' | 'processing' | 'result'>('home');
   const [isDaysShifted, setIsDaysShifted] = useState<boolean>(false);
@@ -18,6 +27,10 @@ export function App() {
   const [sideBySideBadClaim, setSideBySideBadClaim] = useState<boolean>(false);
   const [uploadedFile, setUploadedFile] = useState<FileDetails | null>(null);
   const [zipFiles, setZipFiles] = useState<{ name: string; size: number }[]>([]);
+  const [uploadedSource, setUploadedSource] = useState<string>('');
+  const [generatedPython, setGeneratedPython] = useState<string>('');
+  const [contextPool, setContextPool] = useState<ContextPoolDetails | null>(null);
+  const [conversionError, setConversionError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Live tester interactive state
@@ -55,12 +68,12 @@ export function App() {
     { label: 'PATIENT WAGE', chars: '59–64', val: '009747', note: '0.9747 Patient Factor (Used)' },
     { label: 'REV CODE', chars: '94–97', val: '0651', note: 'Routine Home Care' },
     { label: 'CARE DATE', chars: '103–110', val: '20200301', note: 'DOS (Date of Service)' },
-    { 
-      label: 'DAYS', 
-      chars: '111–117', 
-      val: isDaysShifted ? ' 000001' : '0000010', 
+    {
+      label: 'DAYS',
+      chars: '111–117',
+      val: isDaysShifted ? ' 000001' : '0000010',
       note: isDaysShifted ? 'Corrupted: 1 space offset!' : '10 Days of Care',
-      isBroken: isDaysShifted 
+      isBroken: isDaysShifted
     },
   ];
 
@@ -178,192 +191,149 @@ export function App() {
 
   const handleFileUpload = async (file: File) => {
     setStage('uploading');
-    setUploadedFile({
-      name: file.name,
-      size: file.size,
-      type: file.name.endsWith('.zip') ? 'zip' : 'source',
-      lines: 5782,
-    });
+    setConversionError(null);
+    setGeneratedPython('');
 
-    if (file.name.endsWith('.zip')) {
-      try {
+    try {
+      let source: string;
+      let files: { name: string; size: number }[];
+      if (file.name.toLowerCase().endsWith('.zip')) {
+        if (file.size > 10_000_000) {
+          throw new Error('ZIP archives must be 10 MB or smaller.');
+        }
         const zip = new JSZip();
         const loadedZip = await zip.loadAsync(file);
-        const files: { name: string; size: number }[] = [];
-        loadedZip.forEach((relativePath, zipEntry) => {
-          if (!zipEntry.dir) {
-            // @ts-ignore
-            files.push({ name: relativePath, size: zipEntry._data?.uncompressedSize || 1024 });
-          }
-        });
+        const sourceFiles: { name: string; content: string }[] = [];
+        const entries = Object.values(loadedZip.files);
+        for (const entry of entries) {
+          if (entry.dir) continue;
+          if (!/\.(?:cbl|cob|cpy)$/i.test(entry.name) && !/(?:^|\/)HOS[A-Z0-9]+\.txt$/i.test(entry.name)) continue;
+          const content = await entry.async('string');
+          sourceFiles.push({ name: entry.name, content });
+        }
+        if (sourceFiles.length === 0) {
+          throw new Error('No COBOL source files (.cbl, .cob, or .cpy) were found in this ZIP archive.');
+        }
+        source = sourceFiles.map(({ name, content }) => `*> Source file: ${name}\n${content}`).join('\n\n');
+        files = sourceFiles.map(({ name, content }) => ({ name, size: content.length }));
         setZipFiles(files);
-      } catch (err) {
-        console.error('Failed to parse zip:', err);
+      } else {
+        source = await file.text();
+        files = [{ name: file.name, size: file.size }];
+        setZipFiles(files);
       }
-    } else {
-      setZipFiles([
-        { name: file.name, size: file.size },
-        { name: 'HOSPRATE.cpy', size: 14559 },
-      ]);
+
+      if (source.trim().length === 0) {
+        throw new Error('The selected file does not contain any source text.');
+      }
+
+      setUploadedSource(source);
+      setUploadedFile({
+        name: file.name,
+        size: file.size,
+        type: file.name.toLowerCase().endsWith('.zip') ? 'zip' : 'source',
+        lines: source.split(/\r\n|\r|\n/).length,
+      });
+      setTimeout(() => {
+        setStage('analyzing');
+      }, 1100);
+    } catch (error) {
+      setStage('home');
+      setConversionError(error instanceof Error ? error.message : 'Unable to read the selected source file.');
+    }
+  };
+
+  const handleDemoPreset = async () => {
+    setStage('uploading');
+    setConversionError(null);
+    setGeneratedPython('');
+    try {
+      const response = await fetch('/api/demo-source');
+      const result: { fileName?: string; source?: string; error?: string } = await response.json();
+      if (!response.ok || typeof result.fileName !== 'string' || typeof result.source !== 'string') {
+        throw new Error(result.error || 'Unable to load the sample COBOL source.');
+      }
+      setUploadedSource(result.source);
+      setUploadedFile({
+        name: result.fileName,
+        size: result.source.length,
+        type: 'source',
+        lines: result.source.split(/\r\n|\r|\n/).length,
+      });
+      setZipFiles([{ name: result.fileName, size: result.source.length }]);
+      setTimeout(() => {
+        setStage('analyzing');
+      }, 500);
+    } catch (error) {
+      setStage('home');
+      setConversionError(error instanceof Error ? error.message : 'Unable to load the sample COBOL source.');
+    }
+  };
+
+  const handleModernize = async () => {
+    if (!uploadedSource) {
+      setConversionError('Upload a COBOL source file before starting the conversion.');
+      return;
     }
 
-    setTimeout(() => {
-      setStage('analyzing');
-    }, 1100);
-  };
-
-  const handleDemoPreset = () => {
-    setStage('uploading');
-    setUploadedFile({
-      name: 'hospice-legacy.zip',
-      size: 204100,
-      type: 'zip',
-      lines: 5782,
-    });
-    setZipFiles([
-      { name: 'legacy_original/HOSPR200.txt', size: 235504 },
-      { name: 'legacy_original/HOSPRATE.txt', size: 14842 },
-      { name: 'legacy_original/CBSA2020', size: 332907 },
-      { name: 'legacy_original/HOSDR200.txt', size: 43316 },
-      { name: 'legacy_original/HOSOP200.txt', size: 73063 },
-      { name: 'legacy_original/TESTJCL.txt', size: 5088 },
-    ]);
-
-    setTimeout(() => {
-      setStage('analyzing');
-    }, 1100);
-  };
-
-  const handleModernize = () => {
+    setConversionError(null);
+    setContextPool(null);
     setStage('processing');
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/convert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileName: uploadedFile?.name || 'source.cbl', source: uploadedSource }),
+      });
+      const result: { pythonCode?: unknown; contextPool?: ContextPoolDetails; error?: string } = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Gemini conversion failed.');
+      }
+      if (typeof result.pythonCode !== 'string' || result.pythonCode.trim().length === 0) {
+        throw new Error('Gemini did not return Python source code.');
+      }
+      setGeneratedPython(result.pythonCode);
+      setContextPool(result.contextPool || null);
       setStage('result');
       runLiveCalculation(calcArea, calcDays);
-    }, 1400);
+    } catch (error) {
+      setStage('analyzing');
+      setConversionError(error instanceof Error ? error.message : 'Gemini conversion failed.');
+    }
   };
 
   const handleReset = () => {
     setUploadedFile(null);
     setZipFiles([]);
+    setUploadedSource('');
+    setGeneratedPython('');
+    setContextPool(null);
+    setConversionError(null);
     setIsDaysShifted(false);
     setSideBySideBadClaim(false);
     setStage('home');
   };
 
-  // Download runnable Python code
+  // Download the code returned by Gemini rather than the static case-study example.
   const handleDownloadRunnableCode = async () => {
+    if (!generatedPython) {
+      setConversionError('There is no generated Python code to download yet.');
+      return;
+    }
+
     const zip = new JSZip();
-
-    zip.file(
-      'price.py',
-      `#!/usr/bin/env python3
-"""
-Modernized CMS Medicare Hospice Pricer Microservice
-Refactored from 5,782 lines of COBOL into 173 lines of typed Python.
-Matches mainframe output on valid benchmark claims to the exact penny.
-"""
-from dataclasses import dataclass
-from datetime import date
-from decimal import Decimal, ROUND_HALF_UP
-import json, argparse, sys
-
-RATES = {
-    "rhc_high": {"labor": Decimal("137.94"), "non_labor": Decimal("62.70")},
-    "rhc_low": {"labor": Decimal("133.72"), "non_labor": Decimal("60.78")},
-    "cbsa_wage_table": {
-        "19124": Decimal("0.9747"),  # Dallas-Plano-Irving, TX
-        "26420": Decimal("1.0018"),  # Houston-Sugar Land, TX
-        "12420": Decimal("0.9396"),  # Austin-Round Rock, TX
-    }
-}
-
-def cents(val: Decimal) -> Decimal:
-    return val.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-
-def daily(rate_spec: dict, wage_index: Decimal) -> Decimal:
-    return (rate_spec["labor"] * wage_index) + rate_spec["non_labor"]
-
-@dataclass
-class HospiceClaim:
-    patient_area: str
-    admission_date: date
-    service_date: date
-    routine_home_days: int = 0
-
-def price_claim(c: HospiceClaim) -> dict:
-    if c.admission_date > c.service_date:
-        return {"status": "rejected", "reason": f"Admission date {c.admission_date} is after care date {c.service_date}."}
-    
-    # Wage is looked up by area code; raw override not accepted
-    wage_index = RATES["cbsa_wage_table"].get(c.patient_area)
-    if not wage_index:
-        return {"status": "rejected", "reason": f"Unknown CBSA area code: {c.patient_area}"}
-    
-    # 60-day stepdown rule (HOSPR200 lines 2130–2179)
-    days_in_hospice = (c.service_date - c.admission_date).days
-    high_left = max(60 - days_in_hospice, 0)
-    high_days = min(c.routine_home_days, high_left)
-    low_days = c.routine_home_days - high_days
-    
-    rhc_pay = (
-        cents(daily(RATES["rhc_high"], wage_index) * high_days) +
-        cents(daily(RATES["rhc_low"], wage_index) * low_days)
-    )
-
-    return {
-        "status": "paid",
-        "total": str(rhc_pay),
-        "high_rate_days": high_days,
-        "low_rate_days": low_days,
-        "wage_index": str(wage_index)
-    }
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run Modernized CMS Medicare Hospice Pricer")
-    parser.add_argument("--cbsa", default="19124", help="5-digit CBSA area code (19124 for Dallas)")
-    parser.add_argument("--admit", default="2020-02-01", help="Admission date YYYY-MM-DD")
-    parser.add_argument("--from_date", default="2020-03-01", help="Care start date YYYY-MM-DD")
-    parser.add_argument("--rhc", type=int, default=10, help="Routine home care days")
-    args = parser.parse_args()
-
-    claim = HospiceClaim(
-        patient_area=args.cbsa,
-        admission_date=date.fromisoformat(args.admit),
-        service_date=date.fromisoformat(args.from_date),
-        routine_home_days=args.rhc
-    )
-    result = price_claim(claim)
-    print(json.dumps(result, indent=2))
-`
-    );
-
-    zip.file(
-      'rates_fy2020.json',
-      JSON.stringify(
-        {
-          fiscal_year: '2020',
-          rhc_high: { labor: '137.94', non_labor: '62.70' },
-          rhc_low: { labor: '133.72', non_labor: '60.78' },
-          cbsa_wage_table: {
-            '19124': 0.9747,
-            '26420': 1.0018,
-            '12420': 0.9396,
-          },
-        },
-        null,
-        2
-      )
-    );
+    const baseName = (uploadedFile?.name || 'converted')
+      .replace(/\.[^.]+$/, '')
+      .replace(/[^a-zA-Z0-9_-]/g, '_') || 'converted';
+    zip.file(`${baseName}.py`, generatedPython);
 
     zip.file(
       'README.md',
-      `# Modernized CMS Medicare Hospice Pricer (Python)
+      `# Gemini COBOL conversion
 
-Synthesized and validated by legacy-agent.
-Matches CMS COBOL output on valid benchmark claims to the exact penny.
+Generated from ${uploadedFile?.name || 'the uploaded COBOL source'} by Gemini.
 
-## Run claim:
-python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
+Review the converted code and its dependencies before running it. This conversion has not been executed or verified for behavioral or financial parity.
 `
     );
 
@@ -371,7 +341,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'modernized-hospice-pricer-python.zip';
+    a.download = `${baseName}-python.zip`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -417,7 +387,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                 COBOL → Python modernization, proven to the penny
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
-                Medicare made $28.8 billion in improper payments last year.
+                Ten days of home hospice care in Dallas should cost Medicare $1,911. We got the government’s own code to pay $134,248, and it called that a success.
               </h1>
               <p className="text-sm text-zinc-300 leading-relaxed">
                 Most of that is missing paperwork, but every payment is calculated by software, and much of that software is decades-old COBOL that nobody can safely change.
@@ -436,12 +406,12 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                 COBOL (Common Business-Oriented Language) was designed in 1959 for business record-keeping. It reads like all-caps English:
               </p>
               <pre className="p-3 bg-black rounded-lg font-mono text-xs text-emerald-400/90 border border-zinc-800 overflow-x-auto">
-{`223100 COMPUTE HR-BILL-PAY-AMT1 ROUNDED = 
+                {`223100 COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
 223200    ((2020-V200-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX) 
 223300    + 2020-V200-HIGH-RHC-NLS-RATE) * HR-BILL-UNITS1`}
               </pre>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                It was excellent at processing huge batches of records, so banks, insurers, and government agencies built their core systems on it from the 1960s onward. 
+                It was excellent at processing huge batches of records, so banks, insurers, and government agencies built their core systems on it from the 1960s onward.
                 Reuters estimated in 2017 that about <em>$3 trillion in daily commerce</em> still flows through COBOL systems. Federal agencies, from Social Security to the IRS, still rely on it.
               </p>
               <p className="text-xs text-zinc-400 leading-relaxed">
@@ -473,12 +443,6 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                   </div>
                 </div>
                 <div className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
-                  <div>
-                    <strong className="text-zinc-100">Its comments are wrong:</strong> The 2020 rate file is labeled "revisions for Oct 1, 2018." The list of error codes doesn't match what the code actually does.
-                  </div>
-                </div>
-                <div className="flex items-start space-x-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
                   <div>
                     <strong className="text-zinc-100">It never says "I don't know":</strong> In our test battery of broken claims, it accepted 7 out of 8 as success without throwing errors.
@@ -492,27 +456,27 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
               <h2 className="text-base font-bold text-white">How legacy-agent works</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1">
-                  <span className="font-bold text-emerald-400 font-mono">1. Focus (Context Pool)</span>
+                  <span className="font-bold text-emerald-400 font-mono">1. Upload COBOL</span>
                   <p className="text-zinc-400 leading-relaxed">
-                    Instead of dumping 7,600 lines on an AI, our retrieval step builds a tight context pool of only the code that matters: the FY2020 section, rate tables, and safety checks (~900 lines).
+                    Upload your COBOL files. Gemini uses them to create Python code.
                   </p>
                 </div>
                 <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1">
-                  <span className="font-bold text-cyan-400 font-mono">2. Rebuild</span>
+                  <span className="font-bold text-cyan-400 font-mono">2. Create Python</span>
                   <p className="text-zinc-400 leading-relaxed">
-                    Synthesizes a modern Python service: named inputs, a clean JSON API, rates externalized into data files, and real input validation.
+                    The new code uses clear field names, keeps payment rates in a separate file, and checks inputs.
                   </p>
                 </div>
                 <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1">
-                  <span className="font-bold text-amber-400 font-mono">3. Prove</span>
+                  <span className="font-bold text-amber-400 font-mono">3. Compare results</span>
                   <p className="text-zinc-400 leading-relaxed">
-                    Runs the original CMS COBOL and new Python side by side on identical claims. Every valid claim must match to the exact penny.
+                    Review and test generated Python against the original COBOL.
                   </p>
                 </div>
                 <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1">
-                  <span className="font-bold text-purple-400 font-mono">4. Explain</span>
+                  <span className="font-bold text-purple-400 font-mono">4. Check the source</span>
                   <p className="text-zinc-400 leading-relaxed">
-                    Every rule in the modernized Python links directly back to the original COBOL source line numbers it originated from.
+                    Check the Python code and its notes against the original COBOL.
                   </p>
                 </div>
               </div>
@@ -556,6 +520,9 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                   Supports .zip packages or .cbl source files
                 </div>
               </div>
+              <p className="text-center text-[11px] text-zinc-500">
+                Source files are sent to Gemini through the local API for conversion. Configure your API key on the server; it is never placed in browser code.
+              </p>
 
               <div className="text-center pt-2 border-t border-zinc-800/60">
                 <span className="text-xs text-zinc-500">Or run the live test pricer: </span>
@@ -566,6 +533,11 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                   Load hospice-legacy.zip (CMS Medicare Pricer)
                 </button>
               </div>
+              {conversionError && (
+                <div role="alert" className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300">
+                  {conversionError}
+                </div>
+              )}
             </div>
 
             {/* Honest Scope & Sources */}
@@ -589,7 +561,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
             <div className="space-y-1">
               <div className="text-sm font-semibold text-white font-mono">Scanning Legacy Package...</div>
               <p className="text-xs text-zinc-400 font-mono text-[11px]">
-                Detected 6 CMS files in legacy_original/ (HOSPR200.cbl, HOSPRATE.cpy, CBSA2020)...
+                Reading uploaded COBOL source and included copybooks...
               </p>
             </div>
           </div>
@@ -613,7 +585,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
               </div>
 
               <div className="flex items-center space-x-3 text-xs font-mono">
-                <span className="text-zinc-400">6 CMS files • 5,782 lines</span>
+                <span className="text-zinc-400">{zipFiles.length} source files • {uploadedFile.lines?.toLocaleString()} lines</span>
               </div>
             </div>
 
@@ -681,11 +653,10 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
 
                 <button
                   onClick={() => setIsDaysShifted(!isDaysShifted)}
-                  className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                    isDaysShifted
+                  className={`text-xs font-mono px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${isDaysShifted
                       ? 'bg-rose-500/20 text-rose-300 border-rose-500/50 shadow-lg'
                       : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
-                  }`}
+                    }`}
                 >
                   {isDaysShifted ? 'Shifted: DAYS Offset by 1 Space (Broken)' : 'Test: Shift DAYS Field 1 Space'}
                 </button>
@@ -743,10 +714,10 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
               <div className="border-b border-zinc-800/80 pb-3">
                 <h3 className="text-sm font-bold text-white flex items-center space-x-2">
                   <span className="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 text-xs font-mono">③</span>
-                  <span>What goes wrong: COBOL never says "I don't know"</span>
+                  <span>COBOL lacks proper input validation</span>
                 </h3>
                 <p className="text-xs text-zinc-400 mt-0.5">
-                  The old code fails in both directions: overpays when fed bad numbers, underpays on wrong years, and pays $0 while reporting SUCCESS.
+                  These are intentionally bad test cases for this specific program, not proof that all COBOL code is broken. They show how it can accept invalid or out-of-range data and still report success.
                 </p>
               </div>
 
@@ -756,11 +727,10 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                   <button
                     key={scen.id}
                     onClick={() => setActiveScenario(idx)}
-                    className={`p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
-                      activeScenario === idx
+                    className={`p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${activeScenario === idx
                         ? 'bg-zinc-800 border-emerald-500/50 ring-1 ring-emerald-500/30'
                         : 'bg-black/40 border-zinc-800 hover:bg-zinc-900'
-                    }`}
+                      }`}
                   >
                     <div className="font-semibold text-zinc-200">{scen.title}</div>
                     <span className={`text-[10px] px-1.5 py-0.5 rounded border inline-block mt-2 font-mono ${scen.badgeColor}`}>
@@ -810,10 +780,10 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
               <div className="max-w-md mx-auto space-y-1">
                 <h3 className="text-sm font-bold text-white flex items-center justify-center space-x-2">
                   <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs font-mono">④</span>
-                  <span>Modernize with AI Context Pool</span>
+                  <span>Convert COBOL to Python with Gemini</span>
                 </h3>
                 <p className="text-xs text-zinc-400">
-                  Agent will select <strong>~900 of 7,600 lines</strong> across 3 files (FY2020 logic + HOSPRATE copybook + CBSA table) rather than dumping dead code on the model.
+                  The uploaded source is sent to Gemini and returned as Python code. Review and test the result; conversion alone does not prove behavioral or financial parity.
                 </p>
               </div>
 
@@ -822,9 +792,14 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                 className="px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs transition-all shadow-lg shadow-emerald-500/20 inline-flex items-center space-x-2 cursor-pointer font-mono"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>Process & Modernize with AI</span>
+                <span>Convert COBOL to Python with Gemini</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+              {conversionError && (
+                <div role="alert" className="max-w-xl mx-auto p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300">
+                  {conversionError}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -836,12 +811,11 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
           <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-10 text-center space-y-4 animate-fade-in max-w-xl mx-auto">
             <div className="w-8 h-8 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin mx-auto" />
             <div className="space-y-1">
-              <div className="text-sm font-semibold text-white font-mono">Synthesizing Python & Verifying Parity...</div>
+              <div className="text-sm font-semibold text-white font-mono">Gemini is converting the COBOL source to Python...</div>
               <div className="text-xs text-zinc-400 font-mono text-[11px] space-y-1.5 text-left bg-black p-4 rounded-lg border border-zinc-800 mt-3">
-                <div className="text-emerald-400">✓ Context Pool: Selected lines 5046–5782 (FY2020) + HOSPRATE.cpy (~900 lines)</div>
-                <div className="text-emerald-400">✓ Decoupling copybook rates into rates_fy2020.json</div>
-                <div className="text-cyan-400">✓ Generating 173-line typed Python microservice (price.py)</div>
-                <div className="text-amber-400 animate-pulse">→ Running regression on synthetic claims against CMS COBOL pricer...</div>
+                <div className="text-emerald-400">✓ Loaded {uploadedFile?.name || 'COBOL source'} ({uploadedSource.length.toLocaleString()} characters)</div>
+                <div className="text-cyan-400">→ LangChain BM25 builds a local context pool; small sources are kept whole</div>
+                <div className="text-amber-400 animate-pulse">→ Sending the focused context to Gemini. Parity is not automatically verified.</div>
               </div>
             </div>
           </div>
@@ -852,6 +826,43 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
         {/* ======================================================== */}
         {stage === 'result' && (
           <div className="space-y-6 animate-fade-in">
+            <section className="bg-zinc-900/80 border border-emerald-500/30 rounded-2xl overflow-hidden">
+              <div className="px-5 py-3 border-b border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-bold text-emerald-300 font-mono">Gemini conversion: {uploadedFile?.name}</h2>
+                  <p className="text-[11px] text-amber-300 mt-1">Generated code is a draft. Review, run, and verify it against the original before production use.</p>
+                </div>
+              </div>
+              {contextPool && (
+                <div className="px-5 py-3 border-b border-zinc-800 bg-zinc-950/70 text-[11px] text-zinc-300 font-mono space-y-2">
+                  <div>
+                    Context pool: <span className="text-cyan-300">{contextPool.mode === 'langchain-bm25' ? 'LangChain BM25 retrieval' : 'full source'}</span>
+                    {' · '}{contextPool.contextCharacters.toLocaleString()} of {contextPool.sourceCharacters.toLocaleString()} source characters
+                    {contextPool.mode === 'langchain-bm25' && ` · ${contextPool.includedChunks}/${contextPool.totalChunks} chunks`}
+                  </div>
+                  {contextPool.mode === 'langchain-bm25' && (
+                    <details>
+                      <summary className="cursor-pointer text-cyan-300">Show retrieved source ranges</summary>
+                      <ul className="mt-2 space-y-1 text-zinc-400">
+                        {contextPool.includedRanges.map((range, index) => (
+                          <li key={`${range.fileName}-${range.lineStart}-${index}`}>
+                            {range.fileName}: lines {range.lineStart}–{range.lineEnd}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </div>
+              )}
+              <pre className="p-5 max-h-[600px] overflow-auto bg-black text-xs text-cyan-200 font-mono whitespace-pre-wrap">
+                <code>{generatedPython}</code>
+              </pre>
+            </section>
+
+            <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200">
+              The parity figures and interactive pricer below are static hospice case-study examples; they are not test results for this Gemini-generated conversion.
+            </div>
+
             {/* Parity & Improvement Metrics */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="bg-zinc-900/80 border border-zinc-800 p-4 rounded-xl">
@@ -865,9 +876,9 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                 <span className="text-[10px] text-zinc-400 block mt-0.5">Matched to the penny ($1,911.19)</span>
               </div>
               <div className="bg-zinc-900/80 border border-zinc-800 p-4 rounded-xl">
-                <span className="text-[11px] text-zinc-500 block uppercase font-mono">Bad Claims Caught</span>
-                <span className="text-lg font-bold font-mono text-cyan-400">COBOL 1/8 → 8/8</span>
-                <span className="text-[10px] text-zinc-400 block mt-0.5">All 8 edge traps halted</span>
+                <span className="text-[11px] text-zinc-500 block uppercase font-mono">Bad Test Cases Caught</span>
+                <span className="text-lg font-bold font-mono text-cyan-400">1 of 8 → 8 of 8</span>
+                <span className="text-[10px] text-zinc-400 block mt-0.5">In this hospice-pricer test set</span>
               </div>
               <div className="bg-zinc-900/80 border border-zinc-800 p-4 rounded-xl">
                 <span className="text-[11px] text-zinc-500 block uppercase font-mono">Rates Architecture</span>
@@ -881,31 +892,28 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setActiveTab('comparison')}
-                  className={`px-3 py-1.5 rounded-lg transition-all ${
-                    activeTab === 'comparison'
+                  className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === 'comparison'
                       ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold'
                       : 'text-zinc-400 hover:text-zinc-200'
-                  }`}
+                    }`}
                 >
                   Before vs After Comparison
                 </button>
                 <button
                   onClick={() => setActiveTab('interactive')}
-                  className={`px-3 py-1.5 rounded-lg transition-all ${
-                    activeTab === 'interactive'
+                  className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === 'interactive'
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold'
                       : 'text-zinc-400 hover:text-zinc-200'
-                  }`}
+                    }`}
                 >
                   Interactive Python Calculator
                 </button>
                 <button
                   onClick={() => setActiveTab('issues')}
-                  className={`px-3 py-1.5 rounded-lg transition-all ${
-                    activeTab === 'issues'
+                  className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === 'issues'
                       ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-semibold'
                       : 'text-zinc-400 hover:text-zinc-200'
-                  }`}
+                    }`}
                 >
                   Issues Fixed ({issuesFixed.length})
                 </button>
@@ -917,7 +925,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                 className="px-3.5 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold inline-flex items-center space-x-1.5 transition-all text-xs cursor-pointer shadow-md shadow-emerald-500/20 font-mono"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Download Runnable Python (.zip)</span>
+                <span>Download Generated Python (.zip)</span>
               </button>
             </div>
 
@@ -930,17 +938,15 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                     <span className="text-zinc-400">Comparison Case:</span>
                     <button
                       onClick={() => setSideBySideBadClaim(false)}
-                      className={`px-2.5 py-1 rounded-lg font-mono text-xs transition-all ${
-                        !sideBySideBadClaim ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold' : 'text-zinc-400 hover:text-zinc-200'
-                      }`}
+                      className={`px-2.5 py-1 rounded-lg font-mono text-xs transition-all ${!sideBySideBadClaim ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                        }`}
                     >
                       Valid Claim (Dallas 10 Days)
                     </button>
                     <button
                       onClick={() => setSideBySideBadClaim(true)}
-                      className={`px-2.5 py-1 rounded-lg font-mono text-xs transition-all ${
-                        sideBySideBadClaim ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold' : 'text-zinc-400 hover:text-zinc-200'
-                      }`}
+                      className={`px-2.5 py-1 rounded-lg font-mono text-xs transition-all ${sideBySideBadClaim ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold' : 'text-zinc-400 hover:text-zinc-200'
+                        }`}
                     >
                       Bad Claim ($134K Wage Typo)
                     </button>
@@ -952,7 +958,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* BEFORE */}
-                  <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 space-y-4 flex flex-col justify-between">
+                  <div className="min-w-0 bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 space-y-4 flex flex-col justify-between">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
                         <span className="text-xs font-mono font-bold text-rose-400">BEFORE: Legacy COBOL (HOSPR200)</span>
@@ -974,7 +980,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                           <span className="text-emerald-400 font-sans">High Rate (Day ≤60)</span>
                         </div>
                         <pre className="p-3 bg-black rounded-lg font-mono text-[11px] text-emerald-400/90 border border-zinc-800 overflow-x-auto whitespace-pre">
-{`223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
+                          {`223100        COMPUTE HR-BILL-PAY-AMT1 ROUNDED =
 223200           ((2020-V200-HIGH-RHC-LS-RATE * BILL-BENE-WAGE-INDEX)
 223300           + 2020-V200-HIGH-RHC-NLS-RATE) *  HR-BILL-UNITS1`}
                         </pre>
@@ -998,7 +1004,7 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
                   </div>
 
                   {/* AFTER */}
-                  <div className="bg-zinc-900/60 border border-emerald-500/30 rounded-2xl p-5 space-y-4 flex flex-col justify-between">
+                  <div className="min-w-0 bg-zinc-900/60 border border-emerald-500/30 rounded-2xl p-5 space-y-4 flex flex-col justify-between">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
                         <span className="text-xs font-mono font-bold text-emerald-400">AFTER: Modernized Python</span>
@@ -1007,20 +1013,24 @@ python3 price.py --cbsa 19124 --admit 2020-02-01 --from_date 2020-03-01 --rhc 10
 
                       <div className="space-y-1">
                         <span className="text-[10px] font-mono text-zinc-500 uppercase">Input:</span>
-                        <pre className="p-2.5 bg-black rounded-lg font-mono text-[11px] text-purple-300 border border-zinc-800">
-{sideBySideBadClaim
-  ? `{ "patient_area": "19124", "wage_override": "99.9999", "routine_home_days": 10 }`
-  : `{ "patient_area": "19124", "admission_date": "2020-02-01", "service_date": "2020-03-01", "routine_home_days": 10 }`}
+                        <pre className="w-full min-w-0 p-2.5 bg-black rounded-lg font-mono text-[11px] text-purple-300 border border-zinc-800 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                          {JSON.stringify(
+                            sideBySideBadClaim
+                              ? { patient_area: '19124', wage_override: '99.9999', routine_home_days: 10 }
+                              : { patient_area: '19124', admission_date: '2020-02-01', service_date: '2020-03-01', routine_home_days: 10 },
+                            null,
+                            2
+                          )}
                         </pre>
                       </div>
 
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500 uppercase">
-                          <span>Synthesized Microservice (price.py):</span>
+                          <span>Gemini-generated Python draft:</span>
                           <span className="text-cyan-400 font-sans">← HOSPR200 lines 2130–2179</span>
                         </div>
                         <pre className="p-3 bg-black rounded-lg font-mono text-[11px] text-cyan-300 border border-zinc-800 overflow-x-auto whitespace-pre">
-{`# 60-day hospice stepdown rule
+                          {`# 60-day hospice stepdown rule
 high_left = max(60 - days_in_hospice, 0)
 high_days = min(c.routine_home_days, high_left)
 low_days = c.routine_home_days - high_days
@@ -1130,11 +1140,10 @@ rhc = cents(daily(r["rhc_high"], wage) * high_days) + \\
                     <button
                       key={issue.title}
                       onClick={() => setSelectedIssue(idx)}
-                      className={`w-full p-3 rounded-xl border text-left text-xs font-mono transition-all flex items-center justify-between ${
-                        selectedIssue === idx
+                      className={`w-full p-3 rounded-xl border text-left text-xs font-mono transition-all flex items-center justify-between ${selectedIssue === idx
                           ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 font-bold'
                           : 'bg-zinc-900/60 text-zinc-400 border-zinc-800 hover:text-zinc-200'
-                      }`}
+                        }`}
                     >
                       <span>{issue.title}</span>
                       <ChevronRight className="w-4 h-4 text-zinc-500" />

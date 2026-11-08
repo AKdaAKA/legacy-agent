@@ -1,6 +1,6 @@
 # legacy-agent ⚡
 
-> **Modernize mission-critical legacy COBOL into clean, typed Python microservices with mathematically proven parity.**
+> **Turn legacy COBOL source into a reviewable Python draft with Gemini and local code retrieval.**
 
 [![Parity Benchmark](https://img.shields.io/badge/Parity_Accuracy-2%2C000%2F2%2C000_Claims_(100%25)-emerald)](https://github.com/AKdaAKA/legacy-agent)
 [![Code Reduction](https://img.shields.io/badge/Code_Reduction-97%25_(5%2C842_%E2%86%92_173_lines)-cyan)](https://github.com/AKdaAKA/legacy-agent)
@@ -8,20 +8,17 @@
 
 ---
 
-## The Problem: Trillions of Dollars Stuck in 1959
+## The Problem: Legacy Code Is Hard to Change
 
-COBOL was built in 1959 for punched cards and batch tapes. Because it was reliable at handling high-volume sequential records, banks, airlines, and government systems like **Medicare** built their core payment infrastructure on it in the 60s, 70s, and 80s.
+COBOL was built in 1959 for punched cards and batch tapes. Its reliability made it a natural fit for high-volume systems, and banks, airlines, and government agencies built important programs with it.
 
-Today, those systems are a ticking time bomb:
-1. **The Talent Cliff**: The original mainframe programmers have retired. Engineering teams must reverse-engineer procedural copybooks written in a dead language.
-2. **Rigid 315-Character Buffers**: COBOL expects data packed into exact character offsets. Shift one space, and Dallas's area code becomes the billing rate with **no compiler warning**.
-3. **The Silent Failure Trap**: COBOL never throws exceptions. If a clerk makes a typo, COBOL never says *"I don't know"*. It returns a check and a success code (`RTC=75`), even when the calculation is wrong by **$132,000**!
+Understanding and updating these programs can be difficult. Business rules may be spread across large files, and some systems use fixed-width records where every field depends on its exact character position.
 
-> *"Medicare spent years manually converting 10 Pricer applications to Java by hand. Our platform does it in minutes, and mathematically proves equivalence against official CMS test data down to the exact penny."*
+**legacy-agent** is an experimental tool that uses Gemini to draft Python from uploaded COBOL. For larger sources, local BM25 retrieval selects relevant code sections for Gemini. The generated code is a draft that must be reviewed and tested. The app does not automatically prove parity for arbitrary uploads.
 
 ---
 
-## Real-World Example: CMS Medicare Hospice Pricer
+## Example: CMS Medicare Hospice Pricer
 
 ### The Input
 A hospice patient in **Dallas, TX** (`19124`), admitted on **Feb 1, 2020**, receives **10 days of routine home care** starting on **March 1, 2020** with a local labor factor of `0.9747`.
@@ -41,18 +38,7 @@ AFTER (Modern Python): You pass a clean, typed JSON payload:
 
 ---
 
-## Before vs. After: Mathematical Parity
-
-| Metric / Scenario | Legacy COBOL (1980s Mainframe) | Modernized Python (`legacy-agent`) |
-| :--- | :--- | :--- |
-| **Code Size** | **5,842 lines** across copybooks | **173 lines** (`price.py`) |
-| **Valid Claim (10 Days Dallas)** | `$1,911.19` *(RTC=75 "SUCCESS")* | `{"status": "paid", "total": "1911.19"}` ✅ **Exact Match** |
-| **Wage Typo (99.9999)** | `$134,248.47` *(Overpaid \$132,337 silently)* | ❌ **Rejected**: `"Locked to CBSA area table"` |
-| **Wrong Fiscal Year (2025 Claim)** | `$1,911.19` *(Underpaid by ~$298 with no warning)* | ❌ **Rejected**: `"Outside FY2020. Route to rates_fy2025.json"` |
-| **Care in Wrong Slot** | `$0.00` *(Clinic shorted \$5,023.56 with "SUCCESS")* | ✅ **Paid**: `$5,023.56` *(Named fields prevent offset errors)* |
-| **Admit Date after Care Date** | `$0.00` *(Zero explanation provided)* | ❌ **Rejected**: `"Admission date is after service date"` |
-| **Rate Configuration** | Hardcoded inside copybook binaries | Decoupled JSON file (`rates_fy2020.json`) |
-| **Benchmark Regression** | Manual batch verification | **2,000 / 2,000 claims match to the penny** ($1,874,418.16) |
+This is a separate CMS FY2020 Medicare Hospice Pricer case study included in the repository. Its example and benchmark figures are not results for code generated from an arbitrary upload.
 
 ---
 
@@ -63,11 +49,13 @@ During dual-engine regression testing, **6 of 500 initial crisis-care claims** w
 Our analysis engine identified the hidden quirk:
 * COBOL divides daily crisis care by 24 and **truncates the intermediate hourly rate to 4 decimal places** before multiplying by hours.
 * A naive AI rewrite loses this nuance and fails financial parity audits.
-* `legacy-agent` detects and faithfully preserves that quirk with comments in `price.py`, guaranteeing 100% audit parity.
+* The Python implementation in this hospice-pricer case study preserves that quirk. These benchmark results apply only to this example, not to arbitrary Gemini conversions.
 
 ---
 
 ## Quickstart (Run Web App Locally)
+
+Requires Node.js 20 or newer.
 
 ```bash
 # Clone the repository
@@ -77,11 +65,23 @@ cd legacy-agent
 # Install dependencies
 npm install
 
-# Start development server
+# Configure Gemini on the server (never put the key in frontend code)
+cp .env.example .env
+# Set GEMINI_API_KEY in .env to a newly created key
+
+# Start the web app and conversion API
 npm run dev
 ```
 
-Open **`http://localhost:5173/`** to run the interactive modernization studio.
+Open **`http://localhost:5173/`** to run the interactive modernization studio. Upload `.cbl`, `.cob`, `.cpy`, or a `.zip` containing those source files, then select **Convert COBOL to Python with Gemini**. The built-in hospice demo loads sample COBOL source from the repository.
+
+The API key is read only by the local Node API (`server/index.mjs`) from `GEMINI_API_KEY`; it is not exposed to Vite or sent to the browser. The default model is `gemini-2.5-flash`; override it with `GEMINI_MODEL` if needed. Uploaded source is sent to Google's Gemini API for conversion. Generated code is a draft and is not automatically run or parity-verified. Review and test it before production use.
+
+Source files are no longer restricted to 300,000 characters. The API accepts request bodies up to 32 MB; Gemini's model context and service limits still apply.
+
+For larger uploads, the API uses LangChain Core with a local BM25 retriever to build a context pool from 60-line COBOL chunks (10-line overlap). It selects up to 14 relevant chunks within a 26,000-character context budget and keeps each file's first chunk and small copybooks when possible. Sources at or below the budget are sent whole. Retrieval runs locally without an embeddings API call. The conversion result reports the selected ranges; because retrieval can omit code, review the ranges and generated code before relying on its behavior.
+
+For a local production deployment, run `npm start` (default port `3001`) and open **`http://localhost:3001/`**. The start script builds the frontend and serves it together with the API. In production, provide `GEMINI_API_KEY` through the host's secret manager rather than a committed file. The API and frontend must share an origin or be configured behind a same-origin `/api` route.
 
 ---
 
